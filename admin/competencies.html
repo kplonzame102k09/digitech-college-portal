@@ -20,51 +20,89 @@
                 </span>
                 <div>
                     <b>DIGITECH</b>
-                    <small class="block text-[10px] tracking-widest text-slate-400">COLLEGE
-                        PORTAL
+                    <small class="block text-[10px] tracking-widest text-slate-400">
+                        COLLEGE PORTAL
                     </small>
                 </div>
             </div>
             <nav class="p-3 space-y-1 flex-1">
                 <a href="dashboard.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
-                        data-lucide="layout-dashboard" class="w-4"></i>Dashboard</a><a href="users.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
-                        data-lucide="users-round" class="w-4"></i>Users</a><a href="enrollment.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
-                        data-lucide="clipboard-list" class="w-4"></i>Enrollment</a><a href="documents.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
-                        data-lucide="file-text" class="w-4"></i>Documents</a><a href="grades.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
-                        data-lucide="chart-no-axes-combined" class="w-4"></i>Grades</a><a href="competencies.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium nav-active"><i
-                        data-lucide="award" class="w-4"></i>Competencies</a><a href="settings.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
-                        data-lucide="settings" class="w-4"></i>Settings</a><button onclick="APP.showNotifications()"
-                    class="w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-slate-600 hover:bg-slate-100 dark:text-slate-300"><i
-                        data-lucide="bell" class="w-4"></i>Notifications <span id="count"
-                        class="ml-auto rounded-full bg-red-500 text-white text-[10px] px-2 py-0.5">0</span></button>
-            </nav><button onclick="AUTH.logout()"
-                class="m-3 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-50"><i
-                    data-lucide="log-out" class="w-4"></i>Log out</button>
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium 
+                        text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                    <i data-lucide="layout-dashboard" class="w-4"></i>
+                    Dashboard
+                </a>
+                <a href="users.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 
+                        hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                    <i data-lucide="users-round" class="w-4"></i>
+                    Users
+                </a>
+                <a href="enrollment.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 
+                        hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                    <i data-lucide="clipboard-list" class="w-4"></i>
+                    Enrollment
+                </a>
+                <a href="documents.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 
+                        hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                    <i data-lucide="file-text" class="w-4"></i>
+                    Documents
+                </a>
+                <a href="grades.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 
+                        hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                    <i data-lucide="chart-no-axes-combined" class="w-4"></i>
+                        Grades
+                </a>
+                <a href="competencies.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium nav-active">
+                    <i data-lucide="award" class="w-4"></i>
+                    Competencies
+                </a>
+                <a href="settings.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 
+                        hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                    <i data-lucide="settings" class="w-4"></i>
+                        Settings
+                </a>
+                <button onclick="APP.showNotifications()"
+                    class="w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-slate-600 
+                        hover:bg-slate-100 dark:text-slate-300">
+                    <i data-lucide="bell" class="w-4"></i>
+                        Notifications 
+                    <span id="count" class="ml-auto rounded-full bg-red-500 text-white text-[10px] px-2 py-0.5">0</span>
+                </button>
+            </nav>
+            <button onclick="AUTH.logout()"
+                class="m-3 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-50">
+                <i data-lucide="log-out" class="w-4"></i>
+                Log out
+            </button>
         </div>
     </aside>
     <div class="lg:pl-64">
-        <header
-            class="sticky top-0 z-30 h-16 border-b bg-white/90 dark:bg-slate-950/90 dark:border-slate-800 backdrop-blur flex items-center justify-between px-4 sm:px-6">
-            <div class="flex items-center gap-3"><button id="open" class="lg:hidden p-2"><i
-                        data-lucide="menu"></i></button>
-                <div><small class="text-xs text-slate-400">Admin Portal</small>
+        <header class="sticky top-0 z-30 h-16 border-b bg-white/90 dark:bg-slate-950/90 dark:border-slate-800 
+            backdrop-blur flex items-center justify-between px-4 sm:px-6">
+            <div class="flex items-center gap-3">
+                <button id="open" class="lg:hidden p-2">
+                    <i data-lucide="menu"></i>
+                </button>
+                <div>
+                    <small class="text-xs text-slate-400">Admin Portal</small>
                     <h1 class="font-bold">Competency Management</h1>
                 </div>
             </div>
-            <div class="flex items-center gap-2"><button onclick="APP.toggleTheme()"
-                    class="p-2.5 rounded-xl border dark:border-slate-700"><i data-lucide="moon" data-theme-icon
-                        class="w-4"></i></button><button onclick="APP.showNotifications()"
-                    class="p-2.5 rounded-xl border dark:border-slate-700"><i data-lucide="bell"
-                        class="w-4"></i></button>
-                <div id="avatar"
-                    class="w-9 h-9 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-sm font-bold">
+            <div class="flex items-center gap-2">
+                <button onclick="APP.toggleTheme()" class="p-2.5 rounded-xl border dark:border-slate-700">
+                    <i data-lucide="moon" data-theme-icon class="w-4"></i>
+                </button>
+                <button onclick="APP.showNotifications()" class="p-2.5 rounded-xl border dark:border-slate-700">
+                    <i data-lucide="bell" class="w-4"></i>
+                </button>
+                <div id="avatar" class="w-9 h-9 rounded-full bg-green-100 text-green-700 flex items-center 
+                    justify-center text-sm font-bold">
                 </div>
             </div>
         </header>
@@ -83,6 +121,28 @@
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/app.js"></script>
-    <script>const U = AUTH.requireRole('admin'); if (U) { avatar.textContent = APP.initials(U); APP.applyTheme(); lucide.createIcons(); document.getElementById('open').onclick = () => side.classList.toggle('-translate-x-full'); APP.updateNotif(); } let a = DG.getData('competencies', []); rows.innerHTML = a.map(c => `<article class="card p-5"><div class="flex justify-between gap-4"><div><p class="text-xs text-slate-400">${c.studentId}</p><h3 class="font-bold mt-1">${APP.esc(c.competency)}</h3><p class="text-sm text-slate-500">${APP.esc(c.qualification)}</p></div>${APP.statusBadge(c.status)}</div><p class="text-sm text-slate-500 mt-4">Assessment: ${APP.formatDate(c.assessmentDate)}</p><p class="text-sm text-slate-500">${APP.esc(c.remarks || '—')}</p></article>`).join('')</script>
+    <script>
+        const U = AUTH.requireRole('admin'); if (U) { 
+            avatar.textContent = APP.initials(U); APP.applyTheme(); 
+            lucide.createIcons(); document.getElementById('open').onclick = () => 
+            side.classList.toggle('-translate-x-full'); APP.updateNotif(); } 
+            let a = DG.getData('competencies', []); rows.innerHTML = a.map(
+                c => `
+                <article class="card p-5">
+                    <div class="flex justify-between gap-4">
+                        <div>
+                            <p class="text-xs text-slate-400">
+                                ${c.studentId}
+                            </p>
+                            <h3 class="font-bold mt-1">${APP.esc(c.competency)}</h3>
+                            <p class="text-sm text-slate-500">${APP.esc(c.qualification)}</p>
+                        </div>${APP.statusBadge(c.status)}
+                    </div>
+                    <p class="text-sm text-slate-500 mt-4">
+                        Assessment: ${APP.formatDate(c.assessmentDate)}
+                    </p>
+                    <p class="text-sm text-slate-500">${APP.esc(c.remarks || '—')}</p>
+                </article>`).join('')
+    </script>
 </body>
 </html>

@@ -393,3 +393,444 @@ The portal demonstrates how Digitech College's academic and administrative servi
 ## License
 
 This project is a Digitech College portal prototype intended for development, demonstration, and testing purposes.
+
+
+# Git and GitHub Deployment
+
+This section explains how to upload and publish the Digitech College Portal using Git, GitHub, VSCodium, and GitHub Pages.
+
+## 1. Install Git
+
+Make sure Git is installed on the computer.
+
+Check the installed version:
+
+```bash
+git --version
+```
+
+If Git is installed correctly, the terminal will display the installed Git version.
+
+---
+
+## 2. Open the Project in VSCodium
+
+Open the Digitech College Portal project folder in VSCodium.
+
+Example project location:
+
+```text
+~/Downloads/digitech-college-portal/digitech-portal
+```
+
+Open the VSCodium terminal:
+
+```text
+Terminal → New Terminal
+```
+
+Verify that the terminal is inside the project folder:
+
+```bash
+pwd
+```
+
+Then check the project files:
+
+```bash
+ls
+```
+
+The project should contain files such as:
+
+```text
+index.html
+login.html
+README.md
+assets/
+```
+
+---
+
+## 3. Initialize the Local Git Repository
+
+Initialize Git inside the project folder:
+
+```bash
+git init
+```
+
+This creates a hidden `.git` directory that allows Git to track changes to the project.
+
+---
+
+## 4. Configure Git Identity
+
+Before creating the first commit, configure the Git username and email.
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your-email@example.com"
+```
+
+Verify the configuration:
+
+```bash
+git config --global user.name
+git config --global user.email
+```
+
+The email should preferably be the email associated with the GitHub account or a GitHub-provided `noreply` address.
+
+---
+
+## 5. Create a `.gitignore` File
+
+Create a `.gitignore` file in the project root to prevent unnecessary or sensitive files from being uploaded.
+
+Example:
+
+```gitignore
+.vscode/
+.idea/
+node_modules/
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db
+```
+
+Do not upload passwords, API keys, database credentials, or other sensitive information.
+
+---
+
+## 6. Check the Git Repository Status
+
+Run:
+
+```bash
+git status
+```
+
+Git will display files that are not currently being tracked.
+
+---
+
+## 7. Add the Project Files
+
+Add all project files to Git:
+
+```bash
+git add .
+```
+
+Check the status again:
+
+```bash
+git status
+```
+
+The files should now appear under:
+
+```text
+Changes to be committed
+```
+
+---
+
+## 8. Create the Initial Commit
+
+Create the first Git commit:
+
+```bash
+git commit -m "Initial Digitech College Portal"
+```
+
+A commit creates a snapshot of the project that can be stored in the Git history.
+
+---
+
+## 9. Rename the Branch to `main`
+
+Rename the current branch to `main`:
+
+```bash
+git branch -M main
+```
+
+Verify the branch:
+
+```bash
+git branch
+```
+
+The output should show:
+
+```text
+* main
+```
+
+---
+
+## 10. Create a GitHub Repository
+
+Sign in to GitHub and create a new repository.
+
+Example:
+
+```text
+Repository name:
+digitech-college-portal
+```
+
+For a GitHub Pages project using a GitHub Free account, use a public repository.
+
+Because the project already exists locally, do not initialize the GitHub repository with another README, `.gitignore`, or license.
+
+The GitHub repository should initially be empty.
+
+---
+
+## 11. Connect the Local Repository to GitHub
+
+Copy the HTTPS URL of the newly created GitHub repository.
+
+Example:
+
+```text
+https://github.com/USERNAME/digitech-college-portal.git
+```
+
+Add it as the `origin` remote:
+
+```bash
+git remote add origin https://github.com/USERNAME/digitech-college-portal.git
+```
+
+Verify the remote:
+
+```bash
+git remote -v
+```
+
+The result should look similar to:
+
+```text
+origin  https://github.com/USERNAME/digitech-college-portal.git (fetch)
+origin  https://github.com/USERNAME/digitech-college-portal.git (push)
+```
+
+---
+
+## 12. Push the Project to GitHub
+
+Upload the local `main` branch to GitHub:
+
+```bash
+git push -u origin main
+```
+
+The `-u` option connects the local `main` branch with the remote `main` branch.
+
+After the upload is complete, refresh the GitHub repository.
+
+The project should now appear on GitHub:
+
+```text
+digitech-college-portal/
+├── index.html
+├── login.html
+├── README.md
+├── assets/
+├── css/
+└── js/
+```
+
+---
+
+## 13. Enable GitHub Pages
+
+To publish the website:
+
+1. Open the GitHub repository.
+2. Go to **Settings**.
+3. Select **Pages**.
+4. Under **Build and deployment**, select:
+
+   * Source: **Deploy from a branch**
+   * Branch: **main**
+   * Folder: **/ (root)**
+5. Click **Save**.
+
+GitHub Pages will automatically build and deploy the website.
+
+---
+
+## 14. Access the Published Website
+
+After deployment, GitHub Pages will provide a website address similar to:
+
+```text
+https://USERNAME.github.io/digitech-college-portal/
+```
+
+The exact URL depends on the GitHub username and repository name.
+
+The `index.html` file serves as the main entry point of the website.
+
+---
+
+## 15. Updating the Website
+
+After making changes to the project in VSCodium, check the changes:
+
+```bash
+git status
+```
+
+Add the changes:
+
+```bash
+git add .
+```
+
+Create a new commit:
+
+```bash
+git commit -m "Update portal design"
+```
+
+Push the changes:
+
+```bash
+git push
+```
+
+GitHub Pages will automatically deploy the updated version.
+
+The normal development workflow is:
+
+```text
+Edit files
+    ↓
+Test locally
+    ↓
+git status
+    ↓
+git add .
+    ↓
+git commit -m "Description of changes"
+    ↓
+git push
+    ↓
+GitHub
+    ↓
+GitHub Pages
+    ↓
+Updated website
+```
+
+---
+
+## 16. Useful Git Commands
+
+### Check repository status
+
+```bash
+git status
+```
+
+### Add all changes
+
+```bash
+git add .
+```
+
+### Commit changes
+
+```bash
+git commit -m "Your commit message"
+```
+
+### Push changes
+
+```bash
+git push
+```
+
+### View branches
+
+```bash
+git branch
+```
+
+### View commit history
+
+```bash
+git log --oneline
+```
+
+### View GitHub remote
+
+```bash
+git remote -v
+```
+
+### View configured Git identity
+
+```bash
+git config --global user.name
+git config --global user.email
+```
+
+---
+
+## 17. Complete Initial Git Setup
+
+For a new project, the complete process can be summarized as:
+
+```bash
+# Navigate to the project
+cd ~/Downloads/digitech-college-portal/digitech-portal
+
+# Initialize Git
+git init
+
+# Configure Git
+git config --global user.name "Your Name"
+git config --global user.email "your-email@example.com"
+
+# Add files
+git add .
+
+# Create initial commit
+git commit -m "Initial Digitech College Portal"
+
+# Rename branch
+git branch -M main
+
+# Connect GitHub repository
+git remote add origin https://github.com/USERNAME/digitech-college-portal.git
+
+# Upload project
+git push -u origin main
+```
+
+After the initial setup, only the following commands are normally needed to update the project:
+
+```bash
+git add .
+git commit -m "Update website"
+git push
+```
+
+## 18. LocalStorage and GitHub Pages
+
+The Digitech College Portal uses browser `LocalStorage` for prototype data.
+
+GitHub Pages can host the HTML, CSS, and JavaScript files while the LocalStorage data remains inside the visitor's browser.
+
+However, LocalStorage is not a shared database. Data stored by one user or device is not automatically available to another user or device.
+
+Therefore, the current GitHub Pages deployment is intended for a prototype or demonstration. A production college portal would require a backend server and shared database for authentication, student records, enrollment, grades, documents, messaging, and other persistent data.
