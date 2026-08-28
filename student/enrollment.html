@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Online Enrollment | Digitech College</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class' }</script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../css/custom.css">
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+    <aside id="side"
+        class="sidebar fixed inset-y-0 left-0 z-40 w-64 -translate-x-full lg:translate-x-0 bg-white dark:bg-slate-900 border-r dark:border-slate-800">
+        <div class="h-full flex flex-col">
+            <div class="h-20 border-b dark:border-slate-800 flex items-center gap-3 px-5"><span
+                    class="w-10 h-10 rounded-xl bg-green-600 flex items-center justify-center"><i
+                        data-lucide="graduation-cap" class="text-white"></i></span>
+                <div><b>DIGITECH</b><small class="block text-[10px] tracking-widest text-slate-400">COLLEGE
+                        PORTAL</small></div>
+            </div>
+            <nav class="p-3 space-y-1 flex-1"><a href="dashboard.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
+                        data-lucide="layout-dashboard" class="w-4"></i>Dashboard</a><a href="enrollment.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium nav-active"><i
+                        data-lucide="clipboard-list" class="w-4"></i>Enrollment</a><a href="requirements.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
+                        data-lucide="folder-check" class="w-4"></i>Requirements</a><a href="documents.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
+                        data-lucide="file-text" class="w-4"></i>Documents</a><a href="grades.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
+                        data-lucide="chart-no-axes-combined" class="w-4"></i>Grades</a><a href="competencies.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
+                        data-lucide="award" class="w-4"></i>Competencies</a><a href="profile.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
+                        data-lucide="user-round" class="w-4"></i>Profile</a><button onclick="APP.showNotifications()"
+                    class="w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-slate-600 hover:bg-slate-100 dark:text-slate-300"><i
+                        data-lucide="bell" class="w-4"></i>Notifications <span id="count"
+                        class="ml-auto rounded-full bg-red-500 text-white text-[10px] px-2 py-0.5">0</span></button>
+            </nav><button onclick="AUTH.logout()"
+                class="m-3 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-50"><i
+                    data-lucide="log-out" class="w-4"></i>Log out</button>
+        </div>
+    </aside>
+    <div class="lg:pl-64">
+        <header
+            class="sticky top-0 z-30 h-16 border-b bg-white/90 dark:bg-slate-950/90 dark:border-slate-800 backdrop-blur flex items-center justify-between px-4 sm:px-6">
+            <div class="flex items-center gap-3"><button id="open" class="lg:hidden p-2"><i
+                        data-lucide="menu"></i></button>
+                <div><small class="text-xs text-slate-400">Student Portal</small>
+                    <h1 class="font-bold">Online Enrollment</h1>
+                </div>
+            </div>
+            <div class="flex items-center gap-2"><button onclick="APP.toggleTheme()"
+                    class="p-2.5 rounded-xl border dark:border-slate-700"><i data-lucide="moon" data-theme-icon
+                        class="w-4"></i></button><button onclick="APP.showNotifications()"
+                    class="p-2.5 rounded-xl border dark:border-slate-700"><i data-lucide="bell"
+                        class="w-4"></i></button>
+                <div id="avatar"
+                    class="w-9 h-9 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-sm font-bold">
+                </div>
+            </div>
+        </header>
+        <main class="p-4 sm:p-6 lg:p-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-7">
+                    <p class="text-sm text-green-600 font-semibold">Enrollment</p>
+                    <h2 class="text-3xl font-bold">Online Enrollment</h2>
+                    <p class="text-slate-500 mt-2">Complete and save your enrollment information.</p>
+                </div>
+                <form id="enr" class="card p-6 space-y-7">
+                    <div>
+                        <h3 class="font-bold">Student Information</h3>
+                        <div class="grid md:grid-cols-3 gap-4 mt-4"><input id="fullName" readonly
+                                class="input rounded-xl border px-3 py-2.5 bg-slate-50"><input id="studentId" readonly
+                                class="input rounded-xl border px-3 py-2.5 bg-slate-50"><input id="contact"
+                                class="input rounded-xl border px-3 py-2.5" placeholder="Contact Number"><input
+                                id="birthDate" type="date" class="input rounded-xl border px-3 py-2.5"><input
+                                id="address" class="input md:col-span-2 rounded-xl border px-3 py-2.5"
+                                placeholder="Address"></div>
+                    </div>
+                    <div>
+                        <h3 class="font-bold">Guardian Information</h3>
+                        <div class="grid md:grid-cols-2 gap-4 mt-4"><input id="guardianName"
+                                class="input rounded-xl border px-3 py-2.5" placeholder="Guardian Name"><input
+                                id="guardianContact" class="input rounded-xl border px-3 py-2.5"
+                                placeholder="Guardian Contact"></div>
+                    </div>
+                    <div>
+                        <h3 class="font-bold">Academic Information</h3>
+                        <div class="grid md:grid-cols-4 gap-4 mt-4"><select id="programType"
+                                class="input rounded-xl border px-3 py-2.5">
+                                <option>Senior High</option>
+                                <option>TVET</option>
+                            </select><input id="gradeLevel" class="input rounded-xl border px-3 py-2.5"
+                                placeholder="Grade Level"><input id="strand" class="input rounded-xl border px-3 py-2.5"
+                                placeholder="Strand / Program"><input id="track"
+                                class="input rounded-xl border px-3 py-2.5" placeholder="Track / Qualification"><input
+                                id="training" class="input rounded-xl border px-3 py-2.5"
+                                placeholder="Training Level"><input id="schoolYear"
+                                class="input rounded-xl border px-3 py-2.5" value="2026-2027"></div>
+                    </div>
+                    <div class="flex flex-wrap gap-3"><button type="button" onclick="saveEnrollment('Draft')"
+                            class="border rounded-xl px-5 py-3 font-semibold">Save Draft</button><button type="button"
+                            onclick="saveEnrollment('Submitted')"
+                            class="bg-green-600 text-white rounded-xl px-5 py-3 font-semibold">Submit
+                            Enrollment</button></div>
+                    <div id="status"></div>
+                </form>
+            </div>
+        </main>
+    </div>
+    <div id="modalRoot"></div>
+    <script src="../js/storage.js"></script>
+    <script src="../js/data.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/app.js"></script>
+    <script>const U = AUTH.requireRole('student'); if (U) { avatar.textContent = APP.initials(U); APP.applyTheme(); lucide.createIcons(); document.getElementById('open').onclick = () => side.classList.toggle('-translate-x-full'); APP.updateNotif(); } let old = DG.getData('enrollments', []).find(x => x.studentId === U.id); fullName.value = U.firstName + ' ' + U.lastName; studentId.value = U.id; contact.value = U.contact || ''; birthDate.value = U.birthDate || ''; address.value = U.address || ''; guardianName.value = U.guardianName || ''; guardianContact.value = U.guardianContact || ''; if (old) { Object.entries({ programType: old.programType, gradeLevel: old.gradeLevel, strand: old.strand, track: old.track, schoolYear: old.schoolYear, training: old.trainingLevel }).forEach(([k, v]) => { if (v !== undefined && document.getElementById(k)) document.getElementById(k).value = v }); status.innerHTML = APP.statusBadge(old.status) } function saveEnrollment(s) { let all = DG.getData('enrollments', []); let x = { id: old?.id || DG.generateId('ENR'), studentId: U.id, status: s, programType: programType.value, gradeLevel: gradeLevel.value, strand: strand.value, track: track.value, trainingLevel: training.value, schoolYear: schoolYear.value, updatedAt: new Date().toISOString() }; all = all.filter(e => e.studentId !== U.id); all.push(x); DG.saveData('enrollments', all); status.innerHTML = APP.statusBadge(s); APP.toast('Enrollment saved as ' + s); }</script>
+</body>
+
+</html>

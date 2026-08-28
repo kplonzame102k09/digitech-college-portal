@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Login | Digitech College</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body class="min-h-screen bg-slate-50">
+    <div class="min-h-screen grid lg:grid-cols-2">
+        <div class="hidden lg:flex bg-green-700 text-white p-12 flex-col justify-between">
+            <a href="index.html" class="flex gap-3 items-center">
+                <span class="w-11 h-11 rounded-xl bg-white/15 flex items-center justify-center">
+                    <i data-lucide="graduation-cap"></i>
+                </span>
+                <b>DIGITECH<br>
+                    <small>COLLEGE</small>
+                </b>
+            </a>
+            <div>
+                <p class="text-green-100 uppercase text-sm font-semibold">Integrated Web Portal</p>
+                <h1 class="text-5xl font-bold mt-3 leading-tight">One portal for your college journey.</h1>
+                <p class="mt-5 text-green-100">
+                    Enrollment, documents, grades, competencies, and role-specific services.
+                </p>
+            </div>
+            <small>Prototype only. LocalStorage authentication is not production security.</small>
+        </div>
+        <div class="flex items-center justify-center p-5">
+            <div class="w-full max-w-md">
+                <div class="card p-7 sm:p-9 shadow-xl">
+                    <p class="text-sm font-semibold text-green-600">Welcome back</p>
+                    <h1 class="text-2xl font-bold mt-1">Sign in to your portal</h1>
+                    <p class="text-sm text-slate-500 mt-2">Use your generated User ID or registered email.</p>
+                    <form id="loginForm" class="space-y-4 mt-7">
+                        <label class="block text-sm font-medium">
+                            Role
+                            <select id="role" class="input mt-1 w-full rounded-xl border px-3 py-3">
+                                <option value="student">Student</option>
+                                <option value="teacher">Teacher</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </label>
+                        <label class="block text-sm font-medium">
+                            User ID / Email
+                            <input id="value" required class="input mt-1 w-full rounded-xl border px-3 py-3" placeholder="STU-2026-000001">
+                        </label>
+                        <label class="block text-sm font-medium">
+                            Account Password
+                            <input id="pass" type="password" required class="input mt-1 w-full rounded-xl border px-3 py-3">
+                        </label>
+                        <label id="rpWrap" class="hidden text-sm font-medium">
+                            <span id="rpLabel">Teacher Role Password</span>
+                            <input id="rp" type="password" class="input mt-1 w-full rounded-xl border px-3 py-3">
+                        </label>
+                        <div id="err" class="hidden rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-700"></div>
+                        <button class="w-full bg-green-600 hover:bg-green-700 text-white rounded-xl py-3.5 font-semibold">
+                            Sign In
+                        </button>
+                    </form>
+                    <p class="text-center text-sm text-slate-500 mt-6">
+                        No account? 
+                        <a class="font-semibold text-green-700" href="signup.html">Create one</a>
+                    </p>
+                    <div class="mt-6 bg-slate-50 rounded-xl p-4 text-xs text-slate-500">
+                        <b>Demo accounts</b>
+                        <br>
+                        Admin:
+                        ADM-2026-000001 / Admin@123 / Admin@123
+                        <br>
+                        Teacher: TCH-2026-000001 / Teacher@123 /
+                        Teacher@123<br>
+                        Student: STU-2026-000001 / Student@123
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/storage.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script>lucide.createIcons(); function sync() { let r = role.value, n = r !== 'student'; rpWrap.classList.toggle('hidden', !n); rp.required = n; rpLabel.textContent = r === 'admin' ? 'Admin Role Password' : 'Teacher Role Password' } role.onchange = sync; sync(); loginForm.onsubmit = e => { e.preventDefault(); let x = AUTH.authUser(value.value.trim(), pass.value, role.value, rp.value); if (!x.ok) { err.textContent = x.msg; err.classList.remove('hidden'); return } DG.setCurrentUser(x.user); location.href = AUTH.DASH[x.user.role] }</script>
+</body>
+
+</html>

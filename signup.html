@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Signup | Digitech College</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body class="bg-slate-50">
+    <div class="max-w-5xl mx-auto p-4 sm:p-8">
+        <div class="flex justify-between items-center mb-6"><a href="index.html" class="flex gap-3 items-center"><span
+                    class="w-10 h-10 rounded-xl bg-green-600 flex items-center justify-center"><i
+                        data-lucide="graduation-cap" class="text-white"></i></span><b>DIGITECH <small
+                        class="block text-slate-400">COLLEGE</small></b></a><a href="login.html"
+                class="text-sm font-semibold text-green-700">Back to login</a></div>
+        <div class="card overflow-hidden shadow-xl">
+            <div class="bg-green-700 text-white p-7 sm:p-9">
+                <p class="text-sm text-green-100">New portal account</p>
+                <h1 class="text-3xl font-bold">Create your Digitech account</h1>
+                <p class="mt-2 text-green-100">Your permanent User ID is generated automatically.</p>
+            </div>
+            <form id="form" class="p-6 sm:p-9 space-y-7">
+                <div class="grid md:grid-cols-3 gap-4"><label class="text-sm font-medium">First Name *<input
+                            name="firstName" required
+                            class="input mt-1 w-full rounded-xl border px-3 py-2.5"></label><label
+                        class="text-sm font-medium">Middle Name<input name="middleName"
+                            class="input mt-1 w-full rounded-xl border px-3 py-2.5"></label><label
+                        class="text-sm font-medium">Last Name *<input name="lastName" required
+                            class="input mt-1 w-full rounded-xl border px-3 py-2.5"></label><label
+                        class="text-sm font-medium">Email *<input name="email" required type="email"
+                            class="input mt-1 w-full rounded-xl border px-3 py-2.5"></label><label
+                        class="text-sm font-medium">Username *<input name="username" required
+                            class="input mt-1 w-full rounded-xl border px-3 py-2.5"></label><label
+                        class="text-sm font-medium">Contact Number *<input name="contact" required
+                            class="input mt-1 w-full rounded-xl border px-3 py-2.5"></label><label
+                        class="text-sm font-medium">Password *<input name="password" required type="password"
+                            class="input mt-1 w-full rounded-xl border px-3 py-2.5"></label><label
+                        class="text-sm font-medium">Confirm Password *<input name="confirm" required type="password"
+                            class="input mt-1 w-full rounded-xl border px-3 py-2.5"></label><label
+                        class="text-sm font-medium">Role *<select name="role" id="role"
+                            class="input mt-1 w-full rounded-xl border px-3 py-2.5">
+                            <option value="student">Student</option>
+                            <option value="teacher">Teacher</option>
+                            <option value="admin">Admin</option>
+                        </select></label></div>
+                <div id="student" class="grid md:grid-cols-3 gap-4"><label class="text-sm font-medium">Birth Date<input
+                            name="birthDate" type="date"
+                            class="input mt-1 w-full rounded-xl border px-3 py-2.5"></label><label
+                        class="md:col-span-2 text-sm font-medium">Address<input name="address"
+                            class="input mt-1 w-full rounded-xl border px-3 py-2.5"></label><label
+                        class="text-sm font-medium">Guardian Name<input name="guardianName"
+                            class="input mt-1 w-full rounded-xl border px-3 py-2.5"></label><label
+                        class="text-sm font-medium">Guardian Contact<input name="guardianContact"
+                            class="input mt-1 w-full rounded-xl border px-3 py-2.5"></label><label
+                        class="text-sm font-medium">Strand / Track<input name="strand" placeholder="ICT / TVL-ICT"
+                            class="input mt-1 w-full rounded-xl border px-3 py-2.5"></label></div>
+                <div id="staff" class="hidden grid md:grid-cols-3 gap-4"><input name="employeeId"
+                        placeholder="Employee ID" class="input rounded-xl border px-3 py-2.5"><input name="department"
+                        placeholder="Department" class="input rounded-xl border px-3 py-2.5"><input
+                        name="specialization" placeholder="Subject / Specialization"
+                        class="input rounded-xl border px-3 py-2.5"></div>
+                <div id="rpWrap" class="hidden max-w-md"><label class="text-sm font-medium"><span id="rpLabel">Teacher
+                            Role Password</span><input id="rp" type="password"
+                            class="input mt-1 w-full rounded-xl border px-3 py-2.5"></label>
+                    <p class="text-xs text-slate-500 mt-2">Demo role passwords: Teacher@123 · Admin@123</p>
+                </div>
+                <div id="err" class="hidden rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-700"></div>
+                <button class="bg-green-600 text-white px-6 py-3 rounded-xl font-semibold">Create Account</button>
+            </form>
+        </div>
+    </div>
+    <div id="modal"></div>
+    <script src="js/storage.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script>lucide.createIcons(); function sync() { let r = role.value; student.classList.toggle('hidden', r !== 'student'); staff.classList.toggle('hidden', r === 'student'); rpWrap.classList.toggle('hidden', r === 'student'); rp.required = r !== 'student'; rpLabel.textContent = r === 'admin' ? 'Admin Role Password' : 'Teacher Role Password' } role.onchange = sync; sync(); form.onsubmit = e => { e.preventDefault(); let o = Object.fromEntries(new FormData(form)); let users = DG.getData('users', []); if (o.password !== o.confirm) return show('Passwords do not match.'); if (users.some(u => u.email.toLowerCase() === o.email.toLowerCase())) return show('Email is already registered.'); if (users.some(u => u.username?.toLowerCase() === o.username.toLowerCase())) return show('Username is already registered.'); if (o.role !== 'student' && rp.value !== AUTH.ROLE_PASSWORDS[o.role]) return show('Invalid role password.'); let u = { id: DG.generateUserId(o.role), role: o.role, firstName: o.firstName, middleName: o.middleName, lastName: o.lastName, email: o.email, username: o.username, password: o.password, contact: o.contact, createdAt: new Date().toISOString() }; if (o.role === 'student') Object.assign(u, { birthDate: o.birthDate, address: o.address, guardianName: o.guardianName, guardianContact: o.guardianContact, strand: o.strand }); else Object.assign(u, { employeeId: o.employeeId, department: o.department, specialization: o.specialization }); users.push(u); DG.saveData('users', users); modal.innerHTML = `<div class="modal-backdrop fixed inset-0 flex items-center justify-center p-4"><div class="bg-white rounded-2xl p-7 max-w-md w-full text-center shadow-2xl"><i data-lucide="check-circle" class="mx-auto text-green-600 w-12 h-12"></i><h2 class="text-2xl font-bold mt-3">Account Created Successfully!</h2><p class="text-sm text-slate-500 mt-2">Your permanent User ID:</p><div class="font-mono font-bold text-green-700 bg-slate-100 rounded-xl p-3 mt-4">${u.id}</div><div class="grid grid-cols-2 gap-3 mt-5"><button onclick="navigator.clipboard.writeText('${u.id}');this.textContent='Copied!'" class="border rounded-xl py-3 font-semibold">Copy ID</button><a href="login.html" class="bg-green-600 text-white rounded-xl py-3 font-semibold">Go to Login</a></div></div></div>`; lucide.createIcons() }; function show(x) { err.textContent = x; err.classList.remove('hidden') }</script>
+</body>
+
+</html>
