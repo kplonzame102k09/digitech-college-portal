@@ -834,3 +834,60 @@ GitHub Pages can host the HTML, CSS, and JavaScript files while the LocalStorage
 However, LocalStorage is not a shared database. Data stored by one user or device is not automatically available to another user or device.
 
 Therefore, the current GitHub Pages deployment is intended for a prototype or demonstration. A production college portal would require a backend server and shared database for authentication, student records, enrollment, grades, documents, messaging, and other persistent data.
+## Recent UI Improvements
+
+### Login Page
+
+The login page was redesigned with a modern green-themed interface while keeping the existing authentication logic unchanged.
+
+Improvements include:
+
+* Soft white-to-green gradient background
+* Subtle blurred green background effects
+* Modern Lucide icons
+* Improved typography and spacing
+* Cleaner role-based login interface
+* Responsive layout for desktop and mobile devices
+* Improved visual hierarchy for login information
+* Existing LocalStorage authentication preserved
+
+### Signup Page
+
+The signup page was updated to match the visual style of the login page.
+
+Improvements include:
+
+* Modern white, emerald, and green color palette
+* Soft gradient header section
+* Decorative background effects
+* Improved account information layout
+* Separate sections for student and staff information
+* Lucide icons for better visual identification
+* Improved input field spacing and appearance
+* Modern account creation button
+* Improved success modal
+* Responsive design for smaller screens
+
+### Logic Preservation
+
+The signup functionality was preserved during the redesign. No database or authentication logic was intentionally changed.
+
+The following existing functionality remains:
+
+* User registration
+* Automatic User ID generation
+* Email duplication checking
+* Username duplication checking
+* Password confirmation validation
+* Teacher role password validation
+* Admin role password validation
+* Student information handling
+* Staff information handling
+* LocalStorage data persistence
+* Account creation success modal
+* User ID copying
+* Redirect to the login page
+
+The redesign focuses on the **frontend presentation and user experience**, while the existing JavaScript functionality remains intact.
+
+> **Note:** This project uses browser LocalStorage as a prototype data store. It is intended for demonstration and educational purposes and should not be considered production-level authentication or data security.
