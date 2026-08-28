@@ -1,6 +1,6 @@
 :root {
   --brand: #16a34a;
-  --brand-dark: #15803d;
+  --brand-dark: #0a7632;
   --accent: #2563eb;
 }
 * {
@@ -16,7 +16,6 @@ body {
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-    
 }
 .glass {
   background: rgba(255, 255, 255, 0.82);
