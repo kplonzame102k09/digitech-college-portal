@@ -53,7 +53,7 @@ function logoutUser() {
     location.href = "../login.html";
 }
 function getProfilePhoto(user = getCurrentUser()) {
-    return user?.photo || "assets/images/default-profile.png";
+    return user?.photo || "assets/images/16432.png";
 }
 
 function setProfilePhoto(photo, user = getCurrentUser()) {
