@@ -896,3 +896,14 @@ The redesign focuses on the **frontend presentation and user experience**, while
 
 Instead of using Lucide Icons, changed it in to png type image for logo of Digitech College Web Portal.
 Improve the User Interface by adding a image type png. 
+
+Add a logo in design in the Login page for better Login UI.
+
+![alt text](<Screenshot from 2026-08-29 14-00-38.png>)
+![alt text](<assets/images/Screenshot from 2026-08-29 14-00-51.png>)
+![alt text](<assets/images/Screenshot from 2026-08-29 14-00-56.png>)
+
+### ADD A PROFILE PHOTO
+ Add a profile pciture or photo entry in the Signup page. 
+ Add the profile photo visibility to all the pages. 
+  

@@ -58,9 +58,9 @@
                         class="w-4"></i></button><button onclick="APP.showNotifications()"
                     class="p-2.5 rounded-xl border dark:border-slate-700"><i data-lucide="bell"
                         class="w-4"></i></button>
-                <div id="avatar"
-                    class="w-9 h-9 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-sm font-bold">
-                </div>
+                <img id="avatar"
+                    class="w-9 h-9 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-sm font-bold" alt="Profile">
+                
             </div>
         </header>
         <main class="p-4 sm:p-6 lg:p-8">
@@ -110,7 +110,7 @@
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/app.js"></script>
-    <script>const U = AUTH.requireRole('student'); if (U) { avatar.textContent = APP.initials(U); APP.applyTheme(); lucide.createIcons(); document.getElementById('open').onclick = () => side.classList.toggle('-translate-x-full'); APP.updateNotif(); } function render() { let a = DG.getData('documentRequests', []).filter(x => x.studentId === U.id); rows.innerHTML = a.map(x => `<tr class="border-t dark:border-slate-800"><td class="p-4 font-semibold">${APP.esc(x.documentType)}</td><td class="p-4 text-slate-500">${APP.esc(x.purpose)}</td><td class="p-4">${APP.formatDate(x.requestDate)}</td><td class="p-4">${APP.statusBadge(x.status)}</td></tr>`).join('') } render(); docForm.onsubmit = e => { e.preventDefault(); let a = DG.getData('documentRequests', []); a.push({ id: DG.generateId('DOC'), studentId: U.id, documentType: type.value, purpose: purpose.value, copies: +copies.value, notes: notes.value, requestDate: new Date().toISOString(), status: 'Pending' }); DG.saveData('documentRequests', a); APP.toast('Document request submitted'); formBox.classList.add('hidden'); docForm.reset(); render() }</script>
+    <script>const U = AUTH.requireRole('student'); if (U) { avatar.src = getProfilePhoto(U); APP.applyTheme(); lucide.createIcons(); document.getElementById('open').onclick = () => side.classList.toggle('-translate-x-full'); APP.updateNotif(); } function render() { let a = DG.getData('documentRequests', []).filter(x => x.studentId === U.id); rows.innerHTML = a.map(x => `<tr class="border-t dark:border-slate-800"><td class="p-4 font-semibold">${APP.esc(x.documentType)}</td><td class="p-4 text-slate-500">${APP.esc(x.purpose)}</td><td class="p-4">${APP.formatDate(x.requestDate)}</td><td class="p-4">${APP.statusBadge(x.status)}</td></tr>`).join('') } render(); docForm.onsubmit = e => { e.preventDefault(); let a = DG.getData('documentRequests', []); a.push({ id: DG.generateId('DOC'), studentId: U.id, documentType: type.value, purpose: purpose.value, copies: +copies.value, notes: notes.value, requestDate: new Date().toISOString(), status: 'Pending' }); DG.saveData('documentRequests', a); APP.toast('Document request submitted'); formBox.classList.add('hidden'); docForm.reset(); render() }</script>
 </body>
 
 </html>

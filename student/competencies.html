@@ -58,9 +58,9 @@
                         class="w-4"></i></button><button onclick="APP.showNotifications()"
                     class="p-2.5 rounded-xl border dark:border-slate-700"><i data-lucide="bell"
                         class="w-4"></i></button>
-                <div id="avatar"
-                    class="w-9 h-9 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-sm font-bold">
-                </div>
+                <img id="avatar"
+                    class="w-9 h-9 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-sm font-bold" alt="Profile">
+                
             </div>
         </header>
         <main class="p-4 sm:p-6 lg:p-8">
@@ -90,7 +90,7 @@
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/app.js"></script>
-    <script>const U = AUTH.requireRole('student'); if (U) { avatar.textContent = APP.initials(U); APP.applyTheme(); lucide.createIcons(); document.getElementById('open').onclick = () => side.classList.toggle('-translate-x-full'); APP.updateNotif(); } let a = DG.getData('competencies', []).filter(x => x.studentId === U.id), done = a.filter(x => x.status === 'Competent').length, p = a.length ? Math.round(done / a.length * 100) : 0; pct.textContent = p + '%'; bar.style.width = p + '%'; cards.innerHTML = a.map(x => `<article class="card p-5"><div class="flex justify-between gap-4"><div><p class="text-xs text-slate-400">${APP.esc(x.qualification)}</p><h3 class="font-bold mt-1">${APP.esc(x.competency)}</h3></div>${APP.statusBadge(x.status)}</div><p class="mt-4 text-sm text-slate-500">Assessment: ${APP.formatDate(x.assessmentDate)}</p><p class="text-sm text-slate-500">${APP.esc(x.remarks || 'No remarks')}</p></article>`).join('')</script>
+    <script>const U = AUTH.requireRole('student'); if (U) { avatar.src = getProfilePhoto(U); APP.applyTheme(); lucide.createIcons(); document.getElementById('open').onclick = () => side.classList.toggle('-translate-x-full'); APP.updateNotif(); } let a = DG.getData('competencies', []).filter(x => x.studentId === U.id), done = a.filter(x => x.status === 'Competent').length, p = a.length ? Math.round(done / a.length * 100) : 0; pct.textContent = p + '%'; bar.style.width = p + '%'; cards.innerHTML = a.map(x => `<article class="card p-5"><div class="flex justify-between gap-4"><div><p class="text-xs text-slate-400">${APP.esc(x.qualification)}</p><h3 class="font-bold mt-1">${APP.esc(x.competency)}</h3></div>${APP.statusBadge(x.status)}</div><p class="mt-4 text-sm text-slate-500">Assessment: ${APP.formatDate(x.assessmentDate)}</p><p class="text-sm text-slate-500">${APP.esc(x.remarks || 'No remarks')}</p></article>`).join('')</script>
 </body>
 
 </html>
