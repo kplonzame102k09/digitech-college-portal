@@ -70,10 +70,25 @@
                             <p id="dept" class="text-sm text-slate-500"></p>
                         </div>
                     </div>
-                    <div class="grid md:grid-cols-2 gap-4 mt-7"><input id="email" readonly
-                            class="input rounded-xl border px-3 py-3 bg-slate-50"><input id="specialization"
-                            class="input rounded-xl border px-3 py-3"></div><button onclick="save()"
-                        class="mt-5 bg-green-600 text-white px-5 py-3 rounded-xl font-semibold">Save</button>
+                    <div class="grid md:grid-cols-2 gap-4 mt-7">
+                        <div>
+                            <p class="m-1 flex top-0"> Lastname: </p>
+                            <input id="lastName" readonly class="input rounded-xl border w-full px-5 py-3 bg-slate-50">
+                        </div>
+                        <div>
+                            <p class="m-1 flex top-0"> Firstname: </p>
+                            <input id="firstName" readonly class="input rounded-xl border w-full px-5 py-3 bg-slate-50">
+                        </div>
+                        <div>
+                            <p class="m-1 flex top-0"> Email: </p>
+                            <input id="email" readonly class="input rounded-xl border w-full px-5 py-3 bg-slate-50">
+                        </div>
+                        <div>
+                            <p class="m-1 flex top-0"> Subject/Strand/Specialization: </p>
+                            <input id="specialization" class="input rounded-xl border w-full px-5 py-3 bg-slate-50">
+                        </div>
+                    </div>
+                    <button onclick="save()" class="mt-5 bg-green-600 text-white px-5 py-3 rounded-xl font-semibold">Save</button>
                 </div>
             </div>
         </main>
@@ -93,7 +108,9 @@
         } 
         av.src = getProfilePhoto(U); 
         nm.textContent = U.firstName + ' ' + U.lastName; id.textContent = U.id; 
-        dept.textContent = U.department || 'Faculty'; 
+        dept.textContent = U.department || 'Faculty';
+        firstName.value = U.firstName;
+        lastName.value = U.lastName;
         email.value = U.email; 
         specialization.value = U.specialization || ''; 
         function save() { 
