@@ -123,7 +123,7 @@
     <script>
         const U = AUTH.requireRole('admin'); 
         if (U) {
-            avatar.src = DG.getProfilePhoto(U);
+            avatar.src = getProfilePhoto(U);
             APP.applyTheme();
             lucide.createIcons();
             document.getElementById('open').onclick = () => side.classList.toggle('-translate-x-full');
