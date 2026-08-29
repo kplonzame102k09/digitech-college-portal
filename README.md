@@ -899,7 +899,7 @@ Improve the User Interface by adding a image type png.
 
 Add a logo in design in the Login page for better Login UI.
 
-![alt text](<Screenshot from 2026-08-29 14-00-38.png>)
+![alt text](<assets/images/Screenshot from 2026-08-29 14-00-38.png>)
 ![alt text](<assets/images/Screenshot from 2026-08-29 14-00-51.png>)
 ![alt text](<assets/images/Screenshot from 2026-08-29 14-00-56.png>)
 
