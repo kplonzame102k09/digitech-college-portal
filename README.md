@@ -891,3 +891,8 @@ The following existing functionality remains:
 The redesign focuses on the **frontend presentation and user experience**, while the existing JavaScript functionality remains intact.
 
 > **Note:** This project uses browser LocalStorage as a prototype data store. It is intended for demonstration and educational purposes and should not be considered production-level authentication or data security.
+
+### ADD A LOGO DESIGN 
+
+Instead of using Lucide Icons, changed it in to png type image for logo of Digitech College Web Portal.
+Improve the User Interface by adding a image type png. 
