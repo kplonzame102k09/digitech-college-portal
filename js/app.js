@@ -226,35 +226,70 @@ function updateNotif() {
 }
 function showNotifications() {
   const u = DG.getCurrentUser();
+  if (!u) return;
   const ns = DG.getData("notifications", [])
     .filter((n) => n.userId === u.id)
     .sort((a, b) => new Date(b.date) - new Date(a.date));
   const root = document.getElementById("modalRoot");
-  root.innerHTML = `
-    <div class="modal-backdrop fixed inset-0 z-[90] flex items-center justify-center p-4">
-        <div class="w-full max-w-lg rounded-2xl bg-white p-5 shadow-2xl dark:bg-slate-900">
-            <div class="flex items-center justify-between">
-                <h3 class="text-lg font-bold">Notifications</h3>
-                <button onclick="closeModal()" class="rounded-lg p-2 hover:bg-slate-100 dark:hover:bg-slate-800">
-                    <i data-lucide="x" class="h-5 w-5"></i>
-                </button>
-            </div>
-            <div class="mt-4 max-h-[55vh] space-y-2 overflow-auto">
-                ${ns.length ? ns.map((n) => `
-                <div class="rounded-xl border p-3 ${n.read ? "border-slate-200" : "border-green-200 bg-green-50/60"} dark:border-slate-700 dark:bg-slate-800">
-                    <div class="flex justify-between gap-3">
-                        <p class="font-semibold text-sm">${esc(n.title)}</p>
-                        <span class="text-[11px] text-slate-400">${formatDate(n.date)}</span>
-                    </div>
-                    <p class="mt-1 text-sm text-slate-500">${esc(n.message)}</p>
-                </div>`).join("") : 
-                '<div class="py-10 text-center text-sm text-slate-400">No notifications yet.</div>'}
-            </div>
-            <button onclick="markNotificationsRead()" class="mt-4 w-full rounded-xl bg-green-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-green-700">
-                Mark all as read
-            </button>
-        </div>
-    </div>`;
+  if (!root) return;
+  root.replaceChildren();
+
+  const backdrop = document.createElement("div");
+  backdrop.className = "modal-backdrop fixed inset-0 z-[90] flex items-center justify-center p-4";
+  const modal = document.createElement("div");
+  modal.className = "w-full max-w-lg rounded-2xl bg-white p-5 shadow-2xl dark:bg-slate-900";
+  const header = document.createElement("div");
+  header.className = "flex items-center justify-between";
+  const heading = document.createElement("h3");
+  heading.className = "text-lg font-bold";
+  heading.textContent = "Notifications";
+  const close = document.createElement("button");
+  close.type = "button";
+  close.className = "rounded-lg p-2 hover:bg-slate-100 dark:hover:bg-slate-800";
+  close.setAttribute("aria-label", "Close notifications");
+  close.addEventListener("click", closeModal);
+  const closeIcon = document.createElement("i");
+  closeIcon.dataset.lucide = "x";
+  closeIcon.className = "h-5 w-5";
+  close.append(closeIcon);
+  header.append(heading, close);
+
+  const list = document.createElement("div");
+  list.className = "mt-4 max-h-[55vh] space-y-2 overflow-auto";
+  if (ns.length) {
+    ns.forEach((notification) => {
+      const item = document.createElement("div");
+      item.className = `rounded-xl border p-3 ${notification.read ? "border-slate-200" : "border-green-200 bg-green-50/60"} dark:border-slate-700 dark:bg-slate-800`;
+      const meta = document.createElement("div");
+      meta.className = "flex justify-between gap-3";
+      const title = document.createElement("p");
+      title.className = "text-sm font-semibold";
+      title.textContent = notification.title || "Portal update";
+      const when = document.createElement("span");
+      when.className = "text-[11px] text-slate-400";
+      when.textContent = formatDate(notification.date);
+      meta.append(title, when);
+      const message = document.createElement("p");
+      message.className = "mt-1 text-sm text-slate-500";
+      message.textContent = notification.message || "No additional details.";
+      item.append(meta, message);
+      list.append(item);
+    });
+  } else {
+    const empty = document.createElement("div");
+    empty.className = "py-10 text-center text-sm text-slate-400";
+    empty.textContent = "No notifications yet.";
+    list.append(empty);
+  }
+
+  const markRead = document.createElement("button");
+  markRead.type = "button";
+  markRead.className = "mt-4 w-full rounded-xl bg-green-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-green-700";
+  markRead.textContent = "Mark all as read";
+  markRead.addEventListener("click", markNotificationsRead);
+  modal.append(header, list, markRead);
+  backdrop.append(modal);
+  root.append(backdrop);
   lucide.createIcons();
 }
 function markNotificationsRead() {
@@ -269,7 +304,7 @@ function markNotificationsRead() {
   toast("Notifications marked as read");
 }
 function closeModal() {
-  document.getElementById("modalRoot").innerHTML = "";
+  document.getElementById("modalRoot")?.replaceChildren();
 }
 window.APP = {
   portalShell,
