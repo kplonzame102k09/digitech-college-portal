@@ -8,6 +8,7 @@ const STORAGE_KEYS = [
   "notifications",
   "announcements",
   "attendance",
+  "auditLogs",
   "requirements",
   "settings",
 ];
