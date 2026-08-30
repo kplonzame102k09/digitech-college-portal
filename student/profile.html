@@ -1,170 +1,111 @@
 <!doctype html>
 <html>
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>My Profile | Digitech College</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      tailwind.config = { darkMode: "class" };
+        tailwind.config = { darkMode: "class" };
     </script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="../css/custom.css" />
-  </head>
+</head>
 
-  <body
-    class="min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100"
-  >
-    <aside
-      id="side"
-      class="sidebar fixed inset-y-0 left-0 z-40 w-64 -translate-x-full lg:translate-x-0 bg-white dark:bg-slate-900 border-r dark:border-slate-800"
-    >
-      <div class="h-full flex flex-col">
-        <div
-          class="h-20 border-b dark:border-slate-800 flex items-center gap-3 px-5"
-        >
-          <img
-            src="../assets/images/16432.png"
-            class="w-10 h-10 rounded-xl object-cover"
-            alt="Digitech College logo"
-          />
-          <div>
-            <b>DIGITECH</b
-            ><small class="block text-[10px] tracking-widest text-slate-400"
-              >COLLEGE PORTAL</small
-            >
-          </div>
+<body class="min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+    <aside id="side"
+        class="sidebar fixed inset-y-0 left-0 z-40 w-64 -translate-x-full lg:translate-x-0 bg-white dark:bg-slate-900 border-r dark:border-slate-800">
+        <div class="h-full flex flex-col">
+            <div class="h-20 border-b dark:border-slate-800 flex items-center gap-3 px-5">
+                <img src="../assets/images/16432.png" class="w-10 h-10 rounded-xl object-cover"
+                    alt="Digitech College logo" />
+                <div>
+                    <b>DIGITECH</b><small class="block text-[10px] tracking-widest text-slate-400">COLLEGE
+                        PORTAL</small>
+                </div>
+            </div>
+            <nav class="p-3 space-y-1 flex-1">
+                <a href="dashboard.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
+                        data-lucide="layout-dashboard" class="w-4"></i>Dashboard</a><a href="enrollment.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
+                        data-lucide="clipboard-list" class="w-4"></i>Enrollment</a><a href="requirements.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
+                        data-lucide="folder-check" class="w-4"></i>Requirements</a><a href="documents.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
+                        data-lucide="file-text" class="w-4"></i>Documents</a><a href="grades.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
+                        data-lucide="chart-no-axes-combined" class="w-4"></i>Grades</a><a href="competencies.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
+                        data-lucide="award" class="w-4"></i>Competencies</a><a href="profile.html"
+                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium nav-active"><i
+                        data-lucide="user-round" class="w-4"></i>Profile</a><button onclick="APP.showNotifications()"
+                    class="w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-slate-600 hover:bg-slate-100 dark:text-slate-300">
+                    <i data-lucide="bell" class="w-4"></i>Notifications
+                    <span id="count" class="ml-auto rounded-full bg-red-500 text-white text-[10px] px-2 py-0.5">0</span>
+                </button>
+            </nav>
+            <button onclick="AUTH.logout()"
+                class="m-3 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-50">
+                <i data-lucide="log-out" class="w-4"></i>Log out
+            </button>
         </div>
-        <nav class="p-3 space-y-1 flex-1">
-          <a
-            href="dashboard.html"
-            class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
-            ><i data-lucide="layout-dashboard" class="w-4"></i>Dashboard</a
-          ><a
-            href="enrollment.html"
-            class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
-            ><i data-lucide="clipboard-list" class="w-4"></i>Enrollment</a
-          ><a
-            href="requirements.html"
-            class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
-            ><i data-lucide="folder-check" class="w-4"></i>Requirements</a
-          ><a
-            href="documents.html"
-            class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
-            ><i data-lucide="file-text" class="w-4"></i>Documents</a
-          ><a
-            href="grades.html"
-            class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
-            ><i data-lucide="chart-no-axes-combined" class="w-4"></i>Grades</a
-          ><a
-            href="competencies.html"
-            class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
-            ><i data-lucide="award" class="w-4"></i>Competencies</a
-          ><a
-            href="profile.html"
-            class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium nav-active"
-            ><i data-lucide="user-round" class="w-4"></i>Profile</a
-          ><button
-            onclick="APP.showNotifications()"
-            class="w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-slate-600 hover:bg-slate-100 dark:text-slate-300"
-          >
-            <i data-lucide="bell" class="w-4"></i>Notifications
-            <span
-              id="count"
-              class="ml-auto rounded-full bg-red-500 text-white text-[10px] px-2 py-0.5"
-              >0</span
-            >
-          </button>
-        </nav>
-        <button
-          onclick="AUTH.logout()"
-          class="m-3 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-50"
-        >
-          <i data-lucide="log-out" class="w-4"></i>Log out
-        </button>
-      </div>
     </aside>
     <div class="lg:pl-64">
-      <header
-        class="sticky top-0 z-30 h-16 border-b bg-white/90 dark:bg-slate-950/90 dark:border-slate-800 backdrop-blur flex items-center justify-between px-4 sm:px-6"
-      >
-        <div class="flex items-center gap-3">
-          <button id="open" class="lg:hidden p-2">
-            <i data-lucide="menu"></i>
-          </button>
-          <div>
-            <small class="text-xs text-slate-400">Student Portal</small>
-            <h1 class="font-bold">My Profile</h1>
-          </div>
-        </div>
-        <div class="flex items-center gap-2">
-          <button
-            onclick="APP.toggleTheme()"
-            class="p-2.5 rounded-xl border dark:border-slate-700"
-          >
-            <i data-lucide="moon" data-theme-icon class="w-4"></i></button
-          ><button
-            onclick="APP.showNotifications()"
-            class="p-2.5 rounded-xl border dark:border-slate-700"
-          >
-            <i data-lucide="bell" class="w-4"></i>
-          </button>
-          <img
-            id="avatar"
-            data-profile-photo
-            class="w-9 h-9 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-sm font-bold"
-            alt="Profile"
-          />
-        </div>
-      </header>
-      <main class="p-4 sm:p-6 lg:p-8">
-        <div class="max-w-7xl mx-auto">
-          <div class="mb-7">
-            <p class="text-sm text-green-600 font-semibold">Account</p>
-            <h2 class="text-3xl font-bold">My Profile</h2>
-          </div>
-          <div class="card p-6">
-            <div class="flex flex-col sm:flex-row gap-5 items-start">
-              <img
-                id="bigAvatar"
-                data-profile-photo
-                class="w-20 h-20 rounded-2xl bg-green-100 text-green-700 flex items-center justify-center text-2xl font-bold"
-              />
+        <header
+            class="sticky top-0 z-30 h-16 border-b bg-white/90 dark:bg-slate-950/90 dark:border-slate-800 backdrop-blur flex items-center justify-between px-4 sm:px-6">
+            <div class="flex items-center gap-3">
+                <button id="open" class="lg:hidden p-2">
+                    <i data-lucide="menu"></i>
+                </button>
+                <div>
+                    <small class="text-xs text-slate-400">Student Portal</small>
+                    <h1 class="font-bold">My Profile</h1>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="APP.toggleTheme()" class="p-2.5 rounded-xl border dark:border-slate-700">
+                    <i data-lucide="moon" data-theme-icon class="w-4"></i></button><button
+                    onclick="APP.showNotifications()" class="p-2.5 rounded-xl border dark:border-slate-700">
+                    <i data-lucide="bell" class="w-4"></i>
+                </button>
+                <img id="avatar" data-profile-photo
+                    class="w-9 h-9 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-sm font-bold"
+                    alt="Profile" />
+            </div>
+        </header>
+        <main class="p-4 sm:p-6 lg:p-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-7">
+                    <p class="text-sm text-green-600 font-semibold">Account</p>
+                    <h2 class="text-3xl font-bold">My Profile</h2>
+                </div>
+                <div class="card p-6">
+                    <div class="flex flex-col sm:flex-row gap-5 items-start">
+                        <img id="bigAvatar" data-profile-photo
+                            class="w-20 h-20 rounded-2xl bg-green-100 text-green-700 flex items-center justify-center text-2xl font-bold" />
 
-              <div>
-                <h3 id="profileName" class="text-2xl font-bold"></h3>
-                <p id="profileId" class="font-mono text-green-700 mt-1"></p>
-                <p id="profileRole" class="text-sm text-slate-500 mt-1"></p>
-              </div>
+                        <div>
+                            <h3 id="profileName" class="text-2xl font-bold"></h3>
+                            <p id="profileId" class="font-mono text-green-700 mt-1"></p>
+                            <p id="profileRole" class="text-sm text-slate-500 mt-1"></p>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4 mt-7">
+                        <input id="email" readonly class="input rounded-xl border px-3 py-3 bg-slate-50" /><input
+                            id="contact" class="input rounded-xl border px-3 py-3" /><input id="address"
+                            class="input md:col-span-2 rounded-xl border px-3 py-3" /><input id="guardianName"
+                            class="input rounded-xl border px-3 py-3" /><input id="guardianContact"
+                            class="input rounded-xl border px-3 py-3" />
+                    </div>
+                    <button onclick="saveProfile()"
+                        class="mt-5 bg-green-600 text-white rounded-xl px-5 py-3 font-semibold">
+                        Save Allowed Changes
+                    </button>
+                </div>
             </div>
-            <div class="grid md:grid-cols-2 gap-4 mt-7">
-              <input
-                id="email"
-                readonly
-                class="input rounded-xl border px-3 py-3 bg-slate-50"
-              /><input
-                id="contact"
-                class="input rounded-xl border px-3 py-3"
-              /><input
-                id="address"
-                class="input md:col-span-2 rounded-xl border px-3 py-3"
-              /><input
-                id="guardianName"
-                class="input rounded-xl border px-3 py-3"
-              /><input
-                id="guardianContact"
-                class="input rounded-xl border px-3 py-3"
-              />
-            </div>
-            <button
-              onclick="saveProfile()"
-              class="mt-5 bg-green-600 text-white rounded-xl px-5 py-3 font-semibold"
-            >
-              Save Allowed Changes
-            </button>
-          </div>
-        </div>
-      </main>
+        </main>
     </div>
     <div id="modalRoot"></div>
     <script src="../js/storage.js"></script>
@@ -172,37 +113,38 @@
     <script src="../js/auth.js"></script>
     <script src="../js/app.js"></script>
     <script>
-      const U = AUTH.requireRole("student");
-      if (U) {
-        avatar.src = getProfilePhoto(U);
-        APP.applyTheme();
-        lucide.createIcons();
-        document.getElementById("open").onclick = () =>
-          side.classList.toggle("-translate-x-full");
-        APP.updateNotif();
-      }
-      profileName.textContent = U.firstName + " " + U.lastName;
-      profileId.textContent = U.id;
-      profileRole.textContent = "Student";
-      bigAvatar.src = getProfilePhoto(U);
-      email.value = U.email;
-      contact.value = U.contact || "";
-      address.value = U.address || "";
-      guardianName.value = U.guardianName || "";
-      guardianContact.value = U.guardianContact || "";
-      function saveProfile() {
-        let us = DG.getData("users", []),
-          u = us.find((x) => x.id === U.id);
-        Object.assign(u, {
-          contact: contact.value,
-          address: address.value,
-          guardianName: guardianName.value,
-          guardianContact: guardianContact.value,
-        });
-        DG.saveData("users", us);
-        DG.setCurrentUser(u);
-        APP.toast("Profile updated");
-      }
+        const U = AUTH.requireRole("student");
+        if (U) {
+            avatar.src = getProfilePhoto(U);
+            APP.applyTheme();
+            lucide.createIcons();
+            document.getElementById("open").onclick = () =>
+                side.classList.toggle("-translate-x-full");
+            APP.updateNotif();
+        }
+        profileName.textContent = U.firstName + " " + U.lastName;
+        profileId.textContent = U.id;
+        profileRole.textContent = "Student";
+        bigAvatar.src = getProfilePhoto(U);
+        email.value = U.email;
+        contact.value = U.contact || "";
+        address.value = U.address || "";
+        guardianName.value = U.guardianName || "";
+        guardianContact.value = U.guardianContact || "";
+        function saveProfile() {
+            let us = DG.getData("users", []),
+                u = us.find((x) => x.id === U.id);
+            Object.assign(u, {
+                contact: contact.value,
+                address: address.value,
+                guardianName: guardianName.value,
+                guardianContact: guardianContact.value,
+            });
+            DG.saveData("users", us);
+            DG.setCurrentUser(u);
+            APP.toast("Profile updated");
+        }
     </script>
-  </body>
+</body>
+
 </html>
