@@ -81,3 +81,116 @@ body {
   background: rgba(15, 23, 42, 0.55);
   backdrop-filter: blur(4px);
 }
+
+/* Portal UI refresh: shared polish for admin, student, and teacher views. */
+:root {
+  --surface: #ffffff;
+  --surface-muted: #f8fafc;
+  --line: #e2e8f0;
+  --ink-muted: #64748b;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+body {
+  background-image:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(22, 163, 74, 0.06),
+      transparent 28rem
+    ),
+    radial-gradient(
+      circle at 0% 100%,
+      rgba(37, 99, 235, 0.04),
+      transparent 24rem
+    );
+}
+
+button,
+a,
+.card,
+.input,
+.sidebar {
+  transition:
+    transform 180ms var(--ease-out),
+    box-shadow 180ms var(--ease-out),
+    background-color 180ms var(--ease-out),
+    border-color 180ms var(--ease-out),
+    color 180ms var(--ease-out);
+}
+
+button:active,
+a:active {
+  transform: scale(0.98);
+}
+
+button:focus-visible,
+a:focus-visible,
+.input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(22, 163, 74, 0.28);
+  outline-offset: 2px;
+}
+
+.card {
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.045);
+}
+
+.card:hover {
+  border-color: rgba(22, 163, 74, 0.28);
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.08);
+  transform: translateY(-1px);
+}
+
+.nav-active {
+  box-shadow:
+    inset 3px 0 0 var(--brand),
+    0 5px 14px rgba(22, 163, 74, 0.08);
+  font-weight: 700;
+}
+
+header {
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+}
+
+.input,
+select,
+textarea {
+  min-height: 2.75rem;
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.input::placeholder,
+textarea::placeholder {
+  color: #94a3b8;
+}
+
+.table-wrap,
+.card table {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.card table tbody tr {
+  transition: background-color 160ms ease;
+}
+
+.card table tbody tr:hover {
+  background: rgba(240, 253, 244, 0.55);
+}
+
+.dark .card table tbody tr:hover {
+  background: rgba(20, 83, 45, 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

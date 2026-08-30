@@ -96,7 +96,7 @@ function portalShell({ role, title, subtitle, active, content }) {
       ["documents.html", "file-text", "Documents"],
       ["announcements.html", "megaphone", "Announcements"],
       ["profile.html", "user-round", "Profile"],
-      ],    
+    ],
     teacher: [
       ["dashboard.html", "layout-dashboard", "Dashboard"],
       ["students.html", "users", "Students"],
@@ -138,12 +138,16 @@ function portalShell({ role, title, subtitle, active, content }) {
           </div>
         </div>
         <nav class="flex-1 space-y-1 overflow-y-auto p-3">
-          ${(links[role] || []).map(([href, icon, label]) => 
-          `<a href="${href}" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium 
+          ${(links[role] || [])
+            .map(
+              ([href, icon, label]) =>
+                `<a href="${href}" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium
             ${active === label ? "nav-active" : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"}">
             <i data-lucide="${icon}" class="h-4 w-4"></i>${label}
-          </a>`).join("")}
-          <button onclick="showNotifications()" class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm 
+          </a>`,
+            )
+            .join("")}
+          <button onclick="showNotifications()" class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm
             font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
             <i data-lucide="bell" class="h-4 w-4"></i>
               Notifications
@@ -218,7 +222,8 @@ function updateNotif() {
   const n = DG.getData("notifications", []).filter(
     (x) => x.userId === u.id && !x.read,
   ).length;
-  const a = document.getElementById("notifCount"),
+  const a =
+      document.getElementById("notifCount") || document.getElementById("count"),
     b = document.getElementById("topNotif");
   if (a) a.textContent = n;
   b?.classList.toggle("hidden", n === 0);
@@ -235,9 +240,11 @@ function showNotifications() {
   root.replaceChildren();
 
   const backdrop = document.createElement("div");
-  backdrop.className = "modal-backdrop fixed inset-0 z-[90] flex items-center justify-center p-4";
+  backdrop.className =
+    "modal-backdrop fixed inset-0 z-[90] flex items-center justify-center p-4";
   const modal = document.createElement("div");
-  modal.className = "w-full max-w-lg rounded-2xl bg-white p-5 shadow-2xl dark:bg-slate-900";
+  modal.className =
+    "w-full max-w-lg rounded-2xl bg-white p-5 shadow-2xl dark:bg-slate-900";
   const header = document.createElement("div");
   header.className = "flex items-center justify-between";
   const heading = document.createElement("h3");
@@ -284,7 +291,8 @@ function showNotifications() {
 
   const markRead = document.createElement("button");
   markRead.type = "button";
-  markRead.className = "mt-4 w-full rounded-xl bg-green-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-green-700";
+  markRead.className =
+    "mt-4 w-full rounded-xl bg-green-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-green-700";
   markRead.textContent = "Mark all as read";
   markRead.addEventListener("click", markNotificationsRead);
   modal.append(header, list, markRead);
