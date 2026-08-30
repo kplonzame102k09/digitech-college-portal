@@ -194,3 +194,78 @@ textarea::placeholder {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* Parent-compatible shell aliases for the legacy role pages. */
+#side.sidebar,
+.sidebar {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: var(--line);
+  box-shadow: 12px 0 35px rgba(15, 23, 42, 0.035);
+}
+
+.dark #side.sidebar,
+.dark .sidebar {
+  background: rgba(15, 23, 42, 0.98);
+  border-color: #1e293b;
+}
+
+#side.sidebar img,
+.sidebar img {
+  flex: 0 0 auto;
+}
+
+#side.sidebar nav a,
+.sidebar nav a,
+#side.sidebar nav button,
+.sidebar nav button {
+  min-height: 2.75rem;
+  border-radius: 0.75rem;
+}
+
+#side.sidebar nav a:hover,
+.sidebar nav a:hover,
+#side.sidebar nav button:hover,
+.sidebar nav button:hover {
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+.dark #side.sidebar nav a:hover,
+.dark .sidebar nav a:hover,
+.dark #side.sidebar nav button:hover,
+.dark .sidebar nav button:hover {
+  background: #123522;
+  color: #86efac;
+}
+
+main > .max-w-7xl,
+main > .mx-auto.max-w-7xl,
+main > .mx-auto {
+  width: 100%;
+  max-width: 80rem;
+}
+
+main h2 {
+  letter-spacing: -0.025em;
+}
+
+main > div > [class*="mb-7"] p:first-child,
+main > .mx-auto > [class*="mb-7"] p:first-child {
+  letter-spacing: 0.01em;
+}
+
+button,
+a,
+.card,
+.input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 1023px) {
+  #side.sidebar,
+  .sidebar {
+    box-shadow: 20px 0 45px rgba(15, 23, 42, 0.14);
+  }
+}
