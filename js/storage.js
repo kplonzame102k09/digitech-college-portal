@@ -6,6 +6,8 @@ const STORAGE_KEYS = [
   "grades",
   "competencies",
   "notifications",
+  "announcements",
+  "attendance",
   "requirements",
   "settings",
 ];
