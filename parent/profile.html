@@ -1,14 +1,125 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>My Profile | Digitech College</title>
-  <script src="https://cdn.tailwindcss.com"></script><script>tailwind.config={darkMode:'class'}</script><script src="https://unpkg.com/lucide@latest"></script><link rel="stylesheet" href="../css/custom.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { darkMode: 'class' }</script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="../css/custom.css">
 </head>
+
 <body data-parent-page="profile" class="min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
-  <aside id="sidebar" class="sidebar fixed inset-y-0 left-0 z-40 w-64 -translate-x-full border-r border-slate-200 bg-white lg:translate-x-0 dark:border-slate-800 dark:bg-slate-900"><div class="flex h-full flex-col"><div class="flex h-20 items-center gap-3 border-b border-slate-200 px-5 dark:border-slate-800"><div class="flex h-10 w-10 items-center justify-center rounded-xl bg-green-600 shadow"><i data-lucide="graduation-cap" class="h-5 w-5 text-white"></i></div><div><div class="font-extrabold tracking-tight">DIGITECH</div><div class="text-[10px] font-semibold tracking-[.22em] text-slate-400">COLLEGE PORTAL</div></div></div><nav class="flex-1 space-y-1 overflow-y-auto p-3"><a data-nav-page="dashboard" href="dashboard.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium"><i data-lucide="layout-dashboard" class="h-4 w-4"></i>Dashboard</a><a data-nav-page="children" href="children.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium"><i data-lucide="users-round" class="h-4 w-4"></i>My Children</a><a data-nav-page="attendance" href="attendance.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium"><i data-lucide="calendar-check" class="h-4 w-4"></i>Attendance</a><a data-nav-page="grades" href="grades.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium"><i data-lucide="chart-no-axes-combined" class="h-4 w-4"></i>Grades</a><a data-nav-page="documents" href="documents.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium"><i data-lucide="file-text" class="h-4 w-4"></i>Documents</a><a data-nav-page="announcements" href="announcements.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium"><i data-lucide="megaphone" class="h-4 w-4"></i>Announcements</a><a data-nav-page="profile" href="profile.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium"><i data-lucide="user-round" class="h-4 w-4"></i>Profile</a><button type="button" data-notifications class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="bell" class="h-4 w-4"></i>Notifications<span id="notifCount" class="ml-auto rounded-full bg-red-500 px-2 py-0.5 text-[10px] text-white">0</span></button></nav><div class="border-t border-slate-200 p-3 dark:border-slate-800"><button type="button" data-logout class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-50"><i data-lucide="log-out" class="h-4 w-4"></i>Log out</button></div></div></aside>
-  <div class="lg:pl-64"><header class="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90"><div class="flex h-16 items-center justify-between px-4 sm:px-6"><div class="flex items-center gap-3"><button type="button" data-menu-toggle class="rounded-lg p-2"><i data-lucide="menu" class="h-5 w-5"></i></button><div><p class="text-xs text-slate-400">Parent Portal</p><h1 class="font-bold">My Profile</h1></div></div><div class="flex items-center gap-2"><button type="button" data-theme-toggle class="rounded-xl border border-slate-200 p-2.5"><i data-theme-icon data-lucide="moon" class="h-4 w-4"></i></button><button type="button" data-notifications class="relative rounded-xl border border-slate-200 p-2.5"><i data-lucide="bell" class="h-4 w-4"></i><span id="topNotif" class="absolute -right-1 -top-1 hidden h-4 min-w-4 rounded-full bg-red-500 px-1 text-[9px] font-bold text-white"></span></button><div class="ml-1 flex h-9 w-9 items-center justify-center rounded-full bg-green-100 text-sm font-bold text-green-700 dark:bg-green-950 dark:text-green-300" data-parent-initials></div><div class="hidden sm:block"><div class="text-sm font-semibold" data-parent-full-name></div><div class="text-[11px] text-slate-400" data-parent-id></div></div></div></div></header><main class="p-4 sm:p-6 lg:p-8"><div class="mx-auto max-w-7xl"><section class="mb-7"><p class="text-sm font-semibold text-green-600">Account settings</p><h2 class="mt-1 text-3xl font-bold tracking-tight">My Profile</h2><p class="mt-2 text-slate-500 dark:text-slate-400">Keep your parent contact details current for school communications.</p></section><section class="card p-6"><div class="flex flex-col gap-4 border-b border-slate-200 pb-6 sm:flex-row sm:items-center dark:border-slate-800"><div id="profileInitials" class="flex h-16 w-16 items-center justify-center rounded-2xl bg-green-100 text-xl font-bold text-green-700 dark:bg-green-950 dark:text-green-300"></div><div><h3 id="profileName" class="text-xl font-bold"></h3><p id="profileId" class="mt-1 font-mono text-sm text-green-700 dark:text-green-300"></p><p id="profileRelationship" class="mt-1 text-sm text-slate-500"></p></div></div><form id="profileForm" class="mt-6 grid gap-4 md:grid-cols-2"><label class="text-sm font-medium">Email address<input id="profileEmail" readonly class="input mt-1.5 w-full rounded-xl border bg-slate-50 px-3 py-2.5 dark:bg-slate-800"></label><label class="text-sm font-medium">Contact number<input id="profileContact" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"></label><label class="text-sm font-medium">Occupation<input id="profileOccupation" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"></label><label class="text-sm font-medium">Emergency contact<input id="profileEmergencyContact" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"></label><label class="text-sm font-medium md:col-span-2">Address<textarea id="profileAddress" rows="3" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"></textarea></label><div class="flex flex-wrap items-center gap-3 md:col-span-2"><button type="submit" class="rounded-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-green-700">Save changes</button><span class="text-xs text-slate-400">Your parent ID and linked child records are managed by the registrar.</span></div></form></section></div></main></div><div id="modalRoot"></div>
-  <script src="../js/storage.js"></script><script src="../js/data.js"></script><script src="../js/auth.js"></script><script src="../js/app.js"></script><script src="parent.js"></script><script>PARENT.init();</script>
+  <aside id="sidebar"
+    class="sidebar fixed inset-y-0 left-0 z-40 w-64 -translate-x-full border-r border-slate-200 bg-white lg:translate-x-0 dark:border-slate-800 dark:bg-slate-900">
+    <div class="flex h-full flex-col">
+      <div class="flex h-20 items-center gap-3 border-b border-slate-200 px-5 dark:border-slate-800">
+        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-green-600 shadow"><i
+            data-lucide="graduation-cap" class="h-5 w-5 text-white"></i></div>
+        <div>
+          <div class="font-extrabold tracking-tight">DIGITECH</div>
+          <div class="text-[10px] font-semibold tracking-[.22em] text-slate-400">COLLEGE PORTAL</div>
+        </div>
+      </div>
+      <nav class="flex-1 space-y-1 overflow-y-auto p-3"><a data-nav-page="dashboard" href="dashboard.html"
+          class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium"><i data-lucide="layout-dashboard"
+            class="h-4 w-4"></i>Dashboard</a><a data-nav-page="children" href="children.html"
+          class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium"><i data-lucide="users-round"
+            class="h-4 w-4"></i>My Children</a><a data-nav-page="attendance" href="attendance.html"
+          class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium"><i data-lucide="calendar-check"
+            class="h-4 w-4"></i>Attendance</a><a data-nav-page="grades" href="grades.html"
+          class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium"><i
+            data-lucide="chart-no-axes-combined" class="h-4 w-4"></i>Grades</a><a data-nav-page="documents"
+          href="documents.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium"><i
+            data-lucide="file-text" class="h-4 w-4"></i>Documents</a><a data-nav-page="announcements"
+          href="announcements.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium"><i
+            data-lucide="megaphone" class="h-4 w-4"></i>Announcements</a><a data-nav-page="profile" href="profile.html"
+          class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium"><i data-lucide="user-round"
+            class="h-4 w-4"></i>Profile</a><button type="button" data-notifications
+          class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
+            data-lucide="bell" class="h-4 w-4"></i>Notifications<span id="notifCount"
+            class="ml-auto rounded-full bg-red-500 px-2 py-0.5 text-[10px] text-white">0</span></button></nav>
+      <div class="border-t border-slate-200 p-3 dark:border-slate-800"><button type="button" data-logout
+          class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-50"><i
+            data-lucide="log-out" class="h-4 w-4"></i>Log out</button></div>
+    </div>
+  </aside>
+  <div class="lg:pl-64">
+    <header
+      class="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
+      <div class="flex h-16 items-center justify-between px-4 sm:px-6">
+        <div class="flex items-center gap-3"><button type="button" data-menu-toggle class="rounded-lg p-2"><i
+              data-lucide="menu" class="h-5 w-5"></i></button>
+          <div>
+            <p class="text-xs text-slate-400">Parent Portal</p>
+            <h1 class="font-bold">My Profile</h1>
+          </div>
+        </div>
+        <div class="flex items-center gap-2"><button type="button" data-theme-toggle
+            class="rounded-xl border border-slate-200 p-2.5"><i data-theme-icon data-lucide="moon"
+              class="h-4 w-4"></i></button><button type="button" data-notifications
+            class="relative rounded-xl border border-slate-200 p-2.5"><i data-lucide="bell" class="h-4 w-4"></i><span
+              id="topNotif"
+              class="absolute -right-1 -top-1 hidden h-4 min-w-4 rounded-full bg-red-500 px-1 text-[9px] font-bold text-white"></span></button>
+          <div
+            class="ml-1 flex h-9 w-9 items-center justify-center rounded-full bg-green-100 text-sm font-bold text-green-700 dark:bg-green-950 dark:text-green-300"
+            data-parent-initials></div>
+          <div class="hidden sm:block">
+            <div class="text-sm font-semibold" data-parent-full-name></div>
+            <div class="text-[11px] text-slate-400" data-parent-id></div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="p-4 sm:p-6 lg:p-8">
+      <div class="mx-auto max-w-7xl">
+        <section class="mb-7">
+          <p class="text-sm font-semibold text-green-600">Account settings</p>
+          <h2 class="mt-1 text-3xl font-bold tracking-tight">My Profile</h2>
+          <p class="mt-2 text-slate-500 dark:text-slate-400">Keep your parent contact details current for school
+            communications.</p>
+        </section>
+        <section class="card p-6">
+          <div
+            class="flex flex-col gap-4 border-b border-slate-200 pb-6 sm:flex-row sm:items-center dark:border-slate-800">
+            <div id="profileInitials"
+              class="flex h-16 w-16 items-center justify-center rounded-2xl bg-green-100 text-xl font-bold text-green-700 dark:bg-green-950 dark:text-green-300">
+            </div>
+            <div>
+              <h3 id="profileName" class="text-xl font-bold"></h3>
+              <p id="profileId" class="mt-1 font-mono text-sm text-green-700 dark:text-green-300"></p>
+              <p id="profileRelationship" class="mt-1 text-sm text-slate-500"></p>
+            </div>
+          </div>
+          <form id="profileForm" class="mt-6 grid gap-4 md:grid-cols-2"><label class="text-sm font-medium">Email
+              address<input id="profileEmail" readonly
+                class="input mt-1.5 w-full rounded-xl border bg-slate-50 px-3 py-2.5 dark:bg-slate-800"></label><label
+              class="text-sm font-medium">Contact number<input id="profileContact"
+                class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"></label><label
+              class="text-sm font-medium">Occupation<input id="profileOccupation"
+                class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"></label><label
+              class="text-sm font-medium">Emergency contact<input id="profileEmergencyContact"
+                class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"></label><label
+              class="text-sm font-medium md:col-span-2">Address<textarea id="profileAddress" rows="3"
+                class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"></textarea></label>
+            <div class="flex flex-wrap items-center gap-3 md:col-span-2"><button type="submit"
+                class="rounded-xl bg-green-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-green-700">Save
+                changes</button><span class="text-xs text-slate-400">Your parent ID and linked child records are managed
+                by the registrar.</span></div>
+          </form>
+        </section>
+      </div>
+    </main>
+  </div>
+  <div id="modalRoot"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/data.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="parent.js"></script>
+  <script>PARENT.init();</script>
 </body>
+
 </html>
