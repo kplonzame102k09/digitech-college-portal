@@ -72,47 +72,56 @@
         </header>
         <main class="p-4 sm:p-6 lg:p-8">
             <div class="max-w-7xl mx-auto">
-                <div class="mb-7">
-                    <p class="text-sm text-blue-600 font-semibold">Faculty Workspace</p>
-                    <h2 class="text-3xl font-bold">Welcome, <span id="name"></span></h2>
-                    <p class="text-slate-500 mt-2">
-                        Manage assigned learners and academic records.
-                    </p>
-                </div>
-                <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
-                    <div class="card p-5">
-                        <i data-lucide="users" class="text-blue-600"></i>
-                        <p class="text-sm text-slate-500 mt-4">Assigned Students</p>
-                        <b id="students" class="text-2xl">0</b>
-                    </div>
-                    <div class="card p-5">
-                        <i data-lucide="file-pen-line" class="text-amber-600"></i>
-                        <p class="text-sm text-slate-500 mt-4">Pending Grades</p>
-                        <b id="pending" class="text-2xl">0</b>
-                    </div>
-                    <div class="card p-5">
-                        <i data-lucide="award" class="text-purple-600"></i>
-                        <p class="text-sm text-slate-500 mt-4">Competency Assessments</p>
-                        <b id="comps" class="text-2xl">0</b>
-                    </div>
-                    <div class="card p-5">
-                        <i data-lucide="bell" class="text-green-600"></i>
-                        <p class="text-sm text-slate-500 mt-4">Notifications</p>
-                        <b id="notifs" class="text-2xl">0</b>
-                    </div>
-                </div>
-                <div class="card p-6 mt-6">
-                    <div class="flex justify-between">
-                        <div>
-                            <h3 class="font-bold">Assigned Students</h3>
-                            <p class="text-xs text-slate-400">
-                                Students with records connected to your teaching area.
-                            </p>
+                <section class="relative mb-7 overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 p-6 text-white shadow-xl sm:p-8">
+                    <div class="relative z-10 max-w-2xl">
+                        <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-emerald-200">
+                            <span class="h-2 w-2 rounded-full bg-emerald-400"></span> Faculty Workspace
                         </div>
-                        <a href="students.html" class="text-sm font-semibold text-green-700">View all</a>
+                        <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Welcome, <span id="name"></span></h2>
+                        <p class="mt-3 max-w-xl text-sm leading-6 text-slate-300 sm:text-base">
+                            Keep your assigned learners moving forward with one clear view of academic records, assessments, and follow-up work.
+                        </p>
+                        <p class="mt-5 text-xs text-slate-400">Live assignment overview · Connected to shared portal records</p>
                     </div>
-                    <div id="list" class="mt-5 grid md:grid-cols-2 gap-3"></div>
-                </div>
+                    <div class="pointer-events-none absolute -right-12 -top-16 h-56 w-56 rounded-full border-[24px] border-emerald-400/10"></div>
+                    <div class="pointer-events-none absolute -bottom-24 right-24 h-44 w-44 rounded-full bg-emerald-400/10 blur-3xl"></div>
+                </section>
+                <section class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                    <div class="card group border-l-4 border-l-blue-500 p-5 transition hover:-translate-y-0.5 hover:shadow-lg">
+                        <div class="flex items-start justify-between"><span class="rounded-xl bg-blue-50 p-2.5 text-blue-600 dark:bg-blue-950"><i data-lucide="users" class="h-5 w-5"></i></span><i data-lucide="arrow-up-right" class="h-4 w-4 text-slate-300 transition group-hover:text-blue-500"></i></div>
+                        <p class="mt-5 text-sm text-slate-500">Assigned Students</p><b id="students" class="mt-1 block text-3xl tracking-tight">0</b><p class="mt-2 text-xs text-slate-400">View learner profiles</p>
+                    </div>
+                    <div class="card group border-l-4 border-l-amber-500 p-5 transition hover:-translate-y-0.5 hover:shadow-lg">
+                        <div class="flex items-start justify-between"><span class="rounded-xl bg-amber-50 p-2.5 text-amber-600 dark:bg-amber-950"><i data-lucide="file-pen-line" class="h-5 w-5"></i></span><i data-lucide="arrow-up-right" class="h-4 w-4 text-slate-300 transition group-hover:text-amber-500"></i></div>
+                        <p class="mt-5 text-sm text-slate-500">Pending Grades</p><b id="pending" class="mt-1 block text-3xl tracking-tight">0</b><p class="mt-2 text-xs text-slate-400">Review academic records</p>
+                    </div>
+                    <div class="card group border-l-4 border-l-purple-500 p-5 transition hover:-translate-y-0.5 hover:shadow-lg">
+                        <div class="flex items-start justify-between"><span class="rounded-xl bg-purple-50 p-2.5 text-purple-600 dark:bg-purple-950"><i data-lucide="award" class="h-5 w-5"></i></span><i data-lucide="arrow-up-right" class="h-4 w-4 text-slate-300 transition group-hover:text-purple-500"></i></div>
+                        <p class="mt-5 text-sm text-slate-500">Competency Assessments</p><b id="comps" class="mt-1 block text-3xl tracking-tight">0</b><p class="mt-2 text-xs text-slate-400">Track learner progress</p>
+                    </div>
+                    <button type="button" onclick="APP.showNotifications()" class="card group border-l-4 border-l-emerald-500 p-5 text-left transition hover:-translate-y-0.5 hover:shadow-lg">
+                        <div class="flex items-start justify-between"><span class="rounded-xl bg-emerald-50 p-2.5 text-emerald-600 dark:bg-emerald-950"><i data-lucide="bell" class="h-5 w-5"></i></span><i data-lucide="arrow-up-right" class="h-4 w-4 text-slate-300 transition group-hover:text-emerald-500"></i></div>
+                        <p class="mt-5 text-sm text-slate-500">Notifications</p><b id="notifs" class="mt-1 block text-3xl tracking-tight">0</b><p class="mt-2 text-xs text-slate-400">View recent updates</p>
+                    </button>
+                </section>
+                <section class="mt-6 grid gap-6 lg:grid-cols-[1.5fr_1fr]">
+                    <div class="card p-6">
+                        <div class="flex flex-wrap items-start justify-between gap-4">
+                            <div><div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-emerald-500"></span><h3 class="font-bold">Assigned Students</h3></div><p class="mt-1 text-xs text-slate-400">Learners connected to your teaching area.</p></div>
+                            <a href="students.html" class="rounded-xl bg-slate-100 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-emerald-50 hover:text-emerald-700 dark:bg-slate-800 dark:text-slate-200">View all</a>
+                        </div>
+                        <div id="list" class="mt-5 grid gap-3 md:grid-cols-2"></div>
+                    </div>
+                    <div class="card p-6">
+                        <div class="flex items-center gap-2"><span class="rounded-xl bg-emerald-50 p-2 text-emerald-600 dark:bg-emerald-950"><i data-lucide="zap" class="h-4 w-4"></i></span><h3 class="font-bold">Quick actions</h3></div>
+                        <p class="mt-1 text-xs text-slate-400">Jump directly into today’s work.</p>
+                        <div class="mt-5 space-y-2">
+                            <a href="grades.html" class="flex items-center justify-between rounded-xl border border-slate-200 p-3 text-sm font-semibold transition hover:border-amber-300 hover:bg-amber-50 dark:border-slate-700 dark:hover:bg-slate-800"><span class="flex items-center gap-3"><i data-lucide="file-pen-line" class="h-4 w-4 text-amber-600"></i>Review grades</span><i data-lucide="chevron-right" class="h-4 w-4 text-slate-400"></i></a>
+                            <a href="competencies.html" class="flex items-center justify-between rounded-xl border border-slate-200 p-3 text-sm font-semibold transition hover:border-purple-300 hover:bg-purple-50 dark:border-slate-700 dark:hover:bg-slate-800"><span class="flex items-center gap-3"><i data-lucide="award" class="h-4 w-4 text-purple-600"></i>Update assessments</span><i data-lucide="chevron-right" class="h-4 w-4 text-slate-400"></i></a>
+                            <button type="button" onclick="APP.showNotifications()" class="flex w-full items-center justify-between rounded-xl border border-slate-200 p-3 text-left text-sm font-semibold transition hover:border-emerald-300 hover:bg-emerald-50 dark:border-slate-700 dark:hover:bg-slate-800"><span class="flex items-center gap-3"><i data-lucide="bell" class="h-4 w-4 text-emerald-600"></i>Open notifications</span><i data-lucide="chevron-right" class="h-4 w-4 text-slate-400"></i></button>
+                        </div>
+                    </div>
+                </section>
             </div>
         </main>
     </div>
