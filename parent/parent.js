@@ -1,6 +1,7 @@
 (function () {
   const $ = (selector, root = document) => root.querySelector(selector);
-  const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+  const $$ = (selector, root = document) =>
+    Array.from(root.querySelectorAll(selector));
   const text = (selector, value, root = document) => {
     const element = typeof selector === "string" ? $(selector, root) : selector;
     if (element) element.textContent = value ?? "";
@@ -40,12 +41,17 @@
     if (!element) return;
     const status = value || "Not Started";
     const classes = statusClasses[status] || statusClasses["Not Started"];
-    element.className = "inline-flex rounded-full px-2.5 py-1 text-xs font-semibold " + classes.join(" ");
+    element.className =
+      "inline-flex rounded-full px-2.5 py-1 text-xs font-semibold " +
+      classes.join(" ");
     element.textContent = status;
   }
 
   function initials(user) {
-    return `${user?.firstName?.[0] || ""}${user?.lastName?.[0] || ""}`.toUpperCase() || "DG";
+    return (
+      `${user?.firstName?.[0] || ""}${user?.lastName?.[0] || ""}`.toUpperCase() ||
+      "DG"
+    );
   }
 
   function currentParent() {
@@ -64,35 +70,56 @@
       ...(Array.isArray(parent.children) ? parent.children : []),
     ]
       .filter(Boolean)
-      .map((value) => (typeof value === "object" ? value.id || value.studentId : value));
+      .map((value) =>
+        typeof value === "object" ? value.id || value.studentId : value,
+      );
     const students = allStudents();
     const byId = students.filter((student) => ids.includes(student.id));
     if (byId.length) return byId;
-    const parentName = `${parent.firstName || ""} ${parent.lastName || ""}`.trim().toLowerCase();
+    const parentName = `${parent.firstName || ""} ${parent.lastName || ""}`
+      .trim()
+      .toLowerCase();
     return parentName
-      ? students.filter((student) => (student.guardianName || "").trim().toLowerCase() === parentName)
+      ? students.filter(
+          (student) =>
+            (student.guardianName || "").trim().toLowerCase() === parentName,
+        )
       : [];
   }
 
   function recordsForChildren(key, children) {
     const ids = new Set(children.map((child) => child.id));
-    return DG.getData(key, []).filter((record) => ids.has(record.studentId || record.childId));
+    return DG.getData(key, []).filter((record) =>
+      ids.has(record.studentId || record.childId),
+    );
   }
 
   function studentName(student) {
-    return `${student.firstName || ""} ${student.lastName || ""}`.trim() || student.id;
+    return (
+      `${student.firstName || ""} ${student.lastName || ""}`.trim() ||
+      student.id
+    );
   }
 
   function enrollmentFor(studentId) {
-    return DG.getData("enrollments", []).find((record) => record.studentId === studentId);
+    return DG.getData("enrollments", []).find(
+      (record) => record.studentId === studentId,
+    );
   }
 
   function averageGrade(studentId) {
     const grades = DG.getData("grades", []).filter(
-      (grade) => grade.studentId === studentId && grade.grade !== null && grade.grade !== "" && !Number.isNaN(Number(grade.grade)),
+      (grade) =>
+        grade.studentId === studentId &&
+        grade.grade !== null &&
+        grade.grade !== "" &&
+        !Number.isNaN(Number(grade.grade)),
     );
     if (!grades.length) return null;
-    return grades.reduce((sum, grade) => sum + Number(grade.grade), 0) / grades.length;
+    return (
+      grades.reduce((sum, grade) => sum + Number(grade.grade), 0) /
+      grades.length
+    );
   }
 
   function setVisibility(element, visible) {
@@ -100,11 +127,14 @@
   }
 
   function setupShell(parent) {
-    text("[data-parent-full-name]", `${parent.firstName || ""} ${parent.lastName || ""}`.trim());
+    text(
+      "[data-parent-full-name]",
+      `${parent.firstName || ""} ${parent.lastName || ""}`.trim(),
+    );
     text("[data-parent-id]", parent.id);
     text("[data-welcome-name]", parent.firstName || "Parent");
 
-    $$('[data-nav-page]').forEach((link) => {
+    $$("[data-nav-page]").forEach((link) => {
       const active = link.dataset.navPage === page();
       link.classList.toggle("nav-active", active);
       link.classList.toggle("text-slate-600", !active);
@@ -113,11 +143,19 @@
       else link.removeAttribute("aria-current");
     });
 
-    $("[data-menu-toggle]")?.addEventListener("click", () => $("#sidebar")?.classList.toggle("-translate-x-full"));
-    $$('[data-notifications]').forEach((button) => button.addEventListener("click", () => APP.showNotifications()));
-    $$('[data-logout]').forEach((button) => button.addEventListener("click", () => AUTH.logout()));
-    $$('[data-theme-toggle]').forEach((button) => button.addEventListener("click", () => APP.toggleTheme()));
-    $$('[data-profile-photo]').forEach((image) => {
+    $("[data-menu-toggle]")?.addEventListener("click", () =>
+      $("#sidebar")?.classList.toggle("-translate-x-full"),
+    );
+    $$("[data-notifications]").forEach((button) =>
+      button.addEventListener("click", () => APP.showNotifications()),
+    );
+    $$("[data-logout]").forEach((button) =>
+      button.addEventListener("click", () => AUTH.logout()),
+    );
+    $$("[data-theme-toggle]").forEach((button) =>
+      button.addEventListener("click", () => APP.toggleTheme()),
+    );
+    $$("[data-profile-photo]").forEach((image) => {
       image.src = DG.getProfilePhoto(parent);
       image.alt = `${parent.firstName || ""} ${parent.lastName || ""}`.trim();
     });
@@ -132,13 +170,26 @@
     text("[data-child-initials]", initials(student), card);
     text("[data-child-name]", studentName(student), card);
     text("[data-child-id]", student.id, card);
-    text("[data-child-strand]", student.strand || enrollment?.strand || "Not specified", card);
-    text("[data-child-average]", average === null ? "No grades yet" : average.toFixed(2), card);
-    statusBadge($("[data-child-status]", card), enrollment?.status || "Not Started");
+    text(
+      "[data-child-strand]",
+      student.strand || enrollment?.strand || "Not specified",
+      card,
+    );
+    text(
+      "[data-child-average]",
+      average === null ? "No grades yet" : average.toFixed(2),
+      card,
+    );
+    statusBadge(
+      $("[data-child-status]", card),
+      enrollment?.status || "Not Started",
+    );
     const gradesLink = $("[data-grade-link]", card);
     const attendanceLink = $("[data-attendance-link]", card);
-    if (gradesLink) gradesLink.href = `grades.html?student=${encodeURIComponent(student.id)}`;
-    if (attendanceLink) attendanceLink.href = `attendance.html?student=${encodeURIComponent(student.id)}`;
+    if (gradesLink)
+      gradesLink.href = `grades.html?student=${encodeURIComponent(student.id)}`;
+    if (attendanceLink)
+      attendanceLink.href = `attendance.html?student=${encodeURIComponent(student.id)}`;
   }
 
   function appendChildCards(container, children) {
@@ -156,18 +207,37 @@
     const notices = DG.getData("notifications", [])
       .filter((item) => item.userId === parent.id)
       .sort((a, b) => new Date(b.date) - new Date(a.date));
-    const grades = recordsForChildren("grades", children).filter((item) => item.grade !== null && item.grade !== "");
+    const grades = recordsForChildren("grades", children).filter(
+      (item) => item.grade !== null && item.grade !== "",
+    );
     const average = grades.length
-      ? (grades.reduce((sum, item) => sum + Number(item.grade), 0) / grades.length).toFixed(2)
+      ? (
+          grades.reduce((sum, item) => sum + Number(item.grade), 0) /
+          grades.length
+        ).toFixed(2)
       : "—";
-    const activeEnrollments = children.filter((child) => ["Submitted", "Under Review", "Approved", "Enrolled"].includes(enrollmentFor(child.id)?.status)).length;
+    const activeEnrollments = children.filter((child) =>
+      ["Submitted", "Under Review", "Approved", "Enrolled"].includes(
+        enrollmentFor(child.id)?.status,
+      ),
+    ).length;
 
     text("#linkedChildrenCount", children.length);
     text("#activeEnrollmentsCount", activeEnrollments);
     text("#gradeAverage", average);
     text("#unreadUpdates", notices.filter((item) => !item.read).length);
-    text("#gradeAverageDetail", grades.length ? `${grades.length} graded subject${grades.length === 1 ? "" : "s"}` : "No published grades yet");
-    text("#unreadUpdatesDetail", notices.some((item) => !item.read) ? "Needs your attention" : "You are all caught up");
+    text(
+      "#gradeAverageDetail",
+      grades.length
+        ? `${grades.length} graded subject${grades.length === 1 ? "" : "s"}`
+        : "No published grades yet",
+    );
+    text(
+      "#unreadUpdatesDetail",
+      notices.some((item) => !item.read)
+        ? "Needs your attention"
+        : "You are all caught up",
+    );
 
     const childrenOverview = $("#childrenOverview");
     if (children.length) {
@@ -186,7 +256,11 @@
       if (update) {
         text("[data-update-title]", item.title || "Portal update", update);
         text("[data-update-date]", formatDate(item.date), update);
-        text("[data-update-message]", item.message || "No additional details.", update);
+        text(
+          "[data-update-message]",
+          item.message || "No additional details.",
+          update,
+        );
         updates.append(update);
       }
     });
@@ -221,7 +295,8 @@
       if (!filter) return;
       const link = $("[data-filter-link]", filter);
       text("[data-filter-label]", studentName(child), filter);
-      if (link) link.href = `${target}.html?student=${encodeURIComponent(child.id)}`;
+      if (link)
+        link.href = `${target}.html?student=${encodeURIComponent(child.id)}`;
       const active = selected === child.id;
       link?.classList.toggle("bg-green-600", active);
       link?.classList.toggle("text-white", active);
@@ -231,12 +306,35 @@
 
   function renderAttendance(children) {
     const selected = new URLSearchParams(location.search).get("student");
-    const visibleChildren = selected ? children.filter((child) => child.id === selected) : children;
-    const attendance = recordsForChildren("attendance", visibleChildren).sort((a, b) => new Date(b.date) - new Date(a.date));
-    renderStudentFilter($("#attendanceFilters"), children, selected, "attendance");
-    text("#presentCount", attendance.filter((item) => String(item.status).toLowerCase() === "present").length);
-    text("#lateCount", attendance.filter((item) => String(item.status).toLowerCase() === "late").length);
-    text("#absentCount", attendance.filter((item) => String(item.status).toLowerCase() === "absent").length);
+    const visibleChildren = selected
+      ? children.filter((child) => child.id === selected)
+      : children;
+    const attendance = recordsForChildren("attendance", visibleChildren).sort(
+      (a, b) => new Date(b.date) - new Date(a.date),
+    );
+    renderStudentFilter(
+      $("#attendanceFilters"),
+      children,
+      selected,
+      "attendance",
+    );
+    text(
+      "#presentCount",
+      attendance.filter(
+        (item) => String(item.status).toLowerCase() === "present",
+      ).length,
+    );
+    text(
+      "#lateCount",
+      attendance.filter((item) => String(item.status).toLowerCase() === "late")
+        .length,
+    );
+    text(
+      "#absentCount",
+      attendance.filter(
+        (item) => String(item.status).toLowerCase() === "absent",
+      ).length,
+    );
 
     const table = $("#attendanceTable");
     const rows = $("#attendanceRows");
@@ -246,9 +344,20 @@
       if (!row) return;
       const student = children.find((child) => child.id === item.studentId);
       text("[data-attendance-date]", formatDate(item.date), row);
-      text("[data-attendance-student]", student ? studentName(student) : item.studentId || "—", row);
-      text("[data-attendance-subject]", item.subject || item.session || "—", row);
-      statusBadge($("[data-attendance-status]", row), item.status || "Not recorded");
+      text(
+        "[data-attendance-student]",
+        student ? studentName(student) : item.studentId || "—",
+        row,
+      );
+      text(
+        "[data-attendance-subject]",
+        item.subject || item.session || "—",
+        row,
+      );
+      statusBadge(
+        $("[data-attendance-status]", row),
+        item.status || "Not recorded",
+      );
       text("[data-attendance-remarks]", item.remarks || item.note || "—", row);
       rows.append(row);
     });
@@ -258,9 +367,16 @@
 
   function renderGrades(children) {
     const selected = new URLSearchParams(location.search).get("student");
-    const visibleChildren = selected ? children.filter((child) => child.id === selected) : children;
+    const visibleChildren = selected
+      ? children.filter((child) => child.id === selected)
+      : children;
     const groups = visibleChildren
-      .map((student) => ({ student, grades: DG.getData("grades", []).filter((grade) => grade.studentId === student.id) }))
+      .map((student) => ({
+        student,
+        grades: DG.getData("grades", []).filter(
+          (grade) => grade.studentId === student.id,
+        ),
+      }))
       .filter((group) => group.grades.length);
     renderStudentFilter($("#gradesFilters"), children, selected, "grades");
     const container = $("#gradesSections");
@@ -268,19 +384,41 @@
     groups.forEach(({ student, grades }) => {
       const group = cloneTemplate("gradeGroupTemplate");
       if (!group) return;
-      const published = grades.filter((grade) => grade.grade !== null && grade.grade !== "");
-      const average = published.length ? (published.reduce((sum, grade) => sum + Number(grade.grade), 0) / published.length).toFixed(2) : "—";
+      const published = grades.filter(
+        (grade) => grade.grade !== null && grade.grade !== "",
+      );
+      const average = published.length
+        ? (
+            published.reduce((sum, grade) => sum + Number(grade.grade), 0) /
+            published.length
+          ).toFixed(2)
+        : "—";
       text("[data-grade-student]", studentName(student), group);
-      text("[data-grade-student-id]", `${student.id}${student.strand ? ` · ${student.strand}` : ""}`, group);
+      text(
+        "[data-grade-student-id]",
+        `${student.id}${student.strand ? ` · ${student.strand}` : ""}`,
+        group,
+      );
       text("[data-published-average]", average, group);
       const rows = $("[data-grade-rows]", group);
       grades.forEach((grade) => {
         const row = cloneTemplate("gradeRowTemplate");
         if (!row) return;
         text("[data-grade-subject]", grade.subject || grade.course || "—", row);
-        text("[data-grade-term]", grade.term || grade.period || "Current term", row);
-        text("[data-grade-value]", grade.grade === null || grade.grade === "" ? "Not released" : Number(grade.grade).toFixed(2), row);
-        if (grade.remarks) statusBadge($("[data-grade-remarks]", row), grade.remarks);
+        text(
+          "[data-grade-term]",
+          grade.term || grade.period || "Current term",
+          row,
+        );
+        text(
+          "[data-grade-value]",
+          grade.grade === null || grade.grade === ""
+            ? "Not released"
+            : Number(grade.grade).toFixed(2),
+          row,
+        );
+        if (grade.remarks)
+          statusBadge($("[data-grade-remarks]", row), grade.remarks);
         else text("[data-grade-remarks]", "—", row);
         rows.append(row);
       });
@@ -291,11 +429,28 @@
   }
 
   function renderDocuments(children) {
-    const requests = recordsForChildren("documentRequests", children).sort((a, b) => new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date));
+    const requests = recordsForChildren("documentRequests", children).sort(
+      (a, b) =>
+        new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date),
+    );
     const requirements = recordsForChildren("requirements", children);
     const rows = [
-      ...requests.map((item) => ({ ...item, source: "Document request", name: item.documentType || item.document || item.title || "Requested document", when: item.createdAt || item.date })),
-      ...requirements.map((item) => ({ ...item, source: "Requirement", name: item.name || item.title || item.type || "Requirement", when: item.updatedAt || item.date })),
+      ...requests.map((item) => ({
+        ...item,
+        source: "Document request",
+        name:
+          item.documentType ||
+          item.document ||
+          item.title ||
+          "Requested document",
+        when: item.createdAt || item.date,
+      })),
+      ...requirements.map((item) => ({
+        ...item,
+        source: "Requirement",
+        name: item.name || item.title || item.type || "Requirement",
+        when: item.updatedAt || item.date,
+      })),
     ];
     const table = $("#documentsTable");
     const body = $("#documentRows");
@@ -305,7 +460,11 @@
       if (!row) return;
       const student = children.find((child) => child.id === item.studentId);
       text("[data-document-name]", item.name, row);
-      text("[data-document-student]", student ? studentName(student) : item.studentId || "—", row);
+      text(
+        "[data-document-student]",
+        student ? studentName(student) : item.studentId || "—",
+        row,
+      );
       text("[data-document-source]", item.source, row);
       statusBadge($("[data-document-status]", row), item.status || "Pending");
       text("[data-document-date]", formatDate(item.when), row);
@@ -316,19 +475,39 @@
   }
 
   function renderAnnouncements(parent) {
-    const announcements = DG.getData("announcements", []).sort((a, b) => new Date(b.date || b.createdAt) - new Date(a.date || a.createdAt));
-    const notifications = DG.getData("notifications", []).filter((item) => item.userId === parent.id).sort((a, b) => new Date(b.date) - new Date(a.date));
+    const announcements = DG.getData("announcements", []).sort(
+      (a, b) =>
+        new Date(b.date || b.createdAt) - new Date(a.date || a.createdAt),
+    );
+    const notifications = DG.getData("notifications", [])
+      .filter((item) => item.userId === parent.id)
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
     const items = announcements.length ? announcements : notifications;
     const container = $("#announcementList");
     container?.replaceChildren();
     items.forEach((item) => {
       const announcement = cloneTemplate("announcementTemplate");
       if (!announcement) return;
-      text("[data-announcement-title]", item.title || "College announcement", announcement);
-      text("[data-announcement-date]", formatDate(item.date || item.createdAt), announcement);
-      text("[data-announcement-message]", item.message || item.body || item.content || "No additional details.", announcement);
+      text(
+        "[data-announcement-title]",
+        item.title || "College announcement",
+        announcement,
+      );
+      text(
+        "[data-announcement-date]",
+        formatDate(item.date || item.createdAt),
+        announcement,
+      );
+      text(
+        "[data-announcement-message]",
+        item.message || item.body || item.content || "No additional details.",
+        announcement,
+      );
       text("[data-announcement-category]", item.category || "", announcement);
-      setVisibility($("[data-announcement-category]", announcement), Boolean(item.category));
+      setVisibility(
+        $("[data-announcement-category]", announcement),
+        Boolean(item.category),
+      );
       container.append(announcement);
     });
     setVisibility(container, items.length > 0);
@@ -336,9 +515,15 @@
   }
 
   function renderProfile(parent) {
-    text("#profileName", `${parent.firstName || ""} ${parent.lastName || ""}`.trim());
+    text(
+      "#profileName",
+      `${parent.firstName || ""} ${parent.lastName || ""}`.trim(),
+    );
     text("#profileId", parent.id);
-    text("#profileRelationship", `Parent / ${parent.relationship || "Guardian"}`);
+    text(
+      "#profileRelationship",
+      `Parent / ${parent.relationship || "Guardian"}`,
+    );
     const email = $("#profileEmail");
     const contact = $("#profileContact");
     const occupation = $("#profileOccupation");
@@ -349,7 +534,9 @@
     if (occupation) occupation.value = parent.occupation || "";
     if (emergency) emergency.value = parent.emergencyContact || "";
     if (address) address.value = parent.address || "";
-    $("#profileForm")?.addEventListener("submit", (event) => saveProfile(event, parent));
+    $("#profileForm")?.addEventListener("submit", (event) =>
+      saveProfile(event, parent),
+    );
   }
 
   function saveProfile(event, parent) {
