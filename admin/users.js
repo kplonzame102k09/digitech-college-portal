@@ -42,7 +42,7 @@
     );
   };
   const setText = (selector, value, root = document) => {
-    const element = $(selector, root);
+    const element = typeof selector === "string" ? $(selector, root) : selector;
     if (element) element.textContent = value ?? "";
   };
   const roleLabel = (role) =>
@@ -129,7 +129,23 @@
         else selected.delete(user.id);
         render();
       });
-      setText("[data-user-initials]", initials(user), row);
+      const initialsElement = $("[data-user-initials]", row);
+      const photo = $("[data-user-photo]", row);
+      setText(initialsElement, initials(user));
+      if (photo) {
+        photo.src = user.photo || "../assets/images/16432.png";
+        photo.alt = `${fullName(user)} profile photo`;
+        initialsElement?.classList.add("hidden");
+        photo.addEventListener("error", () => {
+          if (photo.dataset.fallbackApplied !== "true") {
+            photo.dataset.fallbackApplied = "true";
+            photo.src = "../assets/images/16432.png";
+            return;
+          }
+          photo.classList.add("hidden");
+          initialsElement?.classList.remove("hidden");
+        });
+      }
       setText("[data-user-name]", fullName(user), row);
       setText(
         "[data-user-username]",
