@@ -35,7 +35,7 @@ function userIdExists(id) {
     return getData("users", []).some((u) => u.id === id);
 }
 function generateUserId(role) {
-    const prefixes = { student: "STU", teacher: "TCH", admin: "ADM" };
+    const prefixes = { student: "STU", parent: "PRT", teacher: "TCH", admin: "ADM" };
     let id;
     do {
         id = `${prefixes[role]}-${new Date().getFullYear()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;

@@ -97,7 +97,7 @@
                                 <i data-lucide="camera" class="w-4 h-4"></i>
                             </label>
 
-                            <input id="photo" name="photo" type="file" accept="image/*" class="hidden">
+                            <input id="photo" name="photo" type="file" accept="image/*" class="hidden" required>
                         </div>
 
                         <div class="text-center sm:text-left">
@@ -149,6 +149,7 @@
                                 <option value="student">Student</option>
                                 <option value="teacher">Teacher</option>
                                 <option value="admin">Admin</option>
+                                <option value="parent">Parent</option>
                             </select>
                         </label>
                     </div>
@@ -187,6 +188,61 @@
                         </label>
                     </div>
                 </section>
+                <!-- Parent Information -->
+                                    <!-- Parent Information -->
+                <section id="parent" class="hidden">
+                    <div class="flex items-center gap-3 mb-5">
+                        <span class="w-9 h-9 rounded-lg bg-emerald-50 flex items-center justify-center">
+                            <i data-lucide="users" class="w-4 text-emerald-600"></i>
+                        </span>
+                        <div>
+                            <h2 class="font-bold">Parent Information</h2>
+                            <p class="text-xs text-slate-400">Additional information for parent or guardian accounts.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <label class="text-sm font-medium">
+                            Relationship
+                            <select name="relationship" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
+                                <option value="Father">Father</option>
+                                <option value="Mother">Mother</option>
+                                <option value="Guardian">Guardian</option>
+                            </select>
+                        </label>
+
+                        <label class="text-sm font-medium">
+                            Child / Student ID *
+                            <input name="childId" placeholder="STU-2026-XXXXXX"
+                                class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
+                        </label>
+
+                        <label class="text-sm font-medium">
+                            Occupation
+                            <input name="occupation" placeholder="Occupation"
+                                class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
+                        </label>
+
+                        <label class="md:col-span-3 text-sm font-medium">
+                            Address
+                            <input name="address" placeholder="Complete address"
+                                class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
+                        </label>
+
+                        <label class="text-sm font-medium">
+                            Emergency Contact
+                            <input name="emergencyContact" placeholder="Contact number"
+                                class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
+                        </label>
+
+                        <label class="md:col-span-2 text-sm font-medium">
+                            Email Address
+                            <input name="parentEmail" type="email" placeholder="Parent email address"
+                                class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
+                        </label>
+                    </div>
+                </section>
+
                 <!-- Staff Information -->
                 <section id="staff" class="hidden">
                     <div class="flex items-center gap-3 mb-5">
@@ -236,11 +292,10 @@
         </p>
     </div>
     <div id="modal"></div>
-
 <script src="js/storage.js"></script>
 <script src="js/data.js"></script>
 <script src="js/auth.js"></script>
-
+<script src="js/app.js"></script>
 <script>
     lucide.createIcons();
     photo.onchange = e => {
@@ -268,17 +323,40 @@
 
         reader.readAsDataURL(file);
     };
+const role = document.getElementById('role');
+const student = document.getElementById('student');
+const parent = document.getElementById('parent');
+const staff = document.getElementById('staff');
+const rpWrap = document.getElementById('rpWrap');
+const rp = document.getElementById('rp');
+const rpLabel = document.getElementById('rpLabel');
     function sync() {
-        let r = role.value;
+        const r = role.value;
+
         student.classList.toggle('hidden', r !== 'student');
-        staff.classList.toggle('hidden', r === 'student');
-        rpWrap.classList.toggle('hidden', r === 'student');
-        rp.required = r !== 'student';
-        rpLabel.textContent = r === 'admin' ? 'Admin Role Password' : 'Teacher Role Password';
+        parent.classList.toggle('hidden', r !== 'parent');
+        staff.classList.toggle('hidden', r === 'student' || r === 'parent');
+
+        rpWrap.classList.toggle('hidden', r === 'student' || r === 'parent');
+        rp.required = r === 'teacher' || r === 'admin';
+
+        rpLabel.textContent =
+            r === 'admin' ? 'Admin Role Password' : 'Teacher Role Password';
     }
 
     role.onchange = sync;
     sync();
+    // function sync() {
+    //     let r = role.value;
+    //     student.classList.toggle('hidden', r !== 'student');
+    //     staff.classList.toggle('hidden', r === 'student');
+    //     rpWrap.classList.toggle('hidden', r === 'student');
+    //     rp.required = r !== 'student';
+    //     rpLabel.textContent = r === 'admin' ? 'Admin Role Password' : 'Teacher Role Password';
+    // }
+
+    // role.onchange = sync;
+    // sync();
 
     form.onsubmit = e => {
         e.preventDefault();
@@ -289,15 +367,14 @@
         if (o.password !== o.confirm)
             return show('Passwords do not match.');
 
-        if (users.some(u => u.email.toLowerCase() === o.email.toLowerCase()))
+        if (users.some(u => u.email?.toLowerCase() === o.email?.toLowerCase()))
             return show('Email is already registered.');
 
         if (users.some(u => u.username?.toLowerCase() === o.username.toLowerCase()))
             return show('Username is already registered.');
 
-        if (o.role !== 'student' && rp.value !== AUTH.ROLE_PASSWORDS[o.role])
+        if (o.role !== 'student' && o.role !== 'parent' && rp.value !== AUTH.ROLE_PASSWORDS[o.role])
             return show('Invalid role password.');
-
         let u = {
             id: DG.generateUserId(o.role),
             role: o.role,
@@ -312,21 +389,29 @@
             photo: photoPreview.src,
         };
 
-        if (o.role === 'student')
+        if (o.role === 'student') {
             Object.assign(u, {
                 birthDate: o.birthDate,
                 address: o.address,
                 guardianName: o.guardianName,
                 guardianContact: o.guardianContact,
                 strand: o.strand
+            }); 
+
+        } else if (o.role === 'parent') {
+            Object.assign(u, {
+                address: o.address,
+                occupation: o.occupation,
+                childId: o.childId,
+                relationship: o.relationship
             });
-        else
+        } else 
             Object.assign(u, {
                 employeeId: o.employeeId,
                 department: o.department,
                 specialization: o.specialization
             });
-
+    
         users.push(u);
         DG.saveData('users', users);
 

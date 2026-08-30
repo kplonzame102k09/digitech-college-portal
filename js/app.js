@@ -88,6 +88,15 @@ function portalShell({ role, title, subtitle, active, content }) {
       ["competencies.html", "award", "Competencies"],
       ["profile.html", "user-round", "Profile"],
     ],
+    parent: [
+      ["dashboard.html", "layout-dashboard", "Dashboard"],
+      ["children.html", "users-round", "My Children"],
+      ["attendance.html", "calendar-check", "Attendance"],
+      ["grades.html", "chart-no-axes-combined", "Grades"],
+      ["documents.html", "file-text", "Documents"],
+      ["announcements.html", "megaphone", "Announcements"],
+      ["profile.html", "user-round", "Profile"],
+      ],    
     teacher: [
       ["dashboard.html", "layout-dashboard", "Dashboard"],
       ["students.html", "users", "Students"],
@@ -105,8 +114,7 @@ function portalShell({ role, title, subtitle, active, content }) {
       ["settings.html", "settings", "Settings"],
     ],
   };
-  return 
-  `<!doctype html>
+  return `<!doctype html>
   <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -130,7 +138,7 @@ function portalShell({ role, title, subtitle, active, content }) {
           </div>
         </div>
         <nav class="flex-1 space-y-1 overflow-y-auto p-3">
-          ${links[role].map(([href, icon, label]) => 
+          ${(links[role] || []).map(([href, icon, label]) => 
           `<a href="${href}" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium 
             ${active === label ? "nav-active" : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"}">
             <i data-lucide="${icon}" class="h-4 w-4"></i>${label}

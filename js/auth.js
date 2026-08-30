@@ -1,6 +1,7 @@
 const ROLE_PASSWORDS = { admin: "Admin@123", teacher: "Teacher@123" };
 const DASH = {
   student: "student/dashboard.html",
+  parent: "parent/dashboard.html",
   teacher: "teacher/dashboard.html",
   admin: "admin/dashboard.html",
 };
@@ -24,8 +25,8 @@ function authUser(value, password, role, rolePassword) {
   const users = DG.getData("users", []);
   const user = users.find(
     (u) =>
-      u.id.toLowerCase() === value.toLowerCase() ||
-      u.email.toLowerCase() === value.toLowerCase() ||
+      u.id?.toLowerCase() === value.toLowerCase() ||
+      u.email?.toLowerCase() === value.toLowerCase() ||
       u.username?.toLowerCase() === value.toLowerCase(),
   );
   if (!user) return { ok: false, msg: "Account not found." };
