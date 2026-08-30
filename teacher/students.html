@@ -92,7 +92,7 @@
                                     <th class="p-4 text-left">Student</th>
                                     <th class="p-4 text-left">User ID</th>
                                     <th class="p-4 text-left">Strand</th>
-                                    <th class="p-4 text-left">Enrollment</th>
+                                    <th class="p-4 text-left">Enrollment</th><th class="p-4 text-left">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="rows"></tbody>
@@ -107,43 +107,7 @@
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/app.js"></script>
-    <script>
-        const U = AUTH.requireRole("teacher");
-        if (U) {
-            avatar.src = getProfilePhoto(U);
-            APP.applyTheme();
-            lucide.createIcons();
-            document.getElementById("open").onclick = () =>
-                side.classList.toggle("-translate-x-full");
-            APP.updateNotif();
-        }
-        function render() {
-            let s = DG.getData("users", []).filter((x) => x.role === "student"),
-                q = qEl.value.toLowerCase();
-            rows.innerHTML = s
-                .filter((x) =>
-                    (x.firstName + " " + x.lastName + " " + x.id)
-                        .toLowerCase()
-                        .includes(q),
-                )
-                .map((x) => {
-                    let e = DG.getData("enrollments", []).find(
-                        (z) => z.studentId === x.id,
-                    );
-                    return;
-                    `<tr class="border-t dark:border-slate-800">
-                        <td class="p-4 font-semibold">${APP.esc(x.firstName + " " + x.lastName)}</td>
-                        <td class="p-4 font-mono text-xs">${x.id}</td>
-                        <td class="p-4">${APP.esc(x.strand || "—")}</td>
-                        <td class="p-4">${e ? APP.statusBadge(e.status) : "—"}</td>
-                    </tr>`;
-                })
-                .join("");
-        }
-        const qEl = document.getElementById("q");
-        qEl.oninput = render;
-        render();
-    </script>
+  <script src="teacher.js"></script>
 </body>
 
 </html>

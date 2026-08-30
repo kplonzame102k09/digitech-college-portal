@@ -97,9 +97,10 @@
             <div>
               <p class="m-1 flex top-0">Subject/Strand/Specialization:</p>
               <input id="specialization" class="input rounded-xl border w-full px-5 py-3 bg-slate-50" />
+            <div><p class="m-1">Phone:</p><input id="phone" class="input rounded-xl border w-full px-5 py-3 bg-slate-50" /></div>
             </div>
           </div>
-          <button onclick="save()" class="mt-5 bg-green-600 text-white px-5 py-3 rounded-xl font-semibold">
+          <button id="saveProfile" onclick="save()" class="mt-5 bg-green-600 text-white px-5 py-3 rounded-xl font-semibold">
             Save
           </button>
         </div>
@@ -111,33 +112,7 @@
   <script src="../js/data.js"></script>
   <script src="../js/auth.js"></script>
   <script src="../js/app.js"></script>
-  <script>
-    const U = AUTH.requireRole("teacher");
-    if (U) {
-      avatar.src = getProfilePhoto(U);
-      APP.applyTheme();
-      lucide.createIcons();
-      document.getElementById("open").onclick = () =>
-        side.classList.toggle("-translate-x-full");
-      APP.updateNotif();
-    }
-    av.src = getProfilePhoto(U);
-    nm.textContent = U.firstName + " " + U.lastName;
-    id.textContent = U.id;
-    dept.textContent = U.department || "Faculty";
-    firstName.value = U.firstName;
-    lastName.value = U.lastName;
-    email.value = U.email;
-    specialization.value = U.specialization || "";
-    function save() {
-      let a = DG.getData("users", []),
-        u = a.find((x) => x.id === U.id);
-      u.specialization = specialization.value;
-      DG.saveData("users", a);
-      DG.setCurrentUser(u);
-      APP.toast("Profile updated");
-    }
-  </script>
+  <script src="teacher.js"></script>
 </body>
 
 </html>
