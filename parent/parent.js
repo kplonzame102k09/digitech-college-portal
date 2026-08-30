@@ -100,7 +100,6 @@
   }
 
   function setupShell(parent) {
-    text("[data-parent-initials]", initials(parent));
     text("[data-parent-full-name]", `${parent.firstName || ""} ${parent.lastName || ""}`.trim());
     text("[data-parent-id]", parent.id);
     text("[data-welcome-name]", parent.firstName || "Parent");
@@ -337,7 +336,6 @@
   }
 
   function renderProfile(parent) {
-    text("#profileInitials", initials(parent));
     text("#profileName", `${parent.firstName || ""} ${parent.lastName || ""}`.trim());
     text("#profileId", parent.id);
     text("#profileRelationship", `Parent / ${parent.relationship || "Guardian"}`);
