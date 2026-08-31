@@ -760,3 +760,33 @@ body[data-parent-page] main > div > section:first-child:not(.family-hero) h2 {
 .family-hero button {
   color: white;
 }
+
+/* Keep student services visually consistent with the parent family portal. */
+.student-portal .student-hero {
+  background:
+    radial-gradient(circle at 84% 10%, rgba(251,191,36,.3), transparent 17rem),
+    linear-gradient(135deg, #164e63 0%, #0e7490 45%, #4338ca 135%);
+}
+.student-portal .student-hero h2,
+.student-portal .student-hero p,
+.student-portal .student-hero .text-emerald-100,
+.student-portal .student-hero .text-white\/75 {
+  color: white !important;
+}
+.student-portal main > .mx-auto > section.student-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  padding: 1.5rem 2rem;
+  color: white;
+  box-shadow: 0 22px 50px rgba(14,116,144,.18);
+}
+@media (max-width: 639px) {
+  .student-portal main > .mx-auto > section.student-hero { border-radius: 1.35rem; padding: 1.25rem; }
+}
+.dark .student-portal .student-hero {
+  background:
+    radial-gradient(circle at 84% 10%, rgba(245,158,11,.2), transparent 17rem),
+    linear-gradient(135deg, #0c3445 0%, #115e75 45%, #312e81 135%);
+}
