@@ -11,7 +11,7 @@
 #loader {
   position: fixed;
   inset: 0;
-  background: #beabab;
+  background: #d8d8d8;
   display: flex;
   flex-direction: column;
   align-items: center;
