@@ -1,3 +1,34 @@
+(function () {
+  function ensure() {
+    let el = document.getElementById("global-loader");
+    if (!el) {
+      el = document.createElement("div");
+      el.id = "global-loader";
+      el.innerHTML = `
+        <div class="loader-box">
+          <i data-lucide="loader-2"></i>
+        </div>`;
+      document.body.appendChild(el);
+      if (window.lucide) lucide.createIcons();
+    }
+    return el;
+  }
+
+  document.addEventListener("click", (e) => {
+    const target = e.target.closest("a, button");
+    if (!target) return;
+
+    ensure().classList.add("active");
+
+    if (target.tagName === "A" && target.href && !target.getAttribute("onclick")) {
+      return; // navigation — loader stays until page unloads
+    }
+
+    setTimeout(() => ensure().classList.remove("active"), 600);
+  });
+})(); 
+// ============================
+
 function applyTheme() {
   const s = DG.getData("settings", {});
   document.documentElement.classList.toggle("dark", s.theme === "dark");
@@ -13,6 +44,7 @@ function toggleTheme() {
       e.setAttribute("data-lucide", s.theme === "dark" ? "sun" : "moon"),
     );
   if (window.lucide) lucide.createIcons();
+  
 }
 function esc(v = "") {
   return String(v).replace(
