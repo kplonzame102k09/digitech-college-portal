@@ -1,62 +1,113 @@
 # Digitech College Integrated Web Portal
 
-A modern front-end prototype for Digitech College that brings essential academic and administrative services together in one web portal.
+A modern front-end prototype for **Digitech College** that brings student, parent, teacher, and administrative services into one role-based web portal.
 
-The project uses **HTML5, Tailwind CSS, Vanilla JavaScript, and browser LocalStorage**. It is designed as a front-end testing/prototype system and does not require a backend server or external database.
+The project is intentionally built as a **static HTML5 application** using **Tailwind CSS, Vanilla JavaScript, browser LocalStorage, and Lucide Icons** instead of a server-side framework or external database.
 
-## Features
+> **Important:** This repository is a prototype. Authentication, authorization, uploaded files, and stored data are implemented on the client side and must not be treated as production-grade security.
 
-- Online enrollment
-- Requirements tracking and simulated submissions
-- Document requests and status tracking
-- Academic grade viewing and management
-- TVET competency tracking
-- Student, Teacher, and Admin dashboards
-- Role-based authentication and route protection
-- User profiles
-- Notifications
-- Admin management tools
-- Responsive desktop/mobile interface
-- Persistent prototype data through LocalStorage
-- Automatically generated permanent user IDs
+---
 
-## Technology Stack
+## 📌 What This Repository Does
+
+The Digitech College Integrated Web Portal simulates a centralized college information and service system.
+
+Instead of creating separate applications for enrollment, academic records, documents, attendance, announcements, and parent monitoring, this project combines these services into a single role-based portal.
+
+### Main System Flow
+
+```text
+Landing Page
+     ↓
+Login / Sign Up
+     ↓
+Role Selection
+     ↓
+Authentication
+     ↓
+Role Dashboard
+     ├── Student
+     ├── Parent
+     ├── Teacher
+     └── Admin
+            ↓
+     Shared LocalStorage
+```
+
+The application uses generated User IDs to connect users with their related records.
+
+For example, a student's ID can be referenced by:
+
+- Enrollment
+- Grades
+- Attendance
+- Requirements
+- Document requests
+- Competencies
+- Parent relationships
+
+---
+
+# 🛠 Technology Stack
 
 | Technology | Purpose |
 |---|---|
-| HTML5 | Page structure |
-| Tailwind CSS | Responsive styling and UI |
-| Vanilla JavaScript | Application logic |
-| LocalStorage | Prototype data persistence |
-| Lucide Icons | Interface icons |
+| **HTML5** | Page structure and portal screens |
+| **Tailwind CSS** | Responsive UI and styling |
+| **Vanilla JavaScript** | Application logic, authentication, CRUD, filtering, workflows |
+| **LocalStorage** | Prototype database and session storage |
+| **Lucide Icons** | User interface icons |
+| **Git** | Version control |
+| **GitHub** | Repository hosting |
+| **GitHub Pages** | Optional static deployment |
 
-The project intentionally does not use PHP, Laravel, React, Vue, Node.js, MySQL, Firebase, or another backend/external database.
+The project does **not** require:
 
-## User Roles
+- PHP
+- Laravel
+- React
+- Vue
+- Node.js
+- MySQL
+- Firebase
+- A backend server
 
-### Student
+The prototype can run entirely in a web browser.
 
-Students can register, log in, manage their profile, complete enrollment information, select a strand/track, track requirements, request documents, view grades, view TVET competencies, and view notifications.
+> Tailwind CSS and Lucide Icons are loaded through browser/CDN resources, so an internet connection may be required for those external assets.
 
-### Teacher
+---
 
-Teachers can log in, view assigned students, view enrollment information, manage grades, update TVET competency results, view notifications, and manage their profile.
-
-### Admin
-
-Admins can view system statistics and manage users, enrollment records, document requests, grades, competencies, notifications, and system settings.
-
-Role-specific pages verify the authenticated user's role when loaded. Navigation visibility alone is not used as the access-control mechanism.
-
-## Project Structure
+# 📁 Repository Structure
 
 ```text
-digitech-portal/
+digitech-college-portal/
 │
 ├── index.html
 ├── login.html
 ├── signup.html
 ├── README.md
+├── .gitignore
+│
+├── admin/
+│   ├── dashboard.html
+│   ├── dashboard.js
+│   ├── users.html
+│   ├── users.js
+│   ├── enrollment.html
+│   ├── enrollment.js
+│   ├── documents.html
+│   ├── documents.js
+│   ├── grades.html
+│   ├── grades.js
+│   ├── competencies.html
+│   ├── competencies.js
+│   ├── attendance.html
+│   ├── announcements.html
+│   ├── requirements.html
+│   ├── parent-links.html
+│   ├── settings.html
+│   └── settings.js
 │
 ├── student/
 │   ├── dashboard.html
@@ -65,6 +116,8 @@ digitech-portal/
 │   ├── documents.html
 │   ├── grades.html
 │   ├── competencies.html
+│   ├── attendance.html
+│   ├── announcements.html
 │   └── profile.html
 │
 ├── teacher/
@@ -72,66 +125,267 @@ digitech-portal/
 │   ├── students.html
 │   ├── grades.html
 │   ├── competencies.html
+│   ├── attendance.html
+│   ├── announcements.html
+│   ├── profile.html
+│   └── teacher.js
+│
+├── parent/
+│   ├── dashboard.html
+│   ├── children.html
+│   ├── attendance.html
+│   ├── grades.html
+│   ├── documents.html
+│   ├── announcements.html
 │   └── profile.html
 │
-├── admin/
-│   ├── dashboard.html
-│   ├── users.html
-│   ├── enrollment.html
-│   ├── documents.html
-│   ├── grades.html
-│   ├── competencies.html
-│   └── settings.html
-│
-├── assets/
-│   ├── images/
-│   └── icons/
+├── js/
+│   ├── app.js
+│   ├── auth.js
+│   ├── data.js
+│   ├── features.js
+│   ├── storage.js
+│   └── workflows.js
 │
 ├── css/
 │   └── custom.css
 │
-└── js/
-    ├── auth.js
-    ├── storage.js
-    ├── data.js
-    ├── student.js
-    ├── teacher.js
-    ├── admin.js
-    └── app.js
+└── assets/
+    └── images/
 ```
 
-## Authentication
+The repository has expanded beyond the original basic prototype and now includes additional functionality such as:
 
-The login system supports three roles.
+- Parent portal
+- Attendance
+- Announcements
+- Requirements
+- Parent/student linking
+- Shared workflows
+- Role-specific JavaScript modules
 
-**Student**
+---
+
+# 🌐 Public Pages
+
+## `index.html`
+
+The public landing page introduces the Digitech College portal.
+
+It provides the main entry point to the system and follows a modern academic website structure.
+
+Typical sections include:
+
+- Navigation
+- Hero section
+- Services
+- About/institutional information
+- Call to action
+- Contact information
+- Footer
+
+Images and other visual assets are stored inside:
 
 ```text
-User ID / Email
-Account Password
+assets/images/
 ```
 
-**Teacher**
+---
+
+## `login.html`
+
+The shared login page handles authentication for all supported roles.
+
+Users can authenticate using:
+
+- Generated User ID
+- Email
+- Username
+
+The selected role must match the account's stored role.
+
+---
+
+## `signup.html`
+
+The registration page allows users to create new portal accounts.
+
+Supported roles:
 
 ```text
-User ID / Email
-Account Password
-Teacher Role Password
+Student
+Teacher
+Admin
+Parent
 ```
 
-**Admin**
+The registration process can collect:
+
+- Basic account information
+- Profile information
+- Profile picture
+- Student information
+- Parent information
+- Staff information
+- Account password
+- Role-specific password where required
+
+---
+
+# 👨‍🎓 Student Portal
+
+The Student Portal provides students with access to their academic and college-service information.
+
+## Student Pages
+
+| Page | Description |
+|---|---|
+| Dashboard | Overview of enrollment, grades, competencies, activity, and notifications |
+| Enrollment | Enrollment information and status |
+| Requirements | Student requirements and submission records |
+| Documents | College document requests |
+| Grades | Published academic grades |
+| Competencies | TVET competency results and progress |
+| Attendance | Attendance records |
+| Announcements | College announcements |
+| Profile | Student profile information |
+
+Student pages are designed to display records associated with the currently authenticated student's User ID.
+
+---
+
+# 👨‍👩‍👧 Parent Portal
+
+The Parent Portal provides parents or guardians with a family-oriented workspace.
+
+Parents can monitor linked student accounts.
+
+## Parent Pages
+
+| Page | Description |
+|---|---|
+| Dashboard | Overview of linked children and recent information |
+| My Children | View connected student accounts |
+| Attendance | Monitor children's attendance |
+| Grades | Monitor children's grades |
+| Documents | Monitor document requests |
+| Announcements | View college announcements |
+| Profile | Manage parent profile |
+
+A parent can potentially have multiple linked students.
+
+Example:
 
 ```text
-User ID / Email
-Account Password
-Admin Role Password
+Parent Account
+      │
+      ├── Student A
+      ├── Student B
+      └── Student C
 ```
 
-The role-specific password field is dynamically shown for Teacher and Admin and hidden for Student.
+This allows the parent dashboard to aggregate information from multiple student accounts.
 
-## Demo Credentials
+---
 
-Demo role passwords:
+# 👨‍🏫 Teacher Portal
+
+The Teacher Portal provides faculty members with tools for managing assigned students and academic information.
+
+## Teacher Pages
+
+| Page | Description |
+|---|---|
+| Dashboard | Faculty overview and statistics |
+| Students | Assigned student roster |
+| Grades | Manage student grades |
+| Competencies | Manage competency assessments |
+| Attendance | Manage attendance |
+| Announcements | View/access announcements |
+| Profile | Teacher profile |
+| Notifications | System updates |
+
+The teacher dashboard is designed around:
+
+- Assigned students
+- Academic statistics
+- Grade management
+- Competency assessment
+- Attendance
+- Review queues
+
+---
+
+# 👨‍💼 Admin Portal
+
+The Admin Portal provides system-wide administrative management.
+
+## Admin Pages
+
+| Page | Description |
+|---|---|
+| Dashboard | Overall system statistics |
+| Users | Manage users |
+| Enrollment | Review and manage enrollment |
+| Documents | Manage document requests |
+| Grades | Manage academic records |
+| Competencies | Manage competencies |
+| Attendance | Manage attendance |
+| Announcements | Manage announcements |
+| Requirements | Manage requirements |
+| Parent Links | Manage parent/student relationships |
+| Settings | System/data management |
+
+Where implemented, administrative modules support operations such as:
+
+- Search
+- Filtering
+- Sorting
+- Viewing
+- Editing
+- Deleting
+- Status changes
+- Record management
+
+---
+
+# 🔐 Authentication and Role Protection
+
+Authentication is primarily handled through:
+
+```text
+js/auth.js
+js/storage.js
+```
+
+The authentication flow is:
+
+```text
+Enter ID / Email / Username
+            ↓
+Find Account
+            ↓
+Check Selected Role
+            ↓
+Check Account Password
+            ↓
+Check Role Password
+            ↓
+Create Current Session
+            ↓
+Redirect to Dashboard
+```
+
+---
+
+## Role-Specific Passwords
+
+The current prototype requires an additional role password for:
+
+- Admin
+- Teacher
+
+Example configuration:
 
 ```javascript
 const ROLE_PASSWORDS = {
@@ -140,33 +394,75 @@ const ROLE_PASSWORDS = {
 };
 ```
 
-Example demo accounts:
+Students and parents do not require the additional role password.
 
-| Role | User ID | Password | Role Password |
-|---|---|---|---|
-| Admin | `ADM-2026-000001` | `Admin@123` | `Admin@123` |
-| Teacher | `TCH-2026-000001` | `Teacher@123` | `Teacher@123` |
-| Student | `STU-2026-000001` | `Student@123` | Not required |
+The role-password field is dynamically displayed when Admin or Teacher is selected.
 
-These are demonstration credentials only.
+---
 
-## Generated User IDs
+## Route Protection
 
-New accounts receive automatically generated unique IDs, for example:
+Portal pages verify the authenticated user.
+
+The application checks:
+
+```text
+Is the user logged in?
+        ↓
+Is the user role allowed?
+        ↓
+Allow page
+```
+
+If the user is not authenticated:
+
+```text
+Protected Page
+      ↓
+No currentUser
+      ↓
+Login Page
+```
+
+If the user has the wrong role, the application redirects them toward the appropriate dashboard.
+
+> This is client-side route protection and is **not equivalent to secure server-side authorization**.
+
+---
+
+# 🆔 Generated User IDs
+
+New accounts receive generated unique IDs based on their role.
+
+Example:
 
 ```text
 STU-2026-7F42K9
+PRT-2026-4B81Q2
 TCH-2026-9A31P4
 ADM-2026-5D82X1
 ```
 
-The generated ID is permanent, read-only, and used as the primary relationship identifier for the user's enrollment, grades, documents, requirements, and competency records.
+## ID Prefixes
 
-After successful registration, the generated ID is displayed to the user and can be copied before continuing to login.
+| Role | Prefix |
+|---|---|
+| Student | `STU` |
+| Parent | `PRT` |
+| Teacher | `TCH` |
+| Admin | `ADM` |
 
-## LocalStorage Data
+The system checks existing user records before accepting a generated ID.
 
-The browser acts as the temporary database. Main keys include:
+The User ID serves as an important relationship identifier between accounts and records.
+
+---
+
+# 💾 LocalStorage Architecture
+
+Because this is a front-end-only prototype, the browser's LocalStorage acts as the application's temporary database.
+
+Important storage keys include:
 
 ```text
 users
@@ -176,30 +472,54 @@ documentRequests
 grades
 competencies
 notifications
+announcements
+attendance
+auditLogs
 requirements
+parentLinkRequests
 settings
 ```
 
-Centralized helper functions are used for storage operations, including:
+---
+
+# `js/storage.js`
+
+The storage module provides shared LocalStorage functions.
+
+Examples:
 
 ```javascript
 saveData(key, data)
-getData(key)
+getData(key, fallback)
 removeData(key)
 clearData(key)
-generateId()
+generateId(prefix)
+generateUserId(role)
 getCurrentUser()
 setCurrentUser(user)
 logoutUser()
+getProfilePhoto(user)
+setProfilePhoto(photo, user)
+loadProfileElements()
 ```
 
-Data survives normal page refreshes and logout during prototype testing.
+The shared functionality is exposed through:
 
-## Data Relationships
+```javascript
+window.DG
+```
 
-Records reference users by their generated IDs rather than array indexes.
+This allows different pages to access the same data model.
 
-Example enrollment:
+---
+
+# 🔗 Data Relationships
+
+The portal is designed around IDs rather than array positions.
+
+For example:
+
+## Enrollment
 
 ```javascript
 {
@@ -211,7 +531,7 @@ Example enrollment:
 }
 ```
 
-Example grade:
+## Grade
 
 ```javascript
 {
@@ -222,7 +542,7 @@ Example grade:
 }
 ```
 
-Example document request:
+## Document Request
 
 ```javascript
 {
@@ -233,7 +553,7 @@ Example document request:
 }
 ```
 
-Example competency:
+## Competency
 
 ```javascript
 {
@@ -244,17 +564,30 @@ Example competency:
 }
 ```
 
-## Student Modules
+Because the same `studentId` can be used across multiple collections, different dashboards can display connected information.
 
-### Dashboard
+---
 
-Displays enrollment status, document requests, academic performance, competency progress, recent activity, and notifications.
+# 📝 Enrollment Module
 
-### Enrollment
+Enrollment is one of the central modules of the portal.
 
-Supports student information, birth date, address, contact information, guardian information, grade level, strand, track, school year, and TVET program/qualification/training information.
+Enrollment information can include:
 
-Enrollment statuses:
+- Student information
+- Personal information
+- Birth date
+- Address
+- Contact information
+- Guardian information
+- Grade level
+- Strand/track
+- School year
+- TVET program
+- Qualification
+- Training information
+
+## Enrollment Status
 
 ```text
 Draft
@@ -265,15 +598,59 @@ Rejected
 Enrolled
 ```
 
-### Requirements
+Administrators can review enrollment records through:
 
-Provides a front-end simulation for Birth Certificate, Report Card, Good Moral Certificate, ID, and other supporting documents. Actual server-side file uploading is outside the scope of this prototype.
+```text
+admin/enrollment.html
+```
 
-### Document Requests
+---
 
-Students can request Form 137, Good Moral Certificate, Transcript of Records, and Diploma. Requests support purpose, number of copies, notes, date, and status tracking.
+# 📄 Requirements Module
 
-Request statuses:
+The Requirements module represents documents that students may need during enrollment or related college processes.
+
+Examples:
+
+- Birth Certificate
+- Report Card
+- Good Moral Certificate
+- Identification documents
+- Other supporting requirements
+
+The current implementation is primarily a:
+
+```text
+Front End
+   +
+LocalStorage
+```
+
+simulation.
+
+It is **not secure server-side document storage**.
+
+---
+
+# 📑 Document Requests
+
+Students can request college documents such as:
+
+- Form 137
+- Good Moral Certificate
+- Transcript of Records
+- Diploma
+
+A request can contain:
+
+- Document type
+- Purpose
+- Number of copies
+- Notes
+- Date
+- Status
+
+## Request Status
 
 ```text
 Pending
@@ -283,15 +660,48 @@ Released
 Rejected
 ```
 
-### Grades
+Administrators can manage requests through the Admin portal.
 
-Students can view subject, subject code, teacher, semester, school year, grade, and remarks. Students are restricted to their own records.
+---
 
-### TVET Competencies
+# 📊 Grades Module
 
-Tracks qualification, competency, status, assessment date, and remarks.
+The Grades module represents academic records.
 
-Possible statuses:
+A grade record may contain:
+
+- Student
+- Subject
+- Subject code
+- Teacher
+- Semester
+- School year
+- Grade
+- Remarks
+
+The intended access model is:
+
+```text
+Student
+    ↓
+View own grades
+
+Teacher
+    ↓
+Manage assigned student grades
+
+Admin
+    ↓
+Manage system grade records
+```
+
+---
+
+# 🎯 Competencies Module
+
+The Competencies module supports TVET competency and qualification tracking.
+
+Possible competency states:
 
 ```text
 Not Started
@@ -300,613 +710,710 @@ Competent
 Not Yet Competent
 ```
 
-An overall competency progress indicator is provided.
+Records can include:
 
-## Teacher Modules
+- Student
+- Competency
+- Assessment date
+- Status
+- Remarks
 
-Teacher navigation includes:
+Student dashboards can display overall competency progress.
+
+---
+
+# 🕐 Attendance Module
+
+Attendance is implemented as a shared portal feature.
+
+Attendance pages are available for:
+
+- Students
+- Teachers
+- Admins
+- Parents
+
+The available actions depend on the authenticated role.
+
+Attendance records use the shared:
 
 ```text
+attendance
+```
+
+LocalStorage collection.
+
+This allows different portals to access the same prototype attendance data.
+
+---
+
+# 📢 Announcements and Notifications
+
+Announcements provide a centralized way of distributing college information.
+
+The portal can display:
+
+- Announcements
+- Notifications
+- Recent updates
+- Notification counts
+- Unread badges
+
+The shared data model contains:
+
+```text
+announcements
+notifications
+```
+
+---
+
+# 👪 Parent-Student Linking
+
+Parent/student relationships are managed through:
+
+```text
+parentLinkRequests
+```
+
+A relationship can look like:
+
+```text
+Parent
+  │
+  ├── Student A
+  │      ├── Grades
+  │      ├── Attendance
+  │      ├── Enrollment
+  │      └── Documents
+  │
+  ├── Student B
+  │      ├── Grades
+  │      ├── Attendance
+  │      └── Enrollment
+  │
+  └── Student C
+```
+
+This allows the Parent portal to present information from connected student accounts.
+
+---
+
+# 🧩 Shared JavaScript Architecture
+
+The `js/` directory contains application-wide functionality.
+
+## `js/storage.js`
+
+Responsible for:
+
+- LocalStorage
+- Sessions
+- User IDs
+- Record IDs
+- Profile photos
+- Current user
+- Logout
+
+---
+
+## `js/auth.js`
+
+Responsible for:
+
+- Login
+- Authentication
+- Role validation
+- Role passwords
+- Route protection
+- Logout
+
+Important functions include:
+
+```javascript
+rolePasswordRequired(role)
+requireRole(roles)
+authUser(value, password, role, rolePassword)
+logout()
+setupRolePassword(select, container, input, label)
+```
+
+The authentication API is exposed through:
+
+```javascript
+window.AUTH
+```
+
+---
+
+## `js/data.js`
+
+Contains shared/default application data used by the prototype.
+
+---
+
+## `js/app.js`
+
+Contains common application and UI behavior.
+
+---
+
+## `js/features.js`
+
+Contains reusable feature-level functionality.
+
+---
+
+## `js/workflows.js`
+
+Contains shared workflow logic for multi-step and cross-module operations.
+
+---
+
+# 📦 Role-Specific JavaScript
+
+Some modules contain their own JavaScript files.
+
+Examples:
+
+```text
+admin/dashboard.js
+admin/users.js
+admin/enrollment.js
+admin/documents.js
+admin/grades.js
+admin/competencies.js
+admin/settings.js
+
+teacher/teacher.js
+```
+
+This keeps larger module-specific logic separated from the shared application layer.
+
+---
+
+# 🎨 UI and Design System
+
+The portal uses a consistent modern academic interface.
+
+The design system includes:
+
+- Digitech green branding
+- Slate/neutral backgrounds
+- White cards
+- Rounded components
+- Subtle borders
+- Soft shadows
+- Responsive layouts
+- Dashboard statistics
+- Status badges
+- Tables
+- Forms
+- Modal dialogs
+- Toast notifications
+- Lucide icons
+- Mobile navigation
+- Light/dark theme support
+
+The Teacher dashboard focuses on:
+
+```text
+Faculty
+  ↓
+Assigned Students
+  ↓
+Grades
+  ↓
+Competencies
+  ↓
+Attendance
+```
+
+The Parent dashboard focuses on:
+
+```text
+Parent
+  ↓
+Linked Children
+  ↓
+Academic Information
+  ↓
+Attendance
+  ↓
+Documents
+  ↓
+Announcements
+```
+
+---
+
+# 🔑 Demo Credentials
+
+The current prototype uses the following role passwords:
+
+```text
+Admin Role Password:   Admin@123
+Teacher Role Password: Teacher@123
+```
+
+Example accounts:
+
+| Role | Example User ID | Account Password | Role Password |
+|---|---|---|---|
+| Admin | `ADM-2026-000001` | `Admin@123` | `Admin@123` |
+| Teacher | `TCH-2026-000001` | `Teacher@123` | `Teacher@123` |
+| Student | `STU-2026-000001` | `Student@123` | Not required |
+| Parent | `PRT-2026-000001` | `Parent@123` | Not required |
+
+> ⚠️ These credentials are for prototype/demo purposes only.
+
+---
+
+# ▶️ Running the Project
+
+The project does not require a build process.
+
+## Option 1 — Open Directly
+
+Open:
+
+```text
+index.html
+```
+
+with a modern browser.
+
+---
+
+## Option 2 — Use a Local Server
+
+Using Python:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then open:
+
+```text
+http://localhost:8000
+```
+
+A local server is recommended because it provides more reliable handling of relative paths and browser behavior.
+
+---
+
+# 🚀 GitHub Pages
+
+Because the project consists of static HTML, CSS, and JavaScript, it can be deployed through GitHub Pages.
+
+Typical configuration:
+
+```text
+Source: Deploy from a branch
+Branch: main
+Folder: / (root)
+```
+
+GitHub Pages can host the front end, but it does not provide the backend/database functionality required by a production college information system.
+
+LocalStorage remains specific to each browser/device.
+
+---
+
+# 🧹 Resetting Test Data
+
+Since the prototype uses LocalStorage, test data can be reset from the browser.
+
+You can clear the site's LocalStorage through browser developer tools.
+
+Where implemented, Admin Settings can also provide data-management/reset functionality.
+
+The following collections may be removed:
+
+```text
+users
+currentUser
+enrollments
+grades
+attendance
+documentRequests
+requirements
+competencies
+notifications
+announcements
+parentLinkRequests
+settings
+```
+
+---
+
+# ⚠️ Security Limitations
+
+This project is a **front-end prototype**, not a production student information system.
+
+## Authentication Is Not Secure
+
+Passwords are stored in browser-accessible LocalStorage.
+
+A technically capable user can inspect or modify the stored information.
+
+---
+
+## Authorization Is Not Secure
+
+Role protection is performed using JavaScript.
+
+For example:
+
+```text
+Admin
+Teacher
+Student
+Parent
+```
+
+The browser determines which interface is displayed.
+
+This cannot prevent someone from modifying client-side JavaScript.
+
+---
+
+## LocalStorage Is Not a Central Database
+
+Every browser/device has its own LocalStorage.
+
+For example:
+
+```text
+Computer A
+   ↓
+LocalStorage A
+
+Computer B
+   ↓
+LocalStorage B
+```
+
+The data does not automatically synchronize.
+
+---
+
+## File Handling Is Not Secure Server Storage
+
+Any prototype file handling should not be considered equivalent to:
+
+- Secure file storage
+- Server-side validation
+- Access-controlled files
+- Cloud storage
+- Database-backed documents
+
+---
+
+## Demo Credentials Are Public
+
+Credentials displayed in this README are intentionally for testing.
+
+They must not be used for real accounts.
+
+---
+
+# 🏗 Recommended Production Architecture
+
+If the prototype is eventually converted into a real college information system, the existing front end can become the presentation layer of a secure full-stack architecture.
+
+```text
+HTML
+Tailwind CSS
+JavaScript
+      │
+      ↓
+Secure Backend API
+      │
+      ↓
+Authentication
+Authorization
+      │
+      ↓
+Relational Database
+      │
+      ↓
+Secure File Storage
+```
+
+A production version should implement:
+
+- Server-side authentication
+- Password hashing
+- Server-side authorization
+- Secure sessions/tokens
+- HTTPS
+- Database constraints
+- Database transactions
+- Input validation
+- Input sanitization
+- Secure file uploads
+- Access-controlled file storage
+- Audit logging
+- Backups
+- Data recovery
+- Rate limiting
+- Secure secrets management
+- Account recovery
+- Centralized database
+- Multi-user synchronization
+
+The current project can serve as the **front-end/UI foundation** for this future architecture.
+
+---
+
+# 🔄 Development Workflow
+
+Recommended development process:
+
+```text
+Edit HTML / JS / CSS
+        ↓
+Run the portal locally
+        ↓
+Test affected role
+        ↓
+Check browser console
+        ↓
+Check LocalStorage
+        ↓
+Test related workflows
+        ↓
+Commit changes
+        ↓
+Push to GitHub
+        ↓
+Deploy with GitHub Pages
+```
+
+Useful Git commands:
+
+```bash
+git status
+
+git add .
+
+git commit -m "Describe the change"
+
+git push
+
+git log --oneline
+
+git branch
+
+git remote -v
+```
+
+---
+
+# 🧪 Testing Roles
+
+The system should be tested separately for each role.
+
+## Student
+
+Test:
+
+```text
+Login
+Dashboard
+Enrollment
+Requirements
+Documents
+Grades
+Competencies
+Attendance
+Announcements
+Profile
+Logout
+```
+
+---
+
+## Parent
+
+Test:
+
+```text
+Login
+Dashboard
+Children
+Attendance
+Grades
+Documents
+Announcements
+Profile
+Logout
+```
+
+---
+
+## Teacher
+
+Test:
+
+```text
+Login
 Dashboard
 Students
 Grades
 Competencies
+Attendance
+Announcements
 Profile
-Notifications
 Logout
 ```
 
-Teachers can view assigned students and manage appropriate grade and competency information.
+---
 
-## Admin Modules
+## Admin
 
-Admin navigation includes:
+Test:
 
 ```text
+Login
 Dashboard
 Users
 Enrollment
 Documents
 Grades
 Competencies
-Notifications
+Attendance
+Announcements
+Requirements
+Parent Links
 Settings
 Logout
 ```
 
-Management screens support common operations such as searching, filtering, sorting, viewing, editing, deleting, and updating statuses where implemented.
+---
 
-## Design
+# 🔄 Data Flow Example
 
-The portal's visual direction is based on the supplied Digitech College `index.html` reference. It uses a clean modern academic style with:
-
-- Green Digitech branding
-- Slate neutral backgrounds
-- White cards
-- Rounded corners
-- Subtle borders and shadows
-- Responsive layouts
-- Lucide icons
-- Clear typography hierarchy
-- Desktop and mobile navigation
-- Dashboard statistics cards
-- Status badges
-- Tables and forms
-- Modal dialogs and toast notifications
-
-The landing page follows the reference structure of Navigation, Hero, Services, About, Call to Action, Contact, and Footer, while authenticated pages extend the same design language into the three role dashboards.
-
-## Running the Project
-
-No build process is required.
-
-Open the following file in a modern browser:
+A typical student workflow can look like this:
 
 ```text
-index.html
+Student Signs Up
+       ↓
+Generate Student ID
+       ↓
+Store User
+       ↓
+Student Logs In
+       ↓
+Create currentUser
+       ↓
+Student Opens Enrollment
+       ↓
+Create Enrollment Record
+       ↓
+Store studentId
+       ↓
+Admin Reviews Enrollment
+       ↓
+Admin Changes Status
+       ↓
+Student Dashboard Reads Updated Status
 ```
 
-You can also serve the project directory with a simple static HTTP server during development. The application does not require a backend server.
-
-## Resetting Prototype Data
-
-Application data is stored in browser LocalStorage. To completely reset a test environment, clear the site's LocalStorage through the browser developer tools. The Admin Settings area can also provide prototype data-management/reset functions where implemented.
-
-## Security Notice
-
-This is a **front-end prototype/testing system**. LocalStorage authentication is **not secure production authentication**. Client-side credentials and role checks can be inspected or modified by a user.
-
-Requirement uploads are also simulated rather than secure server-side uploads.
-
-For production use, the project would require a secure backend, server-side authentication and authorization, password hashing, database storage, secure file handling, HTTPS, validation, audit logging, backups, and other security controls.
-
-## Browser Compatibility
-
-The project targets modern browsers with support for ES6+ JavaScript, LocalStorage, Clipboard API, modern CSS, and responsive layouts.
-
-Recommended browsers include current versions of Chrome, Edge, Firefox, and Safari.
-
-## Purpose
-
-The portal demonstrates how Digitech College's academic and administrative services can be integrated into a single modern web interface while preserving persistent relationships between users and their academic/service records.
-
-## License
-
-This project is a Digitech College portal prototype intended for development, demonstration, and testing purposes.
-
-
-# Git and GitHub Deployment
-
-This section explains how to upload and publish the Digitech College Portal using Git, GitHub, VSCodium, and GitHub Pages.
-
-## 1. Install Git
-
-Make sure Git is installed on the computer.
-
-Check the installed version:
-
-```bash
-git --version
-```
-
-If Git is installed correctly, the terminal will display the installed Git version.
+Because all of these records use the same LocalStorage data layer, the prototype can demonstrate an integrated workflow without requiring a backend.
 
 ---
 
-## 2. Open the Project in VSCodium
+# 🎓 Project Purpose
 
-Open the Digitech College Portal project folder in VSCodium.
+The Digitech College Integrated Web Portal demonstrates how common academic and administrative services can be combined into one modern web interface.
 
-Example project location:
+The project provides four major perspectives:
 
 ```text
-~/Downloads/digitech-college-portal/digitech-portal
+Student
+   ↓
+Academic and Student Services
+
+Parent
+   ↓
+Family / Student Monitoring
+
+Teacher
+   ↓
+Teaching and Assessment Management
+
+Admin
+   ↓
+System-Wide Management
 ```
 
-Open the VSCodium terminal:
+The shared LocalStorage architecture demonstrates how these different perspectives can work with connected records.
+
+---
+
+# 📚 Intended Use
+
+This project is suitable for:
+
+- Academic projects
+- Capstone/project demonstrations
+- UI/UX demonstrations
+- Front-end development
+- Role-based system prototypes
+- Web portal demonstrations
+- Workflow testing
+- System design
+- Early-stage information system development
+
+It is especially useful for demonstrating how a future full-stack college information system could be structured.
+
+---
+
+# 📌 Project Status
+
+**Current Status: Front-End Prototype**
+
+The project is an evolving Digitech College Integrated Web Portal prototype.
+
+Current implementation focuses on:
 
 ```text
-Terminal → New Terminal
+✅ Modern responsive interface
+✅ Role-based portals
+✅ Student portal
+✅ Parent portal
+✅ Teacher portal
+✅ Admin portal
+✅ Login system
+✅ Signup system
+✅ Generated User IDs
+✅ Role-specific passwords
+✅ LocalStorage data layer
+✅ Enrollment
+✅ Requirements
+✅ Document requests
+✅ Grades
+✅ Competencies
+✅ Attendance
+✅ Announcements
+✅ Notifications
+✅ Parent/student linking
+✅ Profile management
 ```
 
-Verify that the terminal is inside the project folder:
+The project should **not yet be considered production-ready**.
 
-```bash
-pwd
-```
-
-Then check the project files:
-
-```bash
-ls
-```
-
-The project should contain files such as:
-
-```text
-index.html
-login.html
-README.md
-assets/
-```
+Before real-world deployment, authentication, authorization, database storage, file management, synchronization, and security must be moved to a properly secured backend.
 
 ---
 
-## 3. Initialize the Local Git Repository
+# 📄 License / Project Status
 
-Initialize Git inside the project folder:
+This project is a **Digitech College Integrated Web Portal prototype** intended for development, testing, demonstration, and academic/project presentation.
 
-```bash
-git init
-```
+It is an evolving project and may continue to receive changes, improvements, new modules, bug fixes, and architectural updates.
 
-This creates a hidden `.git` directory that allows Git to track changes to the project.
-
----
-
-## 4. Configure Git Identity
-
-Before creating the first commit, configure the Git username and email.
-
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "your-email@example.com"
-```
-
-Verify the configuration:
-
-```bash
-git config --global user.name
-git config --global user.email
-```
-
-The email should preferably be the email associated with the GitHub account or a GitHub-provided `noreply` address.
-
----
-
-## 5. Create a `.gitignore` File
-
-Create a `.gitignore` file in the project root to prevent unnecessary or sensitive files from being uploaded.
-
-Example:
-
-```gitignore
-.vscode/
-.idea/
-node_modules/
-.env
-.env.*
-*.log
-.DS_Store
-Thumbs.db
-```
-
-Do not upload passwords, API keys, database credentials, or other sensitive information.
-
----
-
-## 6. Check the Git Repository Status
-
-Run:
-
-```bash
-git status
-```
-
-Git will display files that are not currently being tracked.
-
----
-
-## 7. Add the Project Files
-
-Add all project files to Git:
-
-```bash
-git add .
-```
-
-Check the status again:
-
-```bash
-git status
-```
-
-The files should now appear under:
-
-```text
-Changes to be committed
-```
-
----
-
-## 8. Create the Initial Commit
-
-Create the first Git commit:
-
-```bash
-git commit -m "Initial Digitech College Portal"
-```
-
-A commit creates a snapshot of the project that can be stored in the Git history.
-
----
-
-## 9. Rename the Branch to `main`
-
-Rename the current branch to `main`:
-
-```bash
-git branch -M main
-```
-
-Verify the branch:
-
-```bash
-git branch
-```
-
-The output should show:
-
-```text
-* main
-```
-
----
-
-## 10. Create a GitHub Repository
-
-Sign in to GitHub and create a new repository.
-
-Example:
-
-```text
-Repository name:
-digitech-college-portal
-```
-
-For a GitHub Pages project using a GitHub Free account, use a public repository.
-
-Because the project already exists locally, do not initialize the GitHub repository with another README, `.gitignore`, or license.
-
-The GitHub repository should initially be empty.
-
----
-
-## 11. Connect the Local Repository to GitHub
-
-Copy the HTTPS URL of the newly created GitHub repository.
-
-Example:
-
-```text
-https://github.com/USERNAME/digitech-college-portal.git
-```
-
-Add it as the `origin` remote:
-
-```bash
-git remote add origin https://github.com/USERNAME/digitech-college-portal.git
-```
-
-Verify the remote:
-
-```bash
-git remote -v
-```
-
-The result should look similar to:
-
-```text
-origin  https://github.com/USERNAME/digitech-college-portal.git (fetch)
-origin  https://github.com/USERNAME/digitech-college-portal.git (push)
-```
-
----
-
-## 12. Push the Project to GitHub
-
-Upload the local `main` branch to GitHub:
-
-```bash
-git push -u origin main
-```
-
-The `-u` option connects the local `main` branch with the remote `main` branch.
-
-After the upload is complete, refresh the GitHub repository.
-
-The project should now appear on GitHub:
-
-```text
-digitech-college-portal/
-├── index.html
-├── login.html
-├── README.md
-├── assets/
-├── css/
-└── js/
-```
-
----
-
-## 13. Enable GitHub Pages
-
-To publish the website:
-
-1. Open the GitHub repository.
-2. Go to **Settings**.
-3. Select **Pages**.
-4. Under **Build and deployment**, select:
-
-   * Source: **Deploy from a branch**
-   * Branch: **main**
-   * Folder: **/ (root)**
-5. Click **Save**.
-
-GitHub Pages will automatically build and deploy the website.
-
----
-
-## 14. Access the Published Website
-
-After deployment, GitHub Pages will provide a website address similar to:
-
-```text
-https://USERNAME.github.io/digitech-college-portal/
-```
-
-The exact URL depends on the GitHub username and repository name.
-
-The `index.html` file serves as the main entry point of the website.
-
----
-
-## 15. Updating the Website
-
-After making changes to the project in VSCodium, check the changes:
-
-```bash
-git status
-```
-
-Add the changes:
-
-```bash
-git add .
-```
-
-Create a new commit:
-
-```bash
-git commit -m "Update portal design"
-```
-
-Push the changes:
-
-```bash
-git push
-```
-
-GitHub Pages will automatically deploy the updated version.
-
-The normal development workflow is:
-
-```text
-Edit files
-    ↓
-Test locally
-    ↓
-git status
-    ↓
-git add .
-    ↓
-git commit -m "Description of changes"
-    ↓
-git push
-    ↓
-GitHub
-    ↓
-GitHub Pages
-    ↓
-Updated website
-```
-
----
-
-## 16. Useful Git Commands
-
-### Check repository status
-
-```bash
-git status
-```
-
-### Add all changes
-
-```bash
-git add .
-```
-
-### Commit changes
-
-```bash
-git commit -m "Your commit message"
-```
-
-### Push changes
-
-```bash
-git push
-```
-
-### View branches
-
-```bash
-git branch
-```
-
-### View commit history
-
-```bash
-git log --oneline
-```
-
-### View GitHub remote
-
-```bash
-git remote -v
-```
-
-### View configured Git identity
-
-```bash
-git config --global user.name
-git config --global user.email
-```
-
----
-
-## 17. Complete Initial Git Setup
-
-For a new project, the complete process can be summarized as:
-
-```bash
-# Navigate to the project
-cd ~/Downloads/digitech-college-portal/digitech-portal
-
-# Initialize Git
-git init
-
-# Configure Git
-git config --global user.name "Your Name"
-git config --global user.email "your-email@example.com"
-
-# Add files
-git add .
-
-# Create initial commit
-git commit -m "Initial Digitech College Portal"
-
-# Rename branch
-git branch -M main
-
-# Connect GitHub repository
-git remote add origin https://github.com/USERNAME/digitech-college-portal.git
-
-# Upload project
-git push -u origin main
-```
-
-After the initial setup, only the following commands are normally needed to update the project:
-
-```bash
-git add .
-git commit -m "Update website"
-git push
-```
-
-## 18. LocalStorage and GitHub Pages
-
-The Digitech College Portal uses browser `LocalStorage` for prototype data.
-
-GitHub Pages can host the HTML, CSS, and JavaScript files while the LocalStorage data remains inside the visitor's browser.
-
-However, LocalStorage is not a shared database. Data stored by one user or device is not automatically available to another user or device.
-
-Therefore, the current GitHub Pages deployment is intended for a prototype or demonstration. A production college portal would require a backend server and shared database for authentication, student records, enrollment, grades, documents, messaging, and other persistent data.
-## Recent UI Improvements
-
-### Login Page
-
-The login page was redesigned with a modern green-themed interface while keeping the existing authentication logic unchanged.
-
-Improvements include:
-
-* Soft white-to-green gradient background
-* Subtle blurred green background effects
-* Modern Lucide icons
-* Improved typography and spacing
-* Cleaner role-based login interface
-* Responsive layout for desktop and mobile devices
-* Improved visual hierarchy for login information
-* Existing LocalStorage authentication preserved
-
-### Signup Page
-
-The signup page was updated to match the visual style of the login page.
-
-Improvements include:
-
-* Modern white, emerald, and green color palette
-* Soft gradient header section
-* Decorative background effects
-* Improved account information layout
-* Separate sections for student and staff information
-* Lucide icons for better visual identification
-* Improved input field spacing and appearance
-* Modern account creation button
-* Improved success modal
-* Responsive design for smaller screens
-
-### Logic Preservation
-
-The signup functionality was preserved during the redesign. No database or authentication logic was intentionally changed.
-
-The following existing functionality remains:
-
-* User registration
-* Automatic User ID generation
-* Email duplication checking
-* Username duplication checking
-* Password confirmation validation
-* Teacher role password validation
-* Admin role password validation
-* Student information handling
-* Staff information handling
-* LocalStorage data persistence
-* Account creation success modal
-* User ID copying
-* Redirect to the login page
-
-The redesign focuses on the **frontend presentation and user experience**, while the existing JavaScript functionality remains intact.
-
-> **Note:** This project uses browser LocalStorage as a prototype data store. It is intended for demonstration and educational purposes and should not be considered production-level authentication or data security.
-
-### ADD A LOGO DESIGN 
-
-Instead of using Lucide Icons, changed it in to png type image for logo of Digitech College Web Portal.
-Improve the User Interface by adding a image type png. 
-
-Add a logo in design in the Login and Signup page for better Login UI.
-
-![alt text](<assets/images/Screenshot from 2026-08-30 00-45-54.png>)
-![alt text](<assets/images/Screenshot from 2026-08-30 00-46-03.png>)
-![alt text](<assets/images/Screenshot from 2026-08-29 14-00-38.png>)
-![alt text](<assets/images/Screenshot from 2026-08-29 14-00-51.png>)
-![alt text](<assets/images/Screenshot from 2026-08-29 14-00-56.png>)
-
-### ADD A PROFILE PHOTO
- Add a profile pciture or photo entry in the Signup page. 
- Add the profile photo visibility to all the pages. 
-![alt text](<assets/images/Screenshot from 2026-08-30 00-44-11.png>)
-
+**Built as a modern front-end prototype using HTML5, Tailwind CSS, Vanilla JavaScript, and LocalStorage.**
