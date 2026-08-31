@@ -28,17 +28,24 @@
   });
 })(); 
 // ============================
-
-function applyTheme() {
-    const s = DG.getData("settings", {});
-    const isDark = s.theme === "dark";
-    document.documentElement.classList.toggle("dark", isDark);
-    updateThemeIcons(isDark);
+function getTheme() {
+    const settings =
+        DG.getData("settings", {});
+    return settings.theme || "light";
 }
-function updateThemeIcons(isDark) {
+function applyTheme() {
+    const theme = getTheme();
+    const isDark = theme === "dark";
+    document.documentElement.classList.toggle(
+        "dark",
+        isDark
+    );
+    updateThemeIcon(isDark);
+}
+function updateThemeIcon(isDark) {
     document
         .querySelectorAll("[data-theme-icon]")
-        .forEach((icon) => {
+        .forEach(icon => {
             icon.setAttribute(
                 "data-lucide",
                 isDark ? "sun" : "moon"
@@ -49,16 +56,29 @@ function updateThemeIcons(isDark) {
     }
 }
 function toggleTheme() {
-    const s = DG.getData("settings", {});
-    s.theme = s.theme === "dark"
-        ? "light"
-        : "dark";
-    DG.saveData("settings", s);
+    const settings =
+        DG.getData("settings", {});
+    settings.theme =
+        settings.theme === "dark"
+            ? "light"
+            : "dark";
+    DG.saveData(
+        "settings",
+        settings
+    );
     applyTheme();
+  }
+function setupThemeToggle() {
+    const button =
+        document.querySelector(
+            "[data-theme-toggle]"
+        );
+    if (!button) return;
+    button.addEventListener(
+        "click",
+        toggleTheme
+    );
 }
-document.addEventListener("DOMContentLoaded", () => {
-    applyTheme();
-});
 function esc(v = "") {
   return String(v).replace(
     /[&<>"']/g,
