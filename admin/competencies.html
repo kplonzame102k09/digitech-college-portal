@@ -88,10 +88,16 @@
                             Review assessments, evidence, outcomes, and reassessment needs.
                         </p>
                     </div>
-                    <button type="button" data-export-competencies
-                        class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold dark:border-slate-700">
-                        <i data-lucide="download" class="h-4 w-4"></i>Export CSV
-                    </button>
+                    <div class="flex flex-wrap justify-end gap-3">
+                        <button type="button" data-add-competency
+                            class="inline-flex items-center justify-center gap-2 rounded-xl bg-green-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-green-700">
+                            <i data-lucide="plus" class="h-4 w-4"></i>Add competency
+                        </button>
+                        <button type="button" data-export-competencies
+                            class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold dark:border-slate-700">
+                            <i data-lucide="download" class="h-4 w-4"></i>Export CSV
+                        </button>
+                    </div>
                 </section>
                 <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
                     <div class="card p-5">
@@ -225,6 +231,59 @@
                     class="rounded-xl bg-green-600 px-5 py-2.5 font-semibold text-white">
                     Save assessment
                 </button>
+            </div>
+        </form>
+    </dialog>
+    <dialog id="createCompetencyDialog"
+        class="w-[min(650px,calc(100%-2rem))] rounded-2xl border-0 p-0 shadow-2xl backdrop:bg-slate-950/50">
+        <form id="createCompetencyForm" class="card p-6">
+            <div class="flex items-start justify-between">
+                <div>
+                    <p class="text-sm font-semibold text-green-600">New competency record</p>
+                    <h3 class="mt-1 text-xl font-bold">Assign competency to a student</h3>
+                    <p class="mt-1 text-sm text-slate-500">Create the record first; the assigned teacher can complete the assessment later.</p>
+                </div>
+                <button type="button" data-close-create-competency class="rounded-lg p-2 text-slate-400" aria-label="Close">
+                    <i data-lucide="x" class="h-5 w-5"></i>
+                </button>
+            </div>
+            <div class="mt-5 grid gap-4 sm:grid-cols-2">
+                <label class="text-sm font-semibold sm:col-span-2">Student
+                    <select id="createStudentId" required class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
+                        <option value="">Select a student</option>
+                    </select>
+                </label>
+                <label class="text-sm font-semibold">Competency
+                    <input id="createCompetency" required maxlength="120" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="e.g. Install computer systems" />
+                </label>
+                <label class="text-sm font-semibold">Qualification
+                    <input id="createQualification" maxlength="120" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="e.g. Computer Systems Servicing NC II" />
+                </label>
+                <label class="text-sm font-semibold">Initial status
+                    <select id="createStatus" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
+                        <option>Not Started</option>
+                        <option>In Progress</option>
+                        <option>Competent</option>
+                        <option>Not Yet Competent</option>
+                    </select>
+                </label>
+                <label class="text-sm font-semibold">Assessment date <span class="font-normal text-slate-400">(optional)</span>
+                    <input id="createAssessmentDate" type="date" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" />
+                </label>
+                <label class="text-sm font-semibold">Assessor <span class="font-normal text-slate-400">(optional)</span>
+                    <input id="createAssessor" maxlength="120" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="Teacher or assessor name" />
+                </label>
+                <label class="text-sm font-semibold">Evidence link <span class="font-normal text-slate-400">(optional)</span>
+                    <input id="createEvidence" type="url" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="https://..." />
+                </label>
+            </div>
+            <label class="mt-4 block text-sm font-semibold">Notes <span class="font-normal text-slate-400">(optional)</span>
+                <textarea id="createRemarks" rows="3" maxlength="500" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="Add context for the assigned teacher"></textarea>
+            </label>
+            <div class="mt-6 flex justify-end gap-3">
+                <button type="button" data-close-create-competency
+                    class="rounded-xl border border-slate-200 px-4 py-2.5 font-semibold dark:border-slate-700">Cancel</button>
+                <button type="submit" class="rounded-xl bg-green-600 px-5 py-2.5 font-semibold text-white hover:bg-green-700">Create record</button>
             </div>
         </form>
     </dialog>

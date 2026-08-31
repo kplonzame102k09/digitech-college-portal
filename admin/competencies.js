@@ -64,7 +64,11 @@
     });
     save("auditLogs", logs);
   }
-  function notifyStudent(record) {
+  function notifyStudent(
+    record,
+    title = `Competency ${record.status}`,
+    message = `${record.competency || "Your competency"} assessment for ${studentName(record)} was updated to ${record.status}.`,
+  ) {
     const targets = users.filter(
       (user) =>
         user.id === record.studentId ||
@@ -85,8 +89,8 @@
       notifications.push({
         id: DG.generateId("NOT"),
         userId: user.id,
-        title: `Competency ${record.status}`,
-        message: `${record.competency || "Your competency"} assessment for ${studentName(record)} was updated to ${record.status}.`,
+        title,
+        message,
         date: new Date().toISOString(),
         read: false,
         source: "competency",
@@ -213,6 +217,88 @@
     renderAudit();
     lucide.createIcons();
   }
+  function populateCreateStudents() {
+    const select = $("#createStudentId");
+    if (!select) return;
+    const previous = select.value;
+    select.replaceChildren();
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = users.some((user) => user.role === "student")
+      ? "Select a student"
+      : "No student accounts available";
+    select.append(placeholder);
+    users
+      .filter((user) => user.role === "student")
+      .sort((a, b) => fullName(a).localeCompare(fullName(b)))
+      .forEach((user) => {
+        const option = document.createElement("option");
+        option.value = user.id;
+        option.textContent = `${fullName(user)} · ${user.id}`;
+        select.append(option);
+      });
+    select.value = previous;
+    select.disabled = !users.some((user) => user.role === "student");
+  }
+
+  function openCreateDialog() {
+    const form = $("#createCompetencyForm");
+    if (!form) return;
+    form.reset();
+    populateCreateStudents();
+    $("#createStatus").value = "Not Started";
+    $("#createCompetencyDialog")?.showModal();
+    lucide.createIcons();
+  }
+
+  function createCompetency(event) {
+    event.preventDefault();
+    const studentId = $("#createStudentId")?.value;
+    const competency = $("#createCompetency")?.value.trim();
+    const qualification = $("#createQualification")?.value.trim();
+    if (!studentId || !competency) {
+      APP.toast("Select a student and enter a competency", "error");
+      return;
+    }
+    const duplicate = competencies.some(
+      (record) =>
+        record.studentId === studentId &&
+        String(record.competency || "").trim().toLowerCase() === competency.toLowerCase() &&
+        String(record.qualification || "").trim().toLowerCase() === qualification.toLowerCase(),
+    );
+    if (duplicate) {
+      APP.toast("This competency already exists for the selected student", "error");
+      return;
+    }
+    const now = new Date().toISOString();
+    const record = {
+      id: DG.generateId("CMP"),
+      studentId,
+      competency,
+      qualification,
+      status: $("#createStatus")?.value || "Not Started",
+      assessmentDate: $("#createAssessmentDate")?.value || "",
+      assessor: $("#createAssessor")?.value.trim() || "",
+      evidence: $("#createEvidence")?.value.trim() || "",
+      remarks: $("#createRemarks")?.value.trim() || "",
+      createdAt: now,
+      createdBy: admin.id,
+      updatedAt: now,
+      updatedBy: admin.id,
+    };
+    competencies.push(record);
+    save("competencies", competencies);
+    addAudit(record, "Competency record created", "Record assigned by administrator");
+    notifyStudent(
+      record,
+      "New competency assigned",
+      `${record.competency} was added to your competency records.`,
+    );
+    $("#createCompetencyDialog")?.close();
+    APP.toast("Competency record created");
+    render();
+  }
+
   function openEditor(record) {
     $("#competencyId").value = record.id;
     setText(
@@ -409,6 +495,11 @@
     });
     $("[data-bulk-action]")?.addEventListener("click", bulkAction);
     $("[data-export-competencies]")?.addEventListener("click", exportRecords);
+    $("[data-add-competency]")?.addEventListener("click", openCreateDialog);
+    $("#createCompetencyForm")?.addEventListener("submit", createCompetency);
+    $$('[data-close-create-competency]').forEach((button) =>
+      button.addEventListener("click", () => $("#createCompetencyDialog")?.close()),
+    );
     $("#competencyForm")?.addEventListener("submit", saveAssessment);
     $$("[data-close-competency]").forEach((button) =>
       button.addEventListener("click", () => $("#competencyDialog")?.close()),
