@@ -206,7 +206,7 @@
         if (checkbox.checked) selected.add(record.id);
         else selected.delete(record.id);
         render();
-      });
+      });        
       const student = studentFor(record);
       setText("[data-student-initials]", initials(student), row);
       setText("[data-student-name]", studentName(record), row);
