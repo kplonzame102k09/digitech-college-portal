@@ -29,7 +29,7 @@
 }
 
 .logo {
-  width: 200px;
+  width: 300px;
   height: auto;
   will-change: transform, opacity;
   animation: logo-pulse 1.5s ease-in-out infinite;
