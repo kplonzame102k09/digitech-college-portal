@@ -30,22 +30,35 @@
 // ============================
 
 function applyTheme() {
-  const s = DG.getData("settings", {});
-  document.documentElement.classList.toggle("dark", s.theme === "dark");
+    const s = DG.getData("settings", {});
+    const isDark = s.theme === "dark";
+    document.documentElement.classList.toggle("dark", isDark);
+    updateThemeIcons(isDark);
+}
+function updateThemeIcons(isDark) {
+    document
+        .querySelectorAll("[data-theme-icon]")
+        .forEach((icon) => {
+            icon.setAttribute(
+                "data-lucide",
+                isDark ? "sun" : "moon"
+            );
+        });
+    if (window.lucide) {
+        lucide.createIcons();
+    }
 }
 function toggleTheme() {
-  const s = DG.getData("settings", {});
-  s.theme = s.theme === "dark" ? "light" : "dark";
-  DG.saveData("settings", s);
-  applyTheme();
-  document
-    .querySelectorAll("[data-theme-icon]")
-    .forEach((e) =>
-      e.setAttribute("data-lucide", s.theme === "dark" ? "sun" : "moon"),
-    );
-  if (window.lucide) lucide.createIcons();
-  
+    const s = DG.getData("settings", {});
+    s.theme = s.theme === "dark"
+        ? "light"
+        : "dark";
+    DG.saveData("settings", s);
+    applyTheme();
 }
+document.addEventListener("DOMContentLoaded", () => {
+    applyTheme();
+});
 function esc(v = "") {
   return String(v).replace(
     /[&<>"']/g,
