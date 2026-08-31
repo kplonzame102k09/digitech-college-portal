@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="../css/custom.css" />
 </head>
 
-<body class="min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+<body class="student-portal min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
   <aside id="side"
     class="sidebar fixed inset-y-0 left-0 z-40 w-64 -translate-x-full lg:translate-x-0 bg-white dark:bg-slate-900 border-r dark:border-slate-800">
     <div class="h-full flex flex-col">
@@ -74,82 +74,11 @@
       </div>
     </header>
     <main class="p-4 sm:p-6 lg:p-8">
-      <div class="max-w-7xl mx-auto">
-        <div class="mb-7">
-          <p class="text-sm text-green-600 font-semibold">Good day</p>
-          <h2 class="text-3xl font-bold mt-1">
-            Welcome back, <span id="name"></span>
-          </h2>
-          <p class="text-slate-500 mt-2">
-            Here is your academic and enrollment overview.
-          </p>
-        </div>
-        <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
-          <div class="card p-5">
-            <div class="flex justify-between">
-              <span class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center"><i
-                  data-lucide="clipboard-check" class="text-green-600 w-5"></i></span>
-            </div>
-            <p class="mt-4 text-sm text-slate-500 dark:text-slate-400">
-              Enrollment Status
-            </p>
-            <p id="enrollmentstatus" class="mt-1 text-2xl font-bold">
-              Submitted
-            </p>
-          </div>
-          <div class="card p-5">
-            <div class="flex justify-between">
-              <span class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center"><i data-lucide="file-text"
-                  class="text-amber-600 w-5"></i></span>
-            </div>
-            <p class="mt-4 text-sm text-slate-500 dark:text-slate-400">
-              Document Requests
-            </p>
-            <p id="documentrequests" class="mt-1 text-2xl font-bold">2</p>
-          </div>
-          <div class="card p-5">
-            <div class="flex justify-between">
-              <span class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center"><i
-                  data-lucide="chart-no-axes-combined" class="text-blue-600 w-5"></i></span>
-            </div>
-            <p class="mt-4 text-sm text-slate-500 dark:text-slate-400">
-              Current GPA
-            </p>
-            <p id="currentgpa" class="mt-1 text-2xl font-bold">1.50</p>
-          </div>
-          <div class="card p-5">
-            <div class="flex justify-between">
-              <span class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center"><i data-lucide="award"
-                  class="text-purple-600 w-5"></i></span>
-            </div>
-            <p class="mt-4 text-sm text-slate-500 dark:text-slate-400">
-              Competency Progress
-            </p>
-            <p id="competencyprogress" class="mt-1 text-2xl font-bold">50%</p>
-          </div>
-        </div>
-        <div class="grid lg:grid-cols-3 gap-5 mt-6">
-          <section class="card p-5 lg:col-span-2">
-            <div class="flex justify-between items-center">
-              <div>
-                <h3 class="font-bold">Recent Activity</h3>
-                <p class="text-xs text-slate-400">
-                  Your latest portal updates
-                </p>
-              </div>
-              <button onclick="APP.showNotifications()" class="text-sm text-green-700 font-semibold">
-                View notifications
-              </button>
-            </div>
-            <div id="activity" class="mt-5 space-y-3"></div>
-          </section>
-          <section class="card p-5">
-            <h3 class="font-bold">Enrollment</h3>
-            <div id="enroll" class="mt-4"></div>
-            <a href="enrollment.html"
-              class="block mt-5 text-center rounded-xl bg-green-600 text-white py-2.5 font-semibold">View enrollment</a>
-          </section>
-        </div>
+      <div class="mx-auto max-w-7xl">
+        <section class="student-hero mb-7 p-6 sm:p-8"><div class="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between"><div><div class="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-emerald-100"><span class="h-2 w-2 rounded-full bg-emerald-300"></span>Student workspace</div><h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">Welcome back, <span id="name"></span>.</h2><p class="mt-3 max-w-xl text-sm leading-6 text-white/75">Your academic progress, enrollment tasks, and college updates are all in one place.</p></div><div class="flex flex-wrap gap-2"><a href="enrollment.html" class="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-emerald-700 hover:bg-emerald-50"><i data-lucide="clipboard-list" class="h-4 w-4"></i>Enrollment</a><a href="grades.html" class="inline-flex items-center gap-2 rounded-xl bg-white/15 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur hover:bg-white/25"><i data-lucide="chart-no-axes-combined" class="h-4 w-4"></i>View grades</a></div></div></section>
+        <section class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"><div class="portal-stat card p-5"><span class="portal-stat-icon bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-300"><i data-lucide="clipboard-check"></i></span><p class="mt-4 text-sm font-medium text-slate-500">Enrollment status</p><p id="enrollmentstatus" class="mt-1 text-2xl font-extrabold">Not started</p></div><div class="portal-stat card p-5"><span class="portal-stat-icon bg-amber-50 text-amber-600 dark:bg-amber-950/50 dark:text-amber-300"><i data-lucide="file-text"></i></span><p class="mt-4 text-sm font-medium text-slate-500">Document requests</p><p id="documentrequests" class="mt-1 text-2xl font-extrabold">0</p><p id="documentrequestsdetail" class="mt-1 text-xs text-slate-400">No requests yet</p></div><div class="portal-stat card p-5"><span class="portal-stat-icon bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-300"><i data-lucide="chart-no-axes-combined"></i></span><p class="mt-4 text-sm font-medium text-slate-500">Current average</p><p id="currentgpa" class="mt-1 text-2xl font-extrabold">—</p><p id="currentgpadetail" class="mt-1 text-xs text-slate-400">No published grades yet</p></div><div class="portal-stat card p-5"><span class="portal-stat-icon bg-violet-50 text-violet-600 dark:bg-violet-950/50 dark:text-violet-300"><i data-lucide="award"></i></span><p class="mt-4 text-sm font-medium text-slate-500">Competency progress</p><p id="competencyprogress" class="mt-1 text-2xl font-extrabold">0%</p><p id="competencydetail" class="mt-1 text-xs text-slate-400">No competency records yet</p></div></section>
+        <section class="mt-6 grid gap-6 lg:grid-cols-[1.35fr_1fr]"><div class="card p-5 sm:p-6"><div class="flex items-start justify-between gap-4"><div><p class="text-xs font-bold uppercase tracking-[0.16em] text-emerald-600">Activity</p><h3 class="mt-1 text-xl font-extrabold">Recent updates</h3><p class="mt-1 text-sm text-slate-500">Your latest portal notifications.</p></div><button type="button" onclick="APP.showNotifications()" class="inline-flex items-center gap-1 text-sm font-bold text-emerald-700">View all<i data-lucide="arrow-up-right" class="h-4 w-4"></i></button></div><div id="activity" class="mt-5 space-y-3"></div></div><div class="card p-5 sm:p-6"><div class="flex items-start justify-between gap-3"><div><p class="text-xs font-bold uppercase tracking-[0.16em] text-blue-600">Next step</p><h3 class="mt-1 text-xl font-extrabold">Enrollment</h3></div><i data-lucide="route" class="h-5 w-5 text-blue-500"></i></div><div id="enroll" class="mt-5"></div><a href="enrollment.html" class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 text-sm font-semibold text-white hover:bg-emerald-700">Open enrollment<i data-lucide="arrow-right" class="h-4 w-4"></i></a></div></section>
+        <section class="mt-6"><div class="mb-4"><p class="text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Shortcuts</p><h3 class="mt-1 text-xl font-extrabold">Keep moving</h3></div><div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4"><a href="requirements.html" class="student-action-card"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-950/50 dark:text-amber-300"><i data-lucide="folder-check"></i></span><b class="mt-4 block">Requirements</b><span class="mt-1 block text-xs text-slate-400">Track submissions</span></a><a href="documents.html" class="student-action-card"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-300"><i data-lucide="file-text"></i></span><b class="mt-4 block">Documents</b><span class="mt-1 block text-xs text-slate-400">Request official records</span></a><a href="competencies.html" class="student-action-card"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-50 text-violet-600 dark:bg-violet-950/50 dark:text-violet-300"><i data-lucide="award"></i></span><b class="mt-4 block">Competencies</b><span class="mt-1 block text-xs text-slate-400">Review TVET progress</span></a><a href="profile.html" class="student-action-card"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-300"><i data-lucide="user-round"></i></span><b class="mt-4 block">Profile</b><span class="mt-1 block text-xs text-slate-400">Update contact details</span></a></div></section>
       </div>
     </main>
   </div>
@@ -161,29 +90,34 @@
   <script>
     const U = AUTH.requireRole("student");
     if (U) {
-      avatar.src = getProfilePhoto(U);
+      const avatar = document.getElementById("avatar");
+      const side = document.getElementById("side");
+      avatar.src = DG.getProfilePhoto(U);
       APP.applyTheme();
-      lucide.createIcons();
-      document.getElementById("open").onclick = () =>
-        side.classList.toggle("-translate-x-full");
+      document.getElementById("open").addEventListener("click", () => side.classList.toggle("-translate-x-full"));
       APP.updateNotif();
+      const users = DG.getData("users", []);
+      const notifications = DG.getData("notifications", []).filter((item) => item.userId === U.id).sort((a, b) => new Date(b.date) - new Date(a.date));
+      const enrollments = DG.getData("enrollments", []).filter((item) => item.studentId === U.id).sort((a, b) => new Date(b.updatedAt || b.createdAt || 0) - new Date(a.updatedAt || a.createdAt || 0));
+      const enrollment = enrollments[0];
+      const documents = DG.getData("documentRequests", []).filter((item) => item.studentId === U.id);
+      const grades = DG.getData("grades", []).filter((item) => item.studentId === U.id && item.published !== false && item.grade !== null && item.grade !== "" && Number.isFinite(Number(item.grade)));
+      const competencies = DG.getData("competencies", []).filter((item) => item.studentId === U.id);
+      const average = grades.length ? (grades.reduce((sum, item) => sum + Number(item.grade), 0) / grades.length).toFixed(2) : "—";
+      const completed = competencies.filter((item) => item.status === "Competent").length;
+      const progress = competencies.length ? Math.round((completed / competencies.length) * 100) : 0;
+      document.getElementById("name").textContent = `${U.firstName || ""} ${U.lastName || ""}`.trim() || U.id;
+      document.getElementById("enrollmentstatus").innerHTML = enrollment ? APP.statusBadge(enrollment.status) : "Not started";
+      document.getElementById("documentrequests").textContent = documents.length;
+      document.getElementById("documentrequestsdetail").textContent = documents.length ? `${documents.filter((item) => item.status !== "Released").length} still in progress` : "No requests yet";
+      document.getElementById("currentgpa").textContent = average;
+      document.getElementById("currentgpadetail").textContent = grades.length ? `${grades.length} published subject${grades.length === 1 ? "" : "s"}` : "No published grades yet";
+      document.getElementById("competencyprogress").textContent = `${progress}%`;
+      document.getElementById("competencydetail").textContent = competencies.length ? `${completed} of ${competencies.length} marked competent` : "No competency records yet";
+      document.getElementById("activity").innerHTML = notifications.slice(0, 4).map((item) => `<div class="flex gap-3 rounded-2xl border border-slate-200 p-3 dark:border-slate-700"><span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-300"><i data-lucide="bell-ring" class="h-4 w-4"></i></span><div class="min-w-0"><div class="flex flex-wrap items-center gap-2"><b class="text-sm">${APP.esc(item.title || "Portal update")}</b><span class="text-[11px] text-slate-400">${APP.formatDate(item.date)}</span></div><p class="mt-1 text-xs leading-5 text-slate-500">${APP.esc(item.message || "No additional details.")}</p></div></div>`).join("") || '<div class="portal-empty-state"><i data-lucide="bell-off"></i><b>No recent updates</b><p>New messages from the college will appear here.</p></div>';
+      document.getElementById("enroll").innerHTML = enrollment ? `<div class="rounded-2xl bg-slate-50 p-4 dark:bg-slate-800"><p class="text-xs text-slate-400">Current status</p><div class="mt-2">${APP.statusBadge(enrollment.status)}</div><p class="mt-4 text-sm font-semibold">${APP.esc(enrollment.strand || enrollment.track || "Program not specified")}</p><p class="mt-1 text-xs text-slate-400">${APP.esc(enrollment.schoolYear || "School year not set")}</p></div>` : '<div class="portal-empty-state"><i data-lucide="clipboard-list"></i><b>Enrollment not started</b><p>Complete your enrollment information to get started.</p></div>';
+      lucide.createIcons();
     }
-    name.textContent = U.firstName + " " + U.lastName;
-    let ns = DG.getData("notifications", [])
-      .filter((n) => n.userId === U.id)
-      .sort((a, b) => new Date(b.date) - new Date(a.date))
-      .slice(0, 4);
-    activity.innerHTML = ns
-      .map(
-        (n) =>
-          `<div class="flex gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800"><span class="w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center"><i data-lucide="bell" class="w-4 text-green-600"></i></span><div><b class="text-sm">${APP.esc(n.title)}</b><p class="text-xs text-slate-500">${APP.esc(n.message)}</p></div></div>`,
-      )
-      .join("");
-    let e = DG.getData("enrollments", []).find((x) => x.studentId === U.id);
-    enroll.innerHTML = e
-      ? `<p class="text-xs text-slate-400">Status</p><div class="mt-1">${APP.statusBadge(e.status)}</div><p class="text-sm font-semibold mt-4">${APP.esc(e.strand)} · ${APP.esc(e.schoolYear)}</p>`
-      : '<p class="text-sm text-slate-500">No enrollment record yet.</p>';
-    lucide.createIcons();
   </script>
 </body>
 

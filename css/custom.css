@@ -499,3 +499,264 @@ textarea {
 .dark .teacher-profile-card {
   background: linear-gradient(160deg, rgba(15,23,42,.98), rgba(6,78,59,.14));
 }
+
+/* Student and parent experience refresh */
+.student-portal main,
+body[data-parent-page] main {
+  position: relative;
+}
+.student-portal main::before,
+body[data-parent-page] main::before {
+  position: absolute;
+  z-index: -1;
+  top: -3rem;
+  right: 8%;
+  width: 16rem;
+  height: 16rem;
+  border-radius: 999px;
+  background: rgba(16,185,129,.055);
+  content: "";
+  filter: blur(2px);
+}
+.student-hero,
+.family-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  color: white;
+  box-shadow: 0 22px 50px rgba(5,150,105,.18);
+}
+.student-hero {
+  background:
+    radial-gradient(circle at 86% 12%, rgba(96,165,250,.48), transparent 18rem),
+    linear-gradient(135deg, #065f46 0%, #059669 48%, #2563eb 132%);
+}
+.family-hero {
+  background:
+    radial-gradient(circle at 84% 10%, rgba(251,191,36,.3), transparent 17rem),
+    linear-gradient(135deg, #164e63 0%, #0e7490 45%, #4338ca 135%);
+}
+.student-hero::after,
+.family-hero::after {
+  position: absolute;
+  right: -4rem;
+  bottom: -8rem;
+  width: 19rem;
+  height: 19rem;
+  border: 1px solid rgba(255,255,255,.17);
+  border-radius: 999px;
+  box-shadow: 0 0 0 2rem rgba(255,255,255,.04), 0 0 0 5rem rgba(255,255,255,.025);
+  content: "";
+  z-index: -1;
+}
+.portal-stat {
+  position: relative;
+  overflow: hidden;
+}
+.portal-stat::after {
+  position: absolute;
+  right: -2.25rem;
+  bottom: -3rem;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 999px;
+  background: rgba(16,185,129,.06);
+  content: "";
+}
+.portal-stat-icon {
+  display: inline-flex;
+  width: 2.6rem;
+  height: 2.6rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: .9rem;
+}
+.portal-stat-icon svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+.portal-chip {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: .45rem;
+  border: 1px solid rgba(16,185,129,.17);
+  border-radius: 999px;
+  background: rgba(236,253,245,.8);
+  padding: .5rem .75rem;
+  color: #047857;
+  font-size: .75rem;
+  font-weight: 700;
+}
+.dark .portal-chip {
+  border-color: rgba(110,231,183,.2);
+  background: rgba(6,78,59,.3);
+  color: #a7f3d0;
+}
+.student-toolbar,
+.parent-toolbar {
+  border-color: rgba(16,185,129,.14);
+  background: linear-gradient(135deg, rgba(255,255,255,.96), rgba(240,253,250,.7));
+}
+.dark .student-toolbar,
+.dark .parent-toolbar {
+  background: linear-gradient(135deg, rgba(15,23,42,.97), rgba(6,78,59,.16));
+}
+.student-action-card,
+.parent-action-card {
+  display: block;
+  border: 1px solid #e2e8f0;
+  border-radius: 1.15rem;
+  background: rgba(255,255,255,.86);
+  padding: 1rem;
+  transition: transform 180ms var(--ease-out), box-shadow 180ms var(--ease-out), border-color 180ms var(--ease-out);
+}
+.student-action-card:hover,
+.parent-action-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(16,185,129,.34);
+  box-shadow: 0 14px 30px rgba(15,23,42,.08);
+}
+.dark .student-action-card,
+.dark .parent-action-card {
+  border-color: #334155;
+  background: rgba(15,23,42,.82);
+}
+.portal-filter-link {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  padding: .5rem .8rem;
+  color: #64748b;
+  font-size: .75rem;
+  font-weight: 700;
+  transition: background-color 180ms var(--ease-out), color 180ms var(--ease-out), border-color 180ms var(--ease-out);
+}
+.portal-filter-link:hover {
+  border-color: rgba(16,185,129,.3);
+  color: #047857;
+}
+.dark .portal-filter-link {
+  border-color: #334155;
+  color: #cbd5e1;
+}
+.portal-empty-state {
+  display: flex;
+  min-height: 13rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #cbd5e1;
+  border-radius: 1.25rem;
+  padding: 2rem;
+  text-align: center;
+  color: #64748b;
+}
+.portal-empty-state svg {
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: .8rem;
+  color: #94a3b8;
+}
+.dark .portal-empty-state {
+  border-color: #334155;
+  color: #94a3b8;
+}
+.parent-children-card {
+  transition: transform 180ms var(--ease-out), box-shadow 180ms var(--ease-out), border-color 180ms var(--ease-out);
+}
+.parent-children-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(14,116,144,.3);
+  box-shadow: 0 16px 32px rgba(15,23,42,.09);
+}
+.student-portal .card,
+body[data-parent-page] .card {
+  box-shadow: 0 10px 30px rgba(15,23,42,.045);
+}
+.student-portal .card table tbody tr:hover,
+body[data-parent-page] .card table tbody tr:hover {
+  background: linear-gradient(90deg, rgba(236,253,245,.7), rgba(239,246,255,.3));
+}
+.dark .student-portal .card table tbody tr:hover,
+.dark body[data-parent-page] .card table tbody tr:hover {
+  background: rgba(6,78,59,.2);
+}
+.student-portal input[readonly],
+.student-portal input:disabled,
+body[data-parent-page] input[readonly] {
+  cursor: not-allowed;
+}
+@media (max-width: 639px) {
+  .student-hero,
+  .family-hero {
+    border-radius: 1.35rem;
+  }
+}
+.dark .student-hero {
+  background:
+    radial-gradient(circle at 86% 12%, rgba(59,130,246,.4), transparent 18rem),
+    linear-gradient(135deg, #022c22 0%, #047857 48%, #1e3a8a 132%);
+}
+.dark .family-hero {
+  background:
+    radial-gradient(circle at 84% 10%, rgba(251,191,36,.18), transparent 17rem),
+    linear-gradient(135deg, #083344 0%, #155e75 45%, #312e81 135%);
+}
+body[data-parent-page] main > div > section:first-child:not(.family-hero) {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 1.75rem;
+  background:
+    radial-gradient(circle at 84% 10%, rgba(251,191,36,.24), transparent 17rem),
+    linear-gradient(135deg, #164e63 0%, #0e7490 45%, #4338ca 135%);
+  padding: 1.5rem;
+  color: white;
+  box-shadow: 0 22px 50px rgba(14,116,144,.15);
+}
+body[data-parent-page] main > div > section:first-child:not(.family-hero)::after {
+  position: absolute;
+  z-index: -1;
+  right: -4rem;
+  bottom: -8rem;
+  width: 19rem;
+  height: 19rem;
+  border: 1px solid rgba(255,255,255,.17);
+  border-radius: 999px;
+  box-shadow: 0 0 0 2rem rgba(255,255,255,.04), 0 0 0 5rem rgba(255,255,255,.025);
+  content: "";
+}
+body[data-parent-page] main > div > section:first-child:not(.family-hero) p,
+body[data-parent-page] main > div > section:first-child:not(.family-hero) h2 {
+  position: relative;
+  z-index: 1;
+  color: white !important;
+}
+@media (max-width: 639px) {
+  body[data-parent-page] main > div > section:first-child:not(.family-hero) {
+    border-radius: 1.35rem;
+  }
+}
+.dark body[data-parent-page] main > div > section:first-child:not(.family-hero) {
+  background:
+    radial-gradient(circle at 84% 10%, rgba(251,191,36,.16), transparent 17rem),
+    linear-gradient(135deg, #083344 0%, #155e75 45%, #312e81 135%);
+}
+.family-hero h2,
+.family-hero p,
+.family-hero a,
+.family-hero button {
+  color: white;
+}
+.family-hero p.text-slate-500,
+.family-hero p.text-slate-400,
+.family-hero p[class*="text-"] {
+  color: rgba(255,255,255,.76) !important;
+}
+.family-hero a,
+.family-hero button {
+  color: white;
+}

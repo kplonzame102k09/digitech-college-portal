@@ -111,6 +111,7 @@
     const grades = DG.getData("grades", []).filter(
       (grade) =>
         grade.studentId === studentId &&
+        grade.published !== false &&
         grade.grade !== null &&
         grade.grade !== "" &&
         !Number.isNaN(Number(grade.grade)),
@@ -167,6 +168,9 @@
   function fillChildCard(card, student) {
     const enrollment = enrollmentFor(student.id);
     const average = averageGrade(student.id);
+    const competencies = DG.getData("competencies", []).filter((item) => item.studentId === student.id);
+    const competent = competencies.filter((item) => item.status === "Competent").length;
+    const competencyProgress = competencies.length ? `${Math.round((competent / competencies.length) * 100)}%` : "Not started";
     text("[data-child-initials]", initials(student), card);
     text("[data-child-name]", studentName(student), card);
     text("[data-child-id]", student.id, card);
@@ -180,6 +184,7 @@
       average === null ? "No grades yet" : average.toFixed(2),
       card,
     );
+    text("[data-child-competency]", competencyProgress, card);
     statusBadge(
       $("[data-child-status]", card),
       enrollment?.status || "Not Started",
@@ -208,7 +213,11 @@
       .filter((item) => item.userId === parent.id)
       .sort((a, b) => new Date(b.date) - new Date(a.date));
     const grades = recordsForChildren("grades", children).filter(
-      (item) => item.grade !== null && item.grade !== "",
+      (item) =>
+        item.published !== false &&
+        item.grade !== null &&
+        item.grade !== "" &&
+        Number.isFinite(Number(item.grade)),
     );
     const average = grades.length
       ? (
@@ -374,7 +383,7 @@
       .map((student) => ({
         student,
         grades: DG.getData("grades", []).filter(
-          (grade) => grade.studentId === student.id,
+          (grade) => grade.studentId === student.id && grade.published !== false,
         ),
       }))
       .filter((group) => group.grades.length);
@@ -385,7 +394,10 @@
       const group = cloneTemplate("gradeGroupTemplate");
       if (!group) return;
       const published = grades.filter(
-        (grade) => grade.grade !== null && grade.grade !== "",
+        (grade) =>
+          grade.grade !== null &&
+          grade.grade !== "" &&
+          Number.isFinite(Number(grade.grade)),
       );
       const average = published.length
         ? (

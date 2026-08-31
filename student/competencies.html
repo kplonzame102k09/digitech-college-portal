@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="../css/custom.css" />
 </head>
 
-<body class="min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+<body class="student-portal min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
   <aside id="side"
     class="sidebar fixed inset-y-0 left-0 z-40 w-64 -translate-x-full lg:translate-x-0 bg-white dark:bg-slate-900 border-r dark:border-slate-800">
     <div class="h-full flex flex-col">
@@ -74,27 +74,11 @@
       </div>
     </header>
     <main class="p-4 sm:p-6 lg:p-8">
-      <div class="max-w-7xl mx-auto">
-        <div class="mb-7">
-          <p class="text-sm text-green-600 font-semibold">TVET</p>
-          <h2 class="text-3xl font-bold">Competency Checklist</h2>
-          <p class="text-slate-500 mt-2">
-            Track competency assessment progress.
-          </p>
-        </div>
-        <div class="card p-6 mb-6">
-          <div class="flex justify-between">
-            <div>
-              <p class="text-sm text-slate-500">Overall Progress</p>
-              <h3 id="pct" class="text-3xl font-bold mt-1">0%</h3>
-            </div>
-            <i data-lucide="award" class="w-8 text-green-600"></i>
-          </div>
-          <div class="h-3 bg-slate-100 rounded-full mt-5 overflow-hidden">
-            <div id="bar" class="h-full bg-green-600 rounded-full progress" style="width: 0%"></div>
-          </div>
-        </div>
-        <div id="cards" class="grid lg:grid-cols-2 gap-4"></div>
+      <div class="mx-auto max-w-7xl">
+        <section class="student-hero mb-7 p-6 sm:p-8"><div class="relative z-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"><div><p class="text-xs font-bold uppercase tracking-[0.2em] text-emerald-100">TVET progress</p><h2 class="mt-2 text-3xl font-extrabold sm:text-4xl">Your competency journey</h2><p class="mt-3 max-w-2xl text-sm leading-6 text-white/75">See the outcomes recorded by your teacher and understand what to work on next.</p></div><span class="rounded-xl bg-white/15 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur"><i data-lucide="award" class="mr-2 inline h-4 w-4"></i>Assessment record</span></div></section>
+        <section class="mb-6 grid gap-4 sm:grid-cols-3"><div class="portal-stat card p-5"><span class="portal-stat-icon bg-violet-50 text-violet-600 dark:bg-violet-950/50 dark:text-violet-300"><i data-lucide="percent"></i></span><p class="mt-4 text-sm text-slate-500">Overall progress</p><p id="pct" class="mt-1 text-3xl font-extrabold">0%</p></div><div class="portal-stat card p-5"><span class="portal-stat-icon bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-300"><i data-lucide="badge-check"></i></span><p class="mt-4 text-sm text-slate-500">Competent</p><p id="competentCount" class="mt-1 text-3xl font-extrabold text-emerald-600">0</p></div><div class="portal-stat card p-5"><span class="portal-stat-icon bg-amber-50 text-amber-600 dark:bg-amber-950/50 dark:text-amber-300"><i data-lucide="list-checks"></i></span><p class="mt-4 text-sm text-slate-500">Still in progress</p><p id="remainingCount" class="mt-1 text-3xl font-extrabold text-amber-600">0</p></div></section>
+        <section class="card mb-6 p-5 sm:p-6"><div class="flex items-center justify-between gap-3"><div><p class="text-sm font-extrabold">Completion overview</p><p class="mt-1 text-xs text-slate-400">Competent outcomes divided by all assigned competencies.</p></div><span id="progressLabel" class="text-sm font-bold text-emerald-600">0 of 0</span></div><div class="mt-5 h-3 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800"><div id="bar" class="h-full rounded-full bg-emerald-600 progress" style="width: 0%"></div></div></section>
+        <div id="cards" class="grid gap-4 lg:grid-cols-2"></div>
       </div>
     </main>
   </div>
@@ -113,19 +97,16 @@
         side.classList.toggle("-translate-x-full");
       APP.updateNotif();
     }
-    let a = DG.getData("competencies", []).filter(
-      (x) => x.studentId === U.id,
-    ),
-      done = a.filter((x) => x.status === "Competent").length,
-      p = a.length ? Math.round((done / a.length) * 100) : 0;
-    pct.textContent = p + "%";
-    bar.style.width = p + "%";
-    cards.innerHTML = a
-      .map(
-        (x) =>
-          `<article class="card p-5"><div class="flex justify-between gap-4"><div><p class="text-xs text-slate-400">${APP.esc(x.qualification)}</p><h3 class="font-bold mt-1">${APP.esc(x.competency)}</h3></div>${APP.statusBadge(x.status)}</div><p class="mt-4 text-sm text-slate-500">Assessment: ${APP.formatDate(x.assessmentDate)}</p><p class="text-sm text-slate-500">${APP.esc(x.remarks || "No remarks")}</p></article>`,
-      )
-      .join("");
+    const a = DG.getData("competencies", []).filter((item) => item.studentId === U.id).sort((left, right) => new Date(right.assessmentDate || 0) - new Date(left.assessmentDate || 0));
+    const done = a.filter((item) => item.status === "Competent").length;
+    const p = a.length ? Math.round((done / a.length) * 100) : 0;
+    document.getElementById("pct").textContent = `${p}%`;
+    document.getElementById("competentCount").textContent = done;
+    document.getElementById("remainingCount").textContent = Math.max(a.length - done, 0);
+    document.getElementById("progressLabel").textContent = `${done} of ${a.length}`;
+    document.getElementById("bar").style.width = `${p}%`;
+    document.getElementById("cards").innerHTML = a.length ? a.map((item) => `<article class="teacher-competency-card card p-5"><div class="flex items-start justify-between gap-4"><div><p class="text-xs font-bold uppercase tracking-[0.12em] text-violet-600">${APP.esc(item.qualification || "Competency")}</p><h3 class="mt-1 text-lg font-extrabold">${APP.esc(item.competency || item.name || "Unnamed competency")}</h3></div>${APP.statusBadge(item.status)}</div><div class="mt-5 grid gap-3 sm:grid-cols-2"><div class="teacher-mini-detail"><span>Assessment date</span><b>${APP.formatDate(item.assessmentDate)}</b></div><div class="teacher-mini-detail"><span>Assessor</span><b>${APP.esc(item.assessor || "Not recorded")}</b></div></div><div class="mt-4 rounded-2xl bg-slate-50 p-4 text-sm text-slate-600 dark:bg-slate-800 dark:text-slate-300"><span class="text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">Teacher remarks</span><p class="mt-1">${APP.esc(item.remarks || "No remarks have been added yet.")}</p></div>${item.evidence ? `<a class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-emerald-700" href="${APP.esc(item.evidence)}" target="_blank" rel="noopener"><i data-lucide="external-link" class="h-4 w-4"></i>View evidence</a>` : ""}</article>`).join("") : '<div class="portal-empty-state lg:col-span-2"><i data-lucide="award"></i><b>No competencies assigned yet</b><p>Your competency records will appear here after administration assigns them.</p></div>';
+    lucide.createIcons();
   </script>
 </body>
 

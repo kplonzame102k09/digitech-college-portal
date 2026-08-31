@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="../css/custom.css" />
 </head>
 
-<body class="min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+<body class="student-portal min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
   <aside id="side"
     class="sidebar fixed inset-y-0 left-0 z-40 w-64 -translate-x-full lg:translate-x-0 bg-white dark:bg-slate-900 border-r dark:border-slate-800">
     <div class="h-full flex flex-col">
@@ -74,54 +74,13 @@
       </div>
     </header>
     <main class="p-4 sm:p-6 lg:p-8">
-      <div class="max-w-7xl mx-auto">
-        <div class="mb-7">
-          <p class="text-sm text-green-600 font-semibold">Enrollment</p>
-          <h2 class="text-3xl font-bold">Online Enrollment</h2>
-          <p class="text-slate-500 mt-2">
-            Complete and save your enrollment information.
-          </p>
-        </div>
-        <form id="enr" class="card p-6 space-y-7">
-          <div>
-            <h3 class="font-bold">Student Information</h3>
-            <div class="grid md:grid-cols-3 gap-4 mt-4">
-              <input id="fullName" readonly class="input rounded-xl border px-3 py-2.5 bg-slate-50" /><input
-                id="studentId" readonly class="input rounded-xl border px-3 py-2.5 bg-slate-50" /><input id="contact"
-                class="input rounded-xl border px-3 py-2.5" placeholder="Contact Number" /><input id="birthDate"
-                type="date" class="input rounded-xl border px-3 py-2.5" /><input id="address"
-                class="input md:col-span-2 rounded-xl border px-3 py-2.5" placeholder="Address" />
-            </div>
-          </div>
-          <div>
-            <h3 class="font-bold">Guardian Information</h3>
-            <div class="grid md:grid-cols-2 gap-4 mt-4">
-              <input id="guardianName" class="input rounded-xl border px-3 py-2.5" placeholder="Guardian Name" /><input
-                id="guardianContact" class="input rounded-xl border px-3 py-2.5" placeholder="Guardian Contact" />
-            </div>
-          </div>
-          <div>
-            <h3 class="font-bold">Academic Information</h3>
-            <div class="grid md:grid-cols-4 gap-4 mt-4">
-              <select id="programType" class="input rounded-xl border px-3 py-2.5">
-                <option>Senior High</option>
-                <option>TVET</option>
-              </select><input id="gradeLevel" class="input rounded-xl border px-3 py-2.5"
-                placeholder="Grade Level" /><input id="strand" class="input rounded-xl border px-3 py-2.5"
-                placeholder="Strand / Program" /><input id="track" class="input rounded-xl border px-3 py-2.5"
-                placeholder="Track / Qualification" /><input id="training" class="input rounded-xl border px-3 py-2.5"
-                placeholder="Training Level" /><input id="schoolYear" class="input rounded-xl border px-3 py-2.5"
-                value="2026-2027" />
-            </div>
-          </div>
-          <div class="flex flex-wrap gap-3">
-            <button type="button" onclick="saveEnrollment('Draft')" class="border rounded-xl px-5 py-3 font-semibold">
-              Save Draft</button><button type="button" onclick="saveEnrollment('Submitted')"
-              class="bg-green-600 text-white rounded-xl px-5 py-3 font-semibold">
-              Submit Enrollment
-            </button>
-          </div>
-          <div id="status"></div>
+      <div class="mx-auto max-w-6xl">
+        <section class="mb-7"><p class="text-xs font-bold uppercase tracking-[0.18em] text-emerald-600">Enrollment</p><h2 class="mt-2 text-3xl font-extrabold tracking-tight">Build your student record</h2><p class="mt-2 max-w-2xl text-slate-500">Complete the details below, save a draft while you work, or submit your enrollment for review.</p></section>
+        <form id="enr" class="space-y-6">
+          <section class="card p-5 sm:p-7"><div class="flex items-start gap-3 border-b border-slate-200 pb-5 dark:border-slate-700"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-300"><i data-lucide="user-round"></i></span><div><h3 class="font-extrabold">Student information</h3><p class="mt-1 text-sm text-slate-500">Verify your identity and add your current contact details.</p></div></div><div class="mt-6 grid gap-5 md:grid-cols-3"><label class="text-sm font-semibold">Full name<input id="fullName" readonly class="input mt-1.5 w-full rounded-xl border bg-slate-50 px-3 py-2.5 dark:bg-slate-800" /></label><label class="text-sm font-semibold">Student ID<input id="studentId" readonly class="input mt-1.5 w-full rounded-xl border bg-slate-50 px-3 py-2.5 font-mono text-xs dark:bg-slate-800" /></label><label class="text-sm font-semibold">Contact number<input id="contact" required class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="e.g. +63 900 000 0000" /></label><label class="text-sm font-semibold">Birth date<input id="birthDate" type="date" required class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" /></label><label class="text-sm font-semibold md:col-span-2">Home address<input id="address" required class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="House number, street, barangay, city" /></label></div></section>
+          <section class="card p-5 sm:p-7"><div class="flex items-start gap-3 border-b border-slate-200 pb-5 dark:border-slate-700"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-950/50 dark:text-amber-300"><i data-lucide="contact"></i></span><div><h3 class="font-extrabold">Guardian information</h3><p class="mt-1 text-sm text-slate-500">Add a guardian contact for enrollment and emergency communication.</p></div></div><div class="mt-6 grid gap-5 md:grid-cols-2"><label class="text-sm font-semibold">Guardian name<input id="guardianName" required class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="Full name" /></label><label class="text-sm font-semibold">Guardian contact<input id="guardianContact" required class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="Phone number or email" /></label></div></section>
+          <section class="card p-5 sm:p-7"><div class="flex items-start gap-3 border-b border-slate-200 pb-5 dark:border-slate-700"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-300"><i data-lucide="graduation-cap"></i></span><div><h3 class="font-extrabold">Academic information</h3><p class="mt-1 text-sm text-slate-500">Choose the program and school-year details for this enrollment.</p></div></div><div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"><label class="text-sm font-semibold">Program type<select id="programType" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"><option>Senior High</option><option>TVET</option></select></label><label class="text-sm font-semibold">Grade level<input id="gradeLevel" required class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="e.g. Grade 12" /></label><label class="text-sm font-semibold">Strand / program<input id="strand" required class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="e.g. ICT" /></label><label class="text-sm font-semibold">Track / qualification<input id="track" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="e.g. CSS NC II" /></label><label class="text-sm font-semibold">Training level<input id="training" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="Optional for TVET" /></label><label class="text-sm font-semibold">School year<input id="schoolYear" required class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" value="2026-2027" /></label></div></section>
+          <section class="card flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6"><div><p class="text-sm font-bold">Ready to continue?</p><p class="mt-1 text-xs text-slate-500">You can save a draft and return later before submitting.</p><div id="status" class="mt-3"></div></div><div class="flex flex-wrap gap-3"><button type="button" onclick="saveEnrollment('Draft')" class="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-5 py-3 text-sm font-semibold dark:border-slate-700"><i data-lucide="save" class="h-4 w-4"></i>Save draft</button><button type="button" onclick="saveEnrollment('Submitted')" class="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-700"><i data-lucide="send" class="h-4 w-4"></i>Submit enrollment</button></div></section>
         </form>
       </div>
     </main>
@@ -164,24 +123,45 @@
       status.innerHTML = APP.statusBadge(old.status);
     }
     function saveEnrollment(s) {
-      let all = DG.getData("enrollments", []);
-      let x = {
+      const all = DG.getData("enrollments", []);
+      const userRecords = DG.getData("users", []);
+      const user = userRecords.find((item) => item.id === U.id);
+      const form = document.getElementById("enr");
+      if (s === "Submitted" && !form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      const now = new Date().toISOString();
+      const record = {
         id: old?.id || DG.generateId("ENR"),
         studentId: U.id,
         status: s,
-        programType: programType.value,
-        gradeLevel: gradeLevel.value,
-        strand: strand.value,
-        track: track.value,
-        trainingLevel: training.value,
-        schoolYear: schoolYear.value,
-        updatedAt: new Date().toISOString(),
+        programType: document.getElementById("programType").value,
+        gradeLevel: document.getElementById("gradeLevel").value.trim(),
+        strand: document.getElementById("strand").value.trim(),
+        track: document.getElementById("track").value.trim(),
+        trainingLevel: document.getElementById("training").value.trim(),
+        schoolYear: document.getElementById("schoolYear").value.trim(),
+        updatedAt: now,
+        createdAt: old?.createdAt || now,
       };
-      all = all.filter((e) => e.studentId !== U.id);
-      all.push(x);
-      DG.saveData("enrollments", all);
-      status.innerHTML = APP.statusBadge(s);
-      APP.toast("Enrollment saved as " + s);
+      if (user) {
+        Object.assign(user, {
+          contact: document.getElementById("contact").value.trim(),
+          birthDate: document.getElementById("birthDate").value,
+          address: document.getElementById("address").value.trim(),
+          guardianName: document.getElementById("guardianName").value.trim(),
+          guardianContact: document.getElementById("guardianContact").value.trim(),
+          strand: record.strand,
+          track: record.track,
+        });
+        DG.saveData("users", userRecords);
+        DG.setCurrentUser(user);
+      }
+      DG.saveData("enrollments", [...all.filter((item) => item.studentId !== U.id), record]);
+      old = record;
+      document.getElementById("status").innerHTML = APP.statusBadge(s);
+      APP.toast(`Enrollment saved as ${s}`);
     }
   </script>
 </body>

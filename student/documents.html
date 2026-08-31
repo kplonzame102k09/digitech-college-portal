@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="../css/custom.css" />
 </head>
 
-<body class="min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+<body class="student-portal min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
   <aside id="side"
     class="sidebar fixed inset-y-0 left-0 z-40 w-64 -translate-x-full lg:translate-x-0 bg-white dark:bg-slate-900 border-r dark:border-slate-800">
     <div class="h-full flex flex-col">
@@ -74,50 +74,11 @@
       </div>
     </header>
     <main class="p-4 sm:p-6 lg:p-8">
-      <div class="max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-7">
-          <div>
-            <p class="text-sm text-green-600 font-semibold">Records</p>
-            <h2 class="text-3xl font-bold">Document Requests</h2>
-            <p class="text-slate-500 mt-2">
-              Request official documents and track their status.
-            </p>
-          </div>
-          <button onclick="document.getElementById('formBox').classList.toggle('hidden')"
-            class="bg-green-600 text-white px-5 py-3 rounded-xl font-semibold">
-            New Request
-          </button>
-        </div>
-        <section id="formBox" class="hidden card p-6 mb-6">
-          <form id="docForm" class="grid md:grid-cols-2 gap-4">
-            <select id="type" class="input rounded-xl border px-3 py-3">
-              <option>Form 137</option>
-              <option>Good Moral Certificate</option>
-              <option>Transcript of Records</option>
-              <option>Diploma</option>
-            </select><input id="purpose" required class="input rounded-xl border px-3 py-3"
-              placeholder="Purpose" /><input id="copies" type="number" min="1" value="1"
-              class="input rounded-xl border px-3 py-3" /><input id="notes" class="input rounded-xl border px-3 py-3"
-              placeholder="Notes" /><button class="md:col-span-2 bg-green-600 text-white rounded-xl py-3 font-semibold">
-              Submit Request
-            </button>
-          </form>
-        </section>
-        <div class="card overflow-hidden">
-          <div class="overflow-x-auto">
-            <table class="w-full text-sm">
-              <thead class="bg-slate-50 dark:bg-slate-800">
-                <tr>
-                  <th class="p-4 text-left">Document</th>
-                  <th class="p-4 text-left">Purpose</th>
-                  <th class="p-4 text-left">Date</th>
-                  <th class="p-4 text-left">Status</th>
-                </tr>
-              </thead>
-              <tbody id="rows"></tbody>
-            </table>
-          </div>
-        </div>
+      <div class="mx-auto max-w-7xl">
+        <section class="mb-7"><div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><p class="text-xs font-bold uppercase tracking-[0.18em] text-blue-600">Student services</p><h2 class="mt-2 text-3xl font-extrabold tracking-tight">Request official documents</h2><p class="mt-2 max-w-2xl text-slate-500">Submit a request, share its purpose, and track each document from processing to release.</p></div><button type="button" onclick="document.getElementById('formBox').classList.toggle('hidden')" class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-700"><i data-lucide="plus"></i>New request</button></div></section>
+        <section class="mb-6 grid gap-4 sm:grid-cols-3"><div class="portal-stat card p-5"><span class="portal-stat-icon bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-300"><i data-lucide="files"></i></span><p class="mt-4 text-sm text-slate-500">Total requests</p><p id="docTotal" class="mt-1 text-3xl font-extrabold">0</p></div><div class="portal-stat card p-5"><span class="portal-stat-icon bg-amber-50 text-amber-600 dark:bg-amber-950/50 dark:text-amber-300"><i data-lucide="clock-3"></i></span><p class="mt-4 text-sm text-slate-500">In progress</p><p id="docPending" class="mt-1 text-3xl font-extrabold text-amber-600">0</p></div><div class="portal-stat card p-5"><span class="portal-stat-icon bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-300"><i data-lucide="badge-check"></i></span><p class="mt-4 text-sm text-slate-500">Ready or released</p><p id="docReady" class="mt-1 text-3xl font-extrabold text-emerald-600">0</p></div></section>
+        <section id="formBox" class="student-toolbar card mb-6 hidden p-5 sm:p-6"><div class="mb-5 flex items-start gap-3"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-300"><i data-lucide="file-plus-2"></i></span><div><h3 class="font-extrabold">Start a new request</h3><p class="mt-1 text-sm text-slate-500">Provide enough detail for the registrar to process it quickly.</p></div></div><form id="docForm" class="grid gap-5 md:grid-cols-2"><label class="text-sm font-semibold">Document type<select id="type" class="input mt-1.5 w-full rounded-xl border px-3 py-3"><option>Form 137</option><option>Good Moral Certificate</option><option>Transcript of Records</option><option>Diploma</option></select></label><label class="text-sm font-semibold">Purpose<input id="purpose" required maxlength="160" class="input mt-1.5 w-full rounded-xl border px-3 py-3" placeholder="e.g. Scholarship application" /></label><label class="text-sm font-semibold">Number of copies<input id="copies" type="number" min="1" max="10" value="1" class="input mt-1.5 w-full rounded-xl border px-3 py-3" /></label><label class="text-sm font-semibold">Notes <span class="font-normal text-slate-400">(optional)</span><input id="notes" maxlength="300" class="input mt-1.5 w-full rounded-xl border px-3 py-3" placeholder="Additional instructions" /></label><div class="flex justify-end md:col-span-2"><button class="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-700"><i data-lucide="send"></i>Submit request</button></div></form></section>
+        <section class="card overflow-hidden"><div class="border-b border-slate-200 px-5 py-4 dark:border-slate-800"><div class="flex items-center gap-3"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-300"><i data-lucide="history"></i></span><div><h3 class="font-extrabold">Request history</h3><p class="text-xs text-slate-400">Status updates from the registrar appear here.</p></div></div></div><div class="overflow-x-auto"><table class="w-full text-sm"><thead class="bg-slate-50 dark:bg-slate-800"><tr><th class="p-4 text-left">Document</th><th class="p-4 text-left">Purpose</th><th class="p-4 text-left">Date</th><th class="p-4 text-left">Status</th></tr></thead><tbody id="rows"></tbody></table></div></section>
       </div>
     </main>
   </div>
@@ -137,15 +98,12 @@
       APP.updateNotif();
     }
     function render() {
-      let a = DG.getData("documentRequests", []).filter(
-        (x) => x.studentId === U.id,
-      );
-      rows.innerHTML = a
-        .map(
-          (x) =>
-            `<tr class="border-t dark:border-slate-800"><td class="p-4 font-semibold">${APP.esc(x.documentType)}</td><td class="p-4 text-slate-500">${APP.esc(x.purpose)}</td><td class="p-4">${APP.formatDate(x.requestDate)}</td><td class="p-4">${APP.statusBadge(x.status)}</td></tr>`,
-        )
-        .join("");
+      const records = DG.getData("documentRequests", []).filter((item) => item.studentId === U.id).sort((a, b) => new Date(b.requestDate || b.createdAt || 0) - new Date(a.requestDate || a.createdAt || 0));
+      document.getElementById("docTotal").textContent = records.length;
+      document.getElementById("docPending").textContent = records.filter((item) => !["Released", "Rejected"].includes(item.status)).length;
+      document.getElementById("docReady").textContent = records.filter((item) => ["Ready for Release", "Released"].includes(item.status)).length;
+      rows.innerHTML = records.length ? records.map((item) => `<tr class="teacher-table-row border-t border-slate-100 dark:border-slate-800"><td class="p-4 font-semibold">${APP.esc(item.documentType || item.document || "Document")}</td><td class="p-4 text-slate-500">${APP.esc(item.purpose || "—")}</td><td class="p-4">${APP.formatDate(item.requestDate || item.createdAt)}</td><td class="p-4">${APP.statusBadge(item.status)}</td></tr>`).join("") : '<tr><td colspan="4"><div class="portal-empty-state m-4"><i data-lucide="file-x-2"></i><b>No document requests yet</b><p>Start a request when you need an official school document.</p></div></td></tr>';
+      lucide.createIcons();
     }
     render();
     docForm.onsubmit = (e) => {
@@ -165,6 +123,8 @@
       APP.toast("Document request submitted");
       formBox.classList.add("hidden");
       docForm.reset();
+      document.getElementById("type").value = "Form 137";
+      document.getElementById("copies").value = "1";
       render();
     };
   </script>

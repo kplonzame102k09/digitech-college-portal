@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../css/custom.css" />
 </head>
 
-<body class="min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+<body class="student-portal min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
     <aside id="side"
         class="sidebar fixed inset-y-0 left-0 z-40 w-64 -translate-x-full lg:translate-x-0 bg-white dark:bg-slate-900 border-r dark:border-slate-800">
         <div class="h-full flex flex-col">
@@ -76,32 +76,10 @@
             </div>
         </header>
         <main class="p-4 sm:p-6 lg:p-8">
-            <div class="max-w-7xl mx-auto">
-                <div class="mb-7">
-                    <p class="text-sm text-green-600 font-semibold">Academic Record</p>
-                    <h2 class="text-3xl font-bold">My Grades</h2>
-                    <p class="text-slate-500 mt-2">
-                        Only grades connected to your User ID are shown.
-                    </p>
-                </div>
-                <div class="card overflow-hidden">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-sm">
-                            <thead class="bg-slate-50 dark:bg-slate-800">
-                                <tr>
-                                    <th class="p-4 text-left">Subject</th>
-                                    <th class="p-4 text-left">Code</th>
-                                    <th class="p-4 text-left">Teacher</th>
-                                    <th class="p-4 text-left">Semester</th>
-                                    <th class="p-4 text-left">School Year</th>
-                                    <th class="p-4 text-left">Grade</th>
-                                    <th class="p-4 text-left">Remarks</th>
-                                </tr>
-                            </thead>
-                            <tbody id="rows"></tbody>
-                        </table>
-                    </div>
-                </div>
+            <div class="mx-auto max-w-7xl">
+                <section class="mb-7"><p class="text-xs font-bold uppercase tracking-[0.18em] text-blue-600">Academic record</p><h2 class="mt-2 text-3xl font-extrabold tracking-tight">Your grades</h2><p class="mt-2 max-w-2xl text-slate-500">Review grades released by your teachers and keep track of your academic progress by term.</p></section>
+                <section class="mb-6 grid gap-4 sm:grid-cols-3"><div class="portal-stat card p-5"><span class="portal-stat-icon bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-300"><i data-lucide="rows-3"></i></span><p class="mt-4 text-sm text-slate-500">Released subjects</p><p id="gradeTotal" class="mt-1 text-3xl font-extrabold">0</p></div><div class="portal-stat card p-5"><span class="portal-stat-icon bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-300"><i data-lucide="chart-no-axes-combined"></i></span><p class="mt-4 text-sm text-slate-500">Current average</p><p id="gradeAverage" class="mt-1 text-3xl font-extrabold text-emerald-600">—</p></div><div class="portal-stat card p-5"><span class="portal-stat-icon bg-violet-50 text-violet-600 dark:bg-violet-950/50 dark:text-violet-300"><i data-lucide="calendar-range"></i></span><p class="mt-4 text-sm text-slate-500">School year</p><p id="gradeYear" class="mt-1 text-xl font-extrabold">—</p></div></section>
+                <section class="card overflow-hidden"><div class="border-b border-slate-200 px-5 py-4 dark:border-slate-800"><div class="flex items-center gap-3"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-300"><i data-lucide="graduation-cap"></i></span><div><h3 class="font-extrabold">Released grades</h3><p class="text-xs text-slate-400">Only grades marked as published are displayed here.</p></div></div></div><div class="overflow-x-auto"><table class="w-full text-sm"><thead class="bg-slate-50 dark:bg-slate-800"><tr><th class="p-4 text-left">Subject</th><th class="p-4 text-left">Code</th><th class="p-4 text-left">Teacher</th><th class="p-4 text-left">Semester</th><th class="p-4 text-left">School year</th><th class="p-4 text-left">Grade</th><th class="p-4 text-left">Remarks</th></tr></thead><tbody id="rows"></tbody></table></div></section>
             </div>
         </main>
     </div>
@@ -120,21 +98,14 @@
                 side.classList.toggle("-translate-x-full");
             APP.updateNotif();
         }
-        let a = DG.getData("grades", []).filter((x) => x.studentId === U.id);
-        rows.innerHTML = a
-            .map(
-                (x) =>
-                    `<tr class="border-t dark:border-slate-800">
-            <td class="p-4 font-semibold">${APP.esc(x.subject)}</td>
-            <td class="p-4">${APP.esc(x.code)}</td>
-            <td class="p-4">${APP.esc(x.teacher)}</td>
-            <td class="p-4">${APP.esc(x.semester)}</td>
-            <td class="p-4">${APP.esc(x.schoolYear)}</td>
-            <td class="p-4 font-bold">${x.grade}</td>
-            <td class="p-4">${APP.statusBadge(x.remarks)}</td>
-        </tr>`,
-            )
-            .join("");
+        const allGrades = DG.getData("grades", []).filter((item) => item.studentId === U.id);
+        const a = allGrades.filter((item) => item.published !== false && item.grade !== null && item.grade !== "");
+        const numeric = a.filter((item) => Number.isFinite(Number(item.grade)));
+        document.getElementById("gradeTotal").textContent = a.length;
+        document.getElementById("gradeAverage").textContent = numeric.length ? (numeric.reduce((sum, item) => sum + Number(item.grade), 0) / numeric.length).toFixed(2) : "—";
+        document.getElementById("gradeYear").textContent = a.find((item) => item.schoolYear)?.schoolYear || "—";
+        rows.innerHTML = a.length ? a.map((item) => `<tr class="teacher-table-row border-t border-slate-100 dark:border-slate-800"><td class="p-4 font-semibold">${APP.esc(item.subject || item.course || "Subject")}</td><td class="p-4">${APP.esc(item.code || item.subjectCode || "—")}</td><td class="p-4">${APP.esc(item.teacher || "Assigned teacher")}</td><td class="p-4">${APP.esc(item.semester || item.term || item.period || "Current term")}</td><td class="p-4">${APP.esc(item.schoolYear || "—")}</td><td class="p-4 text-lg font-extrabold text-blue-600">${APP.esc(item.grade)}</td><td class="p-4">${APP.statusBadge(item.remarks || (Number(item.grade) >= 75 ? "Passed" : "Failed"))}</td></tr>`).join("") : '<tr><td colspan="7"><div class="portal-empty-state m-4"><i data-lucide="chart-no-axes-combined"></i><b>No released grades yet</b><p>Your teacher’s published grades will appear here once available.</p></div></td></tr>';
+        lucide.createIcons();
     </script>
 </body>
 
