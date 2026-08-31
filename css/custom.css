@@ -20,7 +20,7 @@
   opacity: 0;
   transition: opacity .10s;
 }
-#global-loader.active { opacity: 1; }
+#global-loader.active { opacity: 10; }
 
 .loader-box {
   display: flex;

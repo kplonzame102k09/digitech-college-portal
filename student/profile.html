@@ -14,24 +14,7 @@
 </head>
 
 <body class="student-portal min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
-    <aside id="side"
-        class="sidebar fixed inset-y-0 left-0 z-40 w-64 -translate-x-full lg:translate-x-0 bg-white dark:bg-slate-900 border-r dark:border-slate-800">
-        <div class="h-full flex flex-col">
-            <div class="h-20 border-b dark:border-slate-800 flex items-center gap-3 px-5">
-                <img src="../assets/images/16432.png" class="w-10 h-10 rounded-xl object-cover"
-                    alt="Digitech College logo" />
-                <div>
-                    <b>DIGITECH</b><small class="block text-[10px] tracking-widest text-slate-400">COLLEGE
-                        PORTAL</small>
-                </div>
-            </div>
-            <nav class="p-3 space-y-1 flex-1"><a href="dashboard.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="layout-dashboard" class="w-4"></i>Dashboard</a><a href="enrollment.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="clipboard-list" class="w-4"></i>Enrollment</a><a href="requirements.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="folder-check" class="w-4"></i>Requirements</a><a href="documents.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="file-text" class="w-4"></i>Documents</a><a href="grades.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="chart-no-axes-combined" class="w-4"></i>Grades</a><a href="competencies.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="award" class="w-4"></i>Competencies</a><a href="attendance.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="calendar-check-2" class="w-4"></i>Attendance</a><a href="announcements.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="megaphone" class="w-4"></i>Announcements</a><a href="profile.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium nav-active"><i data-lucide="user-round" class="w-4"></i>Profile</a><button onclick="APP.showNotifications()" class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-slate-600 hover:bg-slate-100 dark:text-slate-300"><i data-lucide="bell" class="w-4"></i>Notifications<span id="count" class="ml-auto rounded-full bg-red-500 px-2 py-0.5 text-[10px] text-white">0</span></button></nav>
-            <button onclick="AUTH.logout()"
-                class="m-3 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-50">
-                <i data-lucide="log-out" class="w-4"></i>Log out
-            </button>
-        </div>
-    </aside>
+    <div id="global-sidebar"></div>
     <div class="lg:pl-64">
         <header
             class="sticky top-0 z-30 h-16 border-b bg-white/90 dark:bg-slate-950/90 dark:border-slate-800 backdrop-blur flex items-center justify-between px-4 sm:px-6">
@@ -57,12 +40,68 @@
         </header>
         <main class="p-4 sm:p-6 lg:p-8">
             <div class="mx-auto max-w-5xl">
-                <section class="mb-7"><p class="text-xs font-bold uppercase tracking-[0.18em] text-emerald-600">Account settings</p><h2 class="mt-2 text-3xl font-extrabold tracking-tight">Your student profile</h2><p class="mt-2 max-w-2xl text-slate-500">Keep your contact and guardian information current for enrollment and school communication.</p></section>
-                <form id="profileForm" class="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]"><section class="student-hero p-6 sm:p-7"><div class="relative z-10 flex flex-col items-center text-center"><img id="bigAvatar" data-profile-photo class="h-28 w-28 rounded-3xl border-4 border-white object-cover shadow-xl" alt="Student profile photo" /><h3 id="profileName" class="mt-5 text-xl font-extrabold"></h3><p id="profileId" class="mt-1 font-mono text-xs text-emerald-100"></p><p id="profileRole" class="mt-2 text-sm text-white/75"></p></div><div class="relative z-10 mt-8 border-t border-white/15 pt-5 text-sm text-white/80"><div class="flex gap-3"><i data-lucide="shield-check" class="h-4 w-4 shrink-0"></i><p>Your official identity and email are managed by the college.</p></div></div></section><section class="card p-6 sm:p-7"><div class="flex items-start gap-3 border-b border-slate-200 pb-5 dark:border-slate-700"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-300"><i data-lucide="contact"></i></span><div><h3 class="font-extrabold">Contact information</h3><p class="mt-1 text-sm text-slate-500">Update the information the school may use to reach you.</p></div></div><div class="mt-6 grid gap-5 sm:grid-cols-2"><label class="text-sm font-semibold sm:col-span-2">Email address<input id="email" readonly class="input mt-1.5 w-full rounded-xl border bg-slate-50 px-3 py-3 dark:bg-slate-800" /></label><label class="text-sm font-semibold">Contact number<input id="contact" required maxlength="30" class="input mt-1.5 w-full rounded-xl border px-3 py-3" placeholder="e.g. +63 900 000 0000" /></label><label class="text-sm font-semibold">Guardian name<input id="guardianName" required maxlength="120" class="input mt-1.5 w-full rounded-xl border px-3 py-3" placeholder="Full name" /></label><label class="text-sm font-semibold sm:col-span-2">Home address<input id="address" required maxlength="240" class="input mt-1.5 w-full rounded-xl border px-3 py-3" placeholder="House number, street, city" /></label><label class="text-sm font-semibold">Guardian contact<input id="guardianContact" required maxlength="30" class="input mt-1.5 w-full rounded-xl border px-3 py-3" placeholder="Phone or email" /></label></div><div class="mt-7 flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-5 dark:border-slate-700"><p class="text-xs text-slate-400"><i data-lucide="info" class="mr-1 inline h-3.5 w-3.5"></i>Changes are stored in your portal profile.</p><button type="submit" class="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-700"><i data-lucide="save" class="h-4 w-4"></i>Save changes</button></div></section></form>
+                <section class="mb-7">
+                    <p class="text-xs font-bold uppercase tracking-[0.18em] text-emerald-600">Account settings</p>
+                    <h2 class="mt-2 text-3xl font-extrabold tracking-tight">Your student profile</h2>
+                    <p class="mt-2 max-w-2xl text-slate-500">Keep your contact and guardian information current for
+                        enrollment and school communication.</p>
+                </section>
+                <form id="profileForm" class="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+                    <section class="student-hero p-6 sm:p-7">
+                        <div class="relative z-10 flex flex-col items-center text-center"><img id="bigAvatar"
+                                data-profile-photo
+                                class="h-28 w-28 rounded-3xl border-4 border-white object-cover shadow-xl"
+                                alt="Student profile photo" />
+                            <h3 id="profileName" class="mt-5 text-xl font-extrabold"></h3>
+                            <p id="profileId" class="mt-1 font-mono text-xs text-emerald-100"></p>
+                            <p id="profileRole" class="mt-2 text-sm text-white/75"></p>
+                        </div>
+                        <div class="relative z-10 mt-8 border-t border-white/15 pt-5 text-sm text-white/80">
+                            <div class="flex gap-3"><i data-lucide="shield-check" class="h-4 w-4 shrink-0"></i>
+                                <p>Your official identity and email are managed by the college.</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="card p-6 sm:p-7">
+                        <div class="flex items-start gap-3 border-b border-slate-200 pb-5 dark:border-slate-700"><span
+                                class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-300"><i
+                                    data-lucide="contact"></i></span>
+                            <div>
+                                <h3 class="font-extrabold">Contact information</h3>
+                                <p class="mt-1 text-sm text-slate-500">Update the information the school may use to
+                                    reach you.</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 grid gap-5 sm:grid-cols-2"><label
+                                class="text-sm font-semibold sm:col-span-2">Email address<input id="email" readonly
+                                    class="input mt-1.5 w-full rounded-xl border bg-slate-50 px-3 py-3 dark:bg-slate-800" /></label><label
+                                class="text-sm font-semibold">Contact number<input id="contact" required maxlength="30"
+                                    class="input mt-1.5 w-full rounded-xl border px-3 py-3"
+                                    placeholder="e.g. +63 900 000 0000" /></label><label
+                                class="text-sm font-semibold">Guardian name<input id="guardianName" required
+                                    maxlength="120" class="input mt-1.5 w-full rounded-xl border px-3 py-3"
+                                    placeholder="Full name" /></label><label
+                                class="text-sm font-semibold sm:col-span-2">Home address<input id="address" required
+                                    maxlength="240" class="input mt-1.5 w-full rounded-xl border px-3 py-3"
+                                    placeholder="House number, street, city" /></label><label
+                                class="text-sm font-semibold">Guardian contact<input id="guardianContact" required
+                                    maxlength="30" class="input mt-1.5 w-full rounded-xl border px-3 py-3"
+                                    placeholder="Phone or email" /></label></div>
+                        <div
+                            class="mt-7 flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-5 dark:border-slate-700">
+                            <p class="text-xs text-slate-400"><i data-lucide="info"
+                                    class="mr-1 inline h-3.5 w-3.5"></i>Changes are stored in your portal profile.</p>
+                            <button type="submit"
+                                class="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-700"><i
+                                    data-lucide="save" class="h-4 w-4"></i>Save changes</button>
+                        </div>
+                    </section>
+                </form>
             </div>
         </main>
     </div>
     <div id="modalRoot"></div>
+    <script src="./components/sidebar.js"></script>
     <script src="../js/storage.js"></script>
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
