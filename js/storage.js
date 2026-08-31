@@ -10,6 +10,7 @@ const STORAGE_KEYS = [
   "attendance",
   "auditLogs",
   "requirements",
+  "parentLinkRequests",
   "settings",
 ];
 function saveData(key, data) {

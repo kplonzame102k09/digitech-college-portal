@@ -179,6 +179,12 @@
               </div>
             </div>
           </section>
+          <section class="card mt-6 p-5">
+            <h3 class="font-semibold">Request a child link</h3>
+            <p class="mt-1 text-sm text-slate-500">Requests are sent to the registrar for verification before records become visible.</p>
+            <form id="linkRequestForm" class="mt-4 flex flex-col gap-3 sm:flex-row"><input id="requestedStudentId" required class="input w-full rounded-xl border px-3 py-2.5" placeholder="Student ID, e.g. STU-2026-XXXXXX"><button class="rounded-xl bg-green-600 px-4 py-2.5 text-sm font-semibold text-white">Send request</button></form>
+            <div id="linkRequestStatus" class="mt-3 text-sm text-slate-500"></div>
+          </section>
         </div>
       </main>
     </div>
@@ -231,6 +237,25 @@
     <script src="parent.js"></script>
     <script>
       PARENT.init();
+      const parent = AUTH.requireRole("parent");
+      document.querySelectorAll("[data-parent-id]").forEach((el) => { el.textContent = parent?.id || ""; });
+      const linkForm = document.getElementById("linkRequestForm");
+      const linkStatus = document.getElementById("linkRequestStatus");
+      if (parent && linkForm) {
+        const requests = DG.getData("parentLinkRequests", []).filter((r) => r.parentId === parent.id);
+        linkStatus.textContent = requests.length ? `${requests.length} request(s) submitted. Latest status: ${requests.at(-1).status}.` : "No link requests submitted.";
+        linkForm.onsubmit = (event) => {
+          event.preventDefault();
+          const studentId = document.getElementById("requestedStudentId").value.trim();
+          const student = DG.getData("users", []).find((u) => u.id === studentId && u.role === "student");
+          if (!student) return APP.toast("Student ID was not found", "error");
+          const all = DG.getData("parentLinkRequests", []);
+          if (all.some((r) => r.parentId === parent.id && r.studentId === studentId && r.status === "Pending")) return APP.toast("A pending request already exists", "error");
+          all.push({ id: DG.generateId("LNK"), parentId: parent.id, studentId, status: "Pending", createdAt: new Date().toISOString() });
+          DG.saveData("parentLinkRequests", all);
+          linkForm.reset(); linkStatus.textContent = "Link request submitted for registrar review."; APP.toast("Link request sent");
+        };
+      }
     </script>
   </body>
 </html>
