@@ -11,6 +11,12 @@
 </head>
 
 <body class="bg-slate-50 text-slate-800">
+    <div id="loader" role="status" aria-label="Loading">
+        <img src="assets/images/16432.png" alt="" width="200" height="200" class="logo">
+        <div class="progress-bar"></div>
+        <span class="sr-only">Loading…</span>
+        <p class="text-center">Loading....</p>
+    </div>
     <header class="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur border-b">
         <nav class="max-w-7xl mx-auto px-4">
             <div class="h-20 flex items-center justify-between">
@@ -331,6 +337,31 @@
                 </a>
             <span class="text-sm">© 2026 · Integrated Web Portal · Prototype</span></div>
     </footer>
+     <script>
+        (function () {
+            const loader = document.getElementById('loader');
+            const MIN_DISPLAY = 10000; // ms
+            const start = performance.now();
+
+            loader.classList.add('js-active');
+
+            function hide() {
+                const elapsed = performance.now() - start;
+                const delay = Math.max(0, MIN_DISPLAY - elapsed);
+
+                setTimeout(() => {
+                loader.classList.add('hidden');
+                loader.addEventListener('transitionend', () => loader.remove(), { once: true });
+                }, delay);
+            }
+
+            if (document.readyState === 'complete') {
+                hide();
+            } else {
+                window.addEventListener('load', hide, { once: true });
+            }
+            })();   
+    </script> 
     <script>lucide.createIcons(); menu.onclick = () => mobile.classList.toggle('hidden')</script>
 </body>
 
