@@ -14,53 +14,9 @@
 </head>
 
 <body class="min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
-    <aside id="side"
-        class="sidebar fixed inset-y-0 left-0 z-40 w-64 -translate-x-full border-r border-slate-200 bg-white lg:translate-x-0 dark:border-slate-800 dark:bg-slate-900">
-        <div class="flex h-full flex-col">
-            <div class="flex h-20 items-center gap-3 border-b border-slate-200 px-5 dark:border-slate-800">
-                <img src="../assets/images/16432.png" class="h-10 w-10 rounded-xl object-cover"
-                    alt="Digitech College logo" />
-                <div>
-                    <b>DIGITECH</b><small class="block text-[10px] tracking-widest text-slate-400">COLLEGE
-                        PORTAL</small>
-                </div>
-            </div>
-            <nav class="flex-1 space-y-1 overflow-y-auto p-3"><a href="dashboard.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
-                        data-lucide="layout-dashboard" class="w-4"></i>Dashboard</a><a href="users.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
-                        data-lucide="users" class="w-4"></i>Users</a><a href="enrollment.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
-                        data-lucide="clipboard-list" class="w-4"></i>Enrollment</a><a href="documents.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
-                        data-lucide="file-text" class="w-4"></i>Documents</a><a href="grades.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
-                        data-lucide="chart-no-axes-combined" class="w-4"></i>Grades</a><a href="competencies.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium nav-active"><i
-                        data-lucide="award" class="w-4"></i>Competencies</a><a href="attendance.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
-                        data-lucide="calendar-check-2" class="w-4"></i>Attendance</a><a href="requirements.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
-                        data-lucide="folder-check" class="w-4"></i>Requirements</a><a href="announcements.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
-                        data-lucide="megaphone" class="w-4"></i>Announcements</a><a href="parent-links.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
-                        data-lucide="users-round" class="w-4"></i>Parent links</a><a href="settings.html"
-                    class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i
-                        data-lucide="settings" class="w-4"></i>Settings</a><button onclick="APP.showNotifications()"
-                    class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-slate-600 hover:bg-slate-100 dark:text-slate-300"><i
-                        data-lucide="bell" class="w-4"></i>Notifications<span id="count"
-                        class="ml-auto rounded-full bg-red-500 px-2 py-0.5 text-[10px] text-white">0</span></button>
-            </nav>
-            <button type="button" data-logout
-                class="m-3 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-red-600">
-                <i data-lucide="log-out" class="h-4 w-4"></i>Log out
-            </button>
-        </div>
-    </aside>
+    <div id="global-sidebar"></div>
     <div class="lg:pl-64">
-        <header
-            class="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
+        <header class="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
             <div class="flex h-16 items-center justify-between px-4 sm:px-6">
                 <div class="flex items-center gap-3">
                     <button id="open" type="button" class="rounded-lg p-2 lg:hidden">
@@ -72,13 +28,14 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <button type="button" data-theme-toggle
-                        class="rounded-xl border border-slate-200 p-2.5 dark:border-slate-700">
-                        <i data-lucide="moon" data-theme-icon class="h-4 w-4"></i></button><button type="button"
-                        data-notifications class="rounded-xl border border-slate-200 p-2.5 dark:border-slate-700">
-                        <i data-lucide="bell" class="h-4 w-4"></i></button><img id="avatar" data-profile-photo
-                        src="../assets/images/16432.png"
-                        class="h-9 w-9 rounded-full border-2 border-green-100 object-cover" alt="Admin profile photo" />
+                    <button type="button" data-theme-toggle class="rounded-xl border border-slate-200 p-2.5 dark:border-slate-700">
+                        <i data-lucide="moon" data-theme-icon class="h-4 w-4"></i>
+                    </button>
+                    <button type="button" data-notifications class="rounded-xl border border-slate-200 p-2.5 dark:border-slate-700">
+                        <i data-lucide="bell" class="h-4 w-4"></i>
+                    </button>
+                    <img id="avatar" data-profile-photo src="../assets/images/16432.png" class="h-9 w-9 rounded-full border-2 border-green-100 object-cover" 
+                        alt="Admin profile photo" />
                 </div>
             </div>
         </header>
@@ -95,13 +52,15 @@
                         </p>
                     </div>
                     <div class="flex flex-wrap justify-end gap-3">
-                        <button type="button" data-add-competency
-                            class="inline-flex items-center justify-center gap-2 rounded-xl bg-green-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-green-700">
-                            <i data-lucide="plus" class="h-4 w-4"></i>Add competency
+                        <button type="button" data-add-competency class="inline-flex items-center justify-center gap-2 rounded-xl bg-green-600 px-4 py-2.5 
+                            text-sm font-semibold text-white hover:bg-green-700">
+                            <i data-lucide="plus" class="h-4 w-4"></i>
+                            Add competency
                         </button>
-                        <button type="button" data-export-competencies
-                            class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold dark:border-slate-700">
-                            <i data-lucide="download" class="h-4 w-4"></i>Export CSV
+                        <button type="button" data-export-competencies class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 
+                            py-2.5 text-sm font-semibold dark:border-slate-700">
+                            <i data-lucide="download" class="h-4 w-4"></i>
+                            Export CSV
                         </button>
                     </div>
                 </section>
@@ -134,9 +93,11 @@
                             <option>In Progress</option>
                             <option>Competent</option>
                             <option>Not Yet Competent</option>
-                        </select><select id="qualificationFilter" class="input rounded-xl border px-3 py-3">
+                        </select>
+                        <select id="qualificationFilter" class="input rounded-xl border px-3 py-3">
                             <option value="">All qualifications</option>
-                        </select><select id="sortBy" class="input rounded-xl border px-3 py-3">
+                        </select>
+                        <select id="sortBy" class="input rounded-xl border px-3 py-3">
                             <option value="student">Sort: Student</option>
                             <option value="status">Sort: Status</option>
                             <option value="date">Sort: Assessment date</option>
@@ -144,9 +105,10 @@
                         </select>
                     </div>
                     <div class="mt-3 flex flex-wrap items-center gap-3 text-xs text-slate-500">
-                        <span id="resultCount"></span><span id="selectionCount"
-                            class="font-semibold text-green-700"></span><button type="button" data-bulk-action
-                            class="ml-auto hidden rounded-lg bg-slate-900 px-3 py-2 text-xs font-semibold text-white dark:bg-slate-100 dark:text-slate-900">
+                        <span id="resultCount"></span>
+                        <span id="selectionCount" class="font-semibold text-green-700"></span>
+                        <button type="button" data-bulk-action class="ml-auto hidden rounded-lg bg-slate-900 px-3 py-2 text-xs font-semibold text-white 
+                            dark:bg-slate-100 dark:text-slate-900">
                             Process selected
                         </button>
                     </div>
@@ -157,8 +119,7 @@
                             <thead class="bg-slate-50 dark:bg-slate-800">
                                 <tr>
                                     <th class="w-12 p-4">
-                                        <input id="selectAll" type="checkbox"
-                                            aria-label="Select all competency records" />
+                                        <input id="selectAll" type="checkbox" aria-label="Select all competency records" />
                                     </th>
                                     <th class="p-4">Student</th>
                                     <th class="p-4">Competency</th>
@@ -179,9 +140,9 @@
                 </section>
                 <section class="card mt-6 p-6">
                     <div class="flex items-start gap-3">
-                        <span
-                            class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-600 dark:bg-slate-800"><i
-                                data-lucide="history" class="h-5 w-5"></i></span>
+                        <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-600 dark:bg-slate-800">
+                            <i data-lucide="history" class="h-5 w-5"></i>
+                        </span>
                         <div>
                             <h3 class="font-bold">Competency audit history</h3>
                             <p class="mt-1 text-sm text-slate-500">
@@ -197,8 +158,7 @@
             </div>
         </main>
     </div>
-    <dialog id="competencyDialog"
-        class="w-[min(650px,calc(100%-2rem))] rounded-2xl border-0 p-0 shadow-2xl backdrop:bg-slate-950/50">
+    <dialog id="competencyDialog" class="w-[min(650px,calc(100%-2rem))] rounded-2xl border-0 p-0 shadow-2xl backdrop:bg-slate-950/50">
         <form id="competencyForm" class="card p-6">
             <div class="flex items-start justify-between">
                 <div>
@@ -214,64 +174,76 @@
             <input id="competencyId" type="hidden" />
             <div id="competencyContext" class="mt-5 grid gap-3 sm:grid-cols-2"></div>
             <div class="mt-5 grid gap-4 sm:grid-cols-2">
-                <label class="text-sm font-semibold">Status<select id="competencyStatus"
-                        class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
+                <label class="text-sm font-semibold">
+                    Status
+                    <select id="competencyStatus" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
                         <option>Not Started</option>
                         <option>In Progress</option>
                         <option>Competent</option>
                         <option>Not Yet Competent</option>
-                    </select></label><label class="text-sm font-semibold">Assessment date<input id="assessmentDate"
-                        type="date" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" /></label><label
-                    class="text-sm font-semibold">Assessor<input id="assessor"
-                        class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" /></label><label
-                    class="text-sm font-semibold">Evidence link<input id="evidence" type="url"
-                        class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="https://..." /></label>
+                    </select>
+                </label>
+                <label class="text-sm font-semibold">
+                    Assessment date
+                    <input id="assessmentDate" type="date" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" />
+                </label>
+                <label class="text-sm font-semibold">
+                    Assessor
+                    <input id="assessor" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" />
+                </label>
+                <label class="text-sm font-semibold">
+                    Evidence link
+                    <input id="evidence" type="url" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="https://..." />
+                </label>
             </div>
-            <label class="mt-4 block text-sm font-semibold">Assessment remarks<textarea id="remarks" rows="4"
-                    class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"></textarea>
+            <label class="mt-4 block text-sm font-semibold">
+                Assessment remarks
+                <textarea id="remarks" rows="4" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"></textarea>
             </label>
             <div class="mt-6 flex justify-end gap-3">
-                <button type="button" data-close-competency
-                    class="rounded-xl border border-slate-200 px-4 py-2.5 font-semibold dark:border-slate-700">
-                    Cancel</button><button type="submit"
-                    class="rounded-xl bg-green-600 px-5 py-2.5 font-semibold text-white">
+                <button type="button" data-close-competency class="rounded-xl border border-slate-200 px-4 py-2.5 font-semibold dark:border-slate-700">
+                    Cancel
+                </button>
+                <button type="submit" class="rounded-xl bg-green-600 px-5 py-2.5 font-semibold text-white">
                     Save assessment
                 </button>
             </div>
         </form>
     </dialog>
-    <dialog id="createCompetencyDialog"
-        class="w-[min(650px,calc(100%-2rem))] rounded-2xl border-0 p-0 shadow-2xl backdrop:bg-slate-950/50">
+    <dialog id="createCompetencyDialog" class="w-[min(650px,calc(100%-2rem))] rounded-2xl border-0 p-0 shadow-2xl backdrop:bg-slate-950/50">
         <form id="createCompetencyForm" class="card p-6">
             <div class="flex items-start justify-between">
                 <div>
                     <p class="text-sm font-semibold text-green-600">New competency record</p>
                     <h3 class="mt-1 text-xl font-bold">Assign competency to a student</h3>
-                    <p class="mt-1 text-sm text-slate-500">Create the record first; the assigned teacher can complete
-                        the assessment later.</p>
+                    <p class="mt-1 text-sm text-slate-500">
+                        Create the record first; the assigned teacher can complete
+                        the assessment later.
+                    </p>
                 </div>
-                <button type="button" data-close-create-competency class="rounded-lg p-2 text-slate-400"
-                    aria-label="Close">
+                <button type="button" data-close-create-competency class="rounded-lg p-2 text-slate-400" aria-label="Close">
                     <i data-lucide="x" class="h-5 w-5"></i>
                 </button>
             </div>
             <div class="mt-5 grid gap-4 sm:grid-cols-2">
-                <label class="text-sm font-semibold sm:col-span-2">Student
+                <label class="text-sm font-semibold sm:col-span-2">
+                    Student
                     <select id="createStudentId" required class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
                         <option value="">Select a student</option>
                     </select>
                 </label>
-                <label class="text-sm font-semibold">Competency
-                    <input id="createCompetency" required maxlength="120"
-                        class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"
+                <label class="text-sm font-semibold"> 
+                    Competency
+                    <input id="createCompetency" required maxlength="120" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" 
                         placeholder="e.g. Install computer systems" />
                 </label>
-                <label class="text-sm font-semibold">Qualification
-                    <input id="createQualification" maxlength="120"
-                        class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"
+                <label class="text-sm font-semibold">
+                    Qualification
+                    <input id="createQualification" maxlength="120" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"
                         placeholder="e.g. Computer Systems Servicing NC II" />
                 </label>
-                <label class="text-sm font-semibold">Initial status
+                <label class="text-sm font-semibold">
+                    Initial status
                     <select id="createStatus" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
                         <option>Not Started</option>
                         <option>In Progress</option>
@@ -279,33 +251,38 @@
                         <option>Not Yet Competent</option>
                     </select>
                 </label>
-                <label class="text-sm font-semibold">Assessment date <span
-                        class="font-normal text-slate-400">(optional)</span>
-                    <input id="createAssessmentDate" type="date"
-                        class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" />
+                <label class="text-sm font-semibold">
+                    Assessment date 
+                    <span class="font-normal text-slate-400">(optional)</span>
+                    <input id="createAssessmentDate" type="date" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" />
                 </label>
-                <label class="text-sm font-semibold">Assessor <span class="font-normal text-slate-400">(optional)</span>
+                <label class="text-sm font-semibold">
+                    Assessor 
+                    <span class="font-normal text-slate-400">(optional)</span>
                     <input id="createAssessor" maxlength="120" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"
                         placeholder="Teacher or assessor name" />
                 </label>
-                <label class="text-sm font-semibold">Evidence link <span
-                        class="font-normal text-slate-400">(optional)</span>
+                <label class="text-sm font-semibold">
+                    Evidence link 
+                    <span class="font-normal text-slate-400">(optional)</span>
                     <input id="createEvidence" type="url" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"
                         placeholder="https://..." />
                 </label>
             </div>
-            <label class="mt-4 block text-sm font-semibold">Notes <span
-                    class="font-normal text-slate-400">(optional)</span>
-                <textarea id="createRemarks" rows="3" maxlength="500"
-                    class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"
-                    placeholder="Add context for the assigned teacher"></textarea>
+            <label class="mt-4 block text-sm font-semibold">
+                Notes 
+                <span class="font-normal text-slate-400">(optional)</span>
+                <textarea id="createRemarks" rows="3" maxlength="500" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"
+                    placeholder="Add context for the assigned teacher">
+                </textarea>
             </label>
             <div class="mt-6 flex justify-end gap-3">
-                <button type="button" data-close-create-competency
-                    class="rounded-xl border border-slate-200 px-4 py-2.5 font-semibold dark:border-slate-700">Cancel</button>
-                <button type="submit"
-                    class="rounded-xl bg-green-600 px-5 py-2.5 font-semibold text-white hover:bg-green-700">Create
-                    record</button>
+                <button type="button" data-close-create-competency class="rounded-xl border border-slate-200 px-4 py-2.5 font-semibold dark:border-slate-700">
+                    Cancel
+                </button>
+                <button type="submit" class="rounded-xl bg-green-600 px-5 py-2.5 font-semibold text-white hover:bg-green-700">
+                    Create record
+                </button>
             </div>
         </form>
     </dialog>
@@ -316,11 +293,10 @@
             </td>
             <td class="p-4">
                 <div class="flex items-center gap-3">
-                    <span data-student-initials
-                        class="flex h-9 w-9 items-center justify-center rounded-full bg-green-50 text-xs font-bold text-green-700"></span>
+                    <span data-student-initials class="flex h-9 w-9 items-center justify-center rounded-full bg-green-50 text-xs font-bold text-green-700"></span>
                     <div>
-                        <b data-student-name class="block"></b><small data-student-id
-                            class="text-xs text-slate-400"></small>
+                        <b data-student-name class="block"></b>
+                        <small data-student-id class="text-xs text-slate-400"></small>
                     </div>
                 </div>
             </td>
@@ -329,8 +305,7 @@
             <td data-assessment class="p-4"></td>
             <td class="p-4"><span data-record-status></span></td>
             <td class="p-4 text-right">
-                <button type="button" data-action="edit" class="rounded-lg p-2 text-blue-600 hover:bg-blue-50"
-                    title="Edit assessment">
+                <button type="button" data-action="edit" class="rounded-lg p-2 text-blue-600 hover:bg-blue-50" title="Edit assessment">
                     <i data-lucide="pencil" class="h-4 w-4"></i>
                 </button>
             </td>
@@ -338,12 +313,14 @@
     </template><template id="auditRowTemplate">
         <div class="rounded-xl bg-slate-50 p-3 dark:bg-slate-800">
             <div class="flex justify-between gap-2">
-                <b data-audit-title class="text-sm"></b><time data-audit-date class="text-[11px] text-slate-400"></time>
+                <b data-audit-title class="text-sm"></b>
+                <time data-audit-date class="text-[11px] text-slate-400"></time>
             </div>
             <p data-audit-meta class="mt-1 text-xs text-slate-500"></p>
             <p data-audit-notes class="mt-1 text-xs"></p>
         </div>
     </template>
+    <script src="./components/sidebar.js"></script>
     <script src="../js/storage.js"></script>
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>

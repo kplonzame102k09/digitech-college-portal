@@ -14,29 +14,9 @@
 </head>
 
 <body class="min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
-    <aside id="side"
-        class="sidebar fixed inset-y-0 left-0 z-40 w-64 -translate-x-full border-r border-slate-200 bg-white lg:translate-x-0 dark:border-slate-800 dark:bg-slate-900">
-        <div class="flex h-full flex-col">
-            <div class="flex h-20 items-center gap-3 border-b border-slate-200 px-5 dark:border-slate-800">
-                <img src="../assets/images/16432.png" class="h-10 w-10 rounded-xl object-cover"
-                    alt="Digitech College logo" />
-                <div>
-                    <div class="font-extrabold tracking-tight">DIGITECH</div>
-                    <div class="text-[10px] font-semibold tracking-[.22em] text-slate-400">
-                        COLLEGE PORTAL
-                    </div>
-                </div>
-            </div>
-            <nav class="flex-1 space-y-1 overflow-y-auto p-3"><a href="dashboard.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium nav-active"><i data-lucide="layout-dashboard" class="w-4"></i>Dashboard</a><a href="users.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="users" class="w-4"></i>Users</a><a href="enrollment.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="clipboard-list" class="w-4"></i>Enrollment</a><a href="documents.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="file-text" class="w-4"></i>Documents</a><a href="grades.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="chart-no-axes-combined" class="w-4"></i>Grades</a><a href="competencies.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="award" class="w-4"></i>Competencies</a><a href="attendance.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="calendar-check-2" class="w-4"></i>Attendance</a><a href="requirements.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="folder-check" class="w-4"></i>Requirements</a><a href="announcements.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="megaphone" class="w-4"></i>Announcements</a><a href="parent-links.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="users-round" class="w-4"></i>Parent links</a><a href="settings.html" class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="settings" class="w-4"></i>Settings</a><button onclick="APP.showNotifications()" class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-slate-600 hover:bg-slate-100 dark:text-slate-300"><i data-lucide="bell" class="w-4"></i>Notifications<span id="count" class="ml-auto rounded-full bg-red-500 px-2 py-0.5 text-[10px] text-white">0</span></button></nav>
-            <button type="button" data-logout
-                class="m-3 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-red-600 hover:bg-red-50">
-                <i data-lucide="log-out" class="h-4 w-4"></i>Log out
-            </button>
-        </div>
-    </aside>
+    <div id="global-sidebar"></div>
     <div class="lg:pl-64">
-        <header
-            class="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
+        <header class="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
             <div class="flex h-16 items-center justify-between px-4 sm:px-6">
                 <div class="flex items-center gap-3">
                     <button id="open" type="button" class="rounded-lg p-2 lg:hidden">
@@ -48,14 +28,14 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <button type="button" data-theme-toggle
-                        class="rounded-xl border border-slate-200 p-2.5 dark:border-slate-700">
-                        <i data-lucide="moon" data-theme-icon class="h-4 w-4"></i></button><button type="button"
-                        data-notifications
-                        class="relative rounded-xl border border-slate-200 p-2.5 dark:border-slate-700">
-                        <i data-lucide="bell" class="h-4 w-4"></i><span id="topNotif"
-                            class="absolute -right-1 -top-1 hidden h-4 min-w-4 rounded-full bg-red-500 px-1 text-[9px] font-bold text-white"></span></button><img
-                        id="avatar" data-profile-photo src="../assets/images/16432.png"
+                    <button type="button" data-theme-toggle class="rounded-xl border border-slate-200 p-2.5 dark:border-slate-700">
+                        <i data-lucide="moon" data-theme-icon class="h-4 w-4"></i>
+                    </button>
+                    <button type="button" data-notifications class="relative rounded-xl border border-slate-200 p-2.5 dark:border-slate-700">
+                        <i data-lucide="bell" class="h-4 w-4"></i>
+                        <span id="topNotif" class="absolute -right-1 -top-1 hidden h-4 min-w-4 rounded-full bg-red-500 px-1 text-[9px] font-bold text-white"></span>
+                    </button>
+                    <img id="avatar" data-profile-photo src="../assets/images/16432.png"
                         class="h-9 w-9 rounded-full object-cover border-2 border-green-100" alt="Admin profile photo" />
                 </div>
             </div>
@@ -86,14 +66,14 @@
                     <div class="card p-5">
                         <i data-lucide="clipboard-list" class="text-amber-600"></i>
                         <p class="mt-4 text-sm text-slate-500">Pending Enrollments</p>
-                        <b id="enrollments" class="text-2xl"></b><a href="enrollment.html"
-                            class="mt-2 inline-flex text-xs font-semibold text-green-700">Review queue →</a>
+                        <b id="enrollments" class="text-2xl"></b>
+                        <a href="enrollment.html" class="mt-2 inline-flex text-xs font-semibold text-green-700">Review queue →</a>
                     </div>
                     <div class="card p-5">
                         <i data-lucide="file-text" class="text-purple-600"></i>
                         <p class="mt-4 text-sm text-slate-500">Pending Documents</p>
-                        <b id="docs" class="text-2xl"></b><a href="documents.html"
-                            class="mt-2 inline-flex text-xs font-semibold text-green-700">Review queue →</a>
+                        <b id="docs" class="text-2xl"></b>
+                        <a href="documents.html" class="mt-2 inline-flex text-xs font-semibold text-green-700">Review queue →</a>
                     </div>
                 </div>
                 <section class="mt-6">
@@ -106,32 +86,46 @@
                         </div>
                     </div>
                     <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-                        <a href="users.html" class="card flex items-center gap-3 p-4"><i data-lucide="user-plus"
-                                class="h-5 w-5 text-blue-600"></i><span><b class="block text-sm">Manage users</b><small
-                                    class="text-xs text-slate-400">Create or review accounts</small></span></a><a
-                            href="enrollment.html" class="card flex items-center gap-3 p-4"><i
-                                data-lucide="clipboard-check" class="h-5 w-5 text-amber-600"></i><span><b
-                                    class="block text-sm">Review enrollment</b><small
-                                    class="text-xs text-slate-400">Process pending records</small></span></a><a
-                            href="documents.html" class="card flex items-center gap-3 p-4"><i data-lucide="file-check-2"
-                                class="h-5 w-5 text-purple-600"></i><span><b class="block text-sm">Process
-                                    documents</b><small class="text-xs text-slate-400">Update request
-                                    status</small></span></a><a href="grades.html"
-                            class="card flex items-center gap-3 p-4"><i data-lucide="chart-no-axes-combined"
-                                class="h-5 w-5 text-green-600"></i><span><b class="block text-sm">Review
-                                    grades</b><small class="text-xs text-slate-400">Monitor academic
-                                    records</small></span></a><button type="button" data-focus-broadcast
-                            class="card flex items-center gap-3 p-4 text-left">
-                            <i data-lucide="send" class="h-5 w-5 text-rose-600"></i><span><b
-                                    class="block text-sm">Broadcast notice</b><small
-                                    class="text-xs text-slate-400">Message the community</small></span>
+                        <a href="users.html" class="card flex items-center gap-3 p-4">
+                            <i data-lucide="user-plus" class="h-5 w-5 text-blue-600"></i>
+                            <span>
+                                <b class="block text-sm">Manage users</b>
+                                <small class="text-xs text-slate-400">Create or review accounts</small>
+                            </span>
+                        </a>
+                        <a href="enrollment.html" class="card flex items-center gap-3 p-4">
+                            <i data-lucide="clipboard-check" class="h-5 w-5 text-amber-600"></i>
+                            <span>
+                                <b class="block text-sm">Review enrollment</b>
+                                <small class="text-xs text-slate-400">Process pending records</small>
+                            </span>
+                        </a>
+                        <a href="documents.html" class="card flex items-center gap-3 p-4">
+                            <i data-lucide="file-check-2" class="h-5 w-5 text-purple-600"></i>
+                            <span>
+                                <b class="block text-sm"> Process documents</b>
+                                <small class="text-xs text-slate-400">Update request status</small>
+                            </span>
+                        </a>
+                        <a href="grades.html" class="card flex items-center gap-3 p-4">
+                            <i data-lucide="chart-no-axes-combined" class="h-5 w-5 text-green-600"></i>
+                            <span>
+                                <b class="block text-sm">Review grades</b>
+                                <small class="text-xs text-slate-400">Monitor academic records</small>
+                            </span>
+                        </a>
+                        <button type="button" data-focus-broadcast class="card flex items-center gap-3 p-4 text-left">
+                            <i data-lucide="send" class="h-5 w-5 text-rose-600"></i>
+                            <span>
+                                <b class="block text-sm">Broadcast notice</b>
+                                <small class="text-xs text-slate-400">Message the community</small>
+                            </span>
                         </button>
                     </div>
                 </section>
                 <div class="mt-6 grid gap-6 xl:grid-cols-2">
                     <section class="card overflow-hidden">
-                        <div
-                            class="flex items-center justify-between border-b border-slate-200 p-5 dark:border-slate-800">
+                        <div class="flex items-center justify-between border-b border-slate-200 p-5 dark:border-slate-800">
                             <div>
                                 <h3 class="font-bold">Enrollment queue</h3>
                                 <p class="mt-1 text-xs text-slate-400">
@@ -146,8 +140,7 @@
                         </p>
                     </section>
                     <section class="card overflow-hidden">
-                        <div
-                            class="flex items-center justify-between border-b border-slate-200 p-5 dark:border-slate-800">
+                        <div class="flex items-center justify-between border-b border-slate-200 p-5 dark:border-slate-800">
                             <div>
                                 <h3 class="font-bold">Document queue</h3>
                                 <p class="mt-1 text-xs text-slate-400">
@@ -171,14 +164,14 @@
                                     Current attendance records across connected students.
                                 </p>
                             </div>
-                            <span id="attendanceRate"
-                                class="rounded-full bg-green-50 px-3 py-1 text-xs font-bold text-green-700 dark:bg-green-950 dark:text-green-300">0%</span>
+                            <span id="attendanceRate" class="rounded-full bg-green-50 px-3 py-1 text-xs font-bold text-green-700 dark:bg-green-950 
+                                dark:text-green-300">
+                                0%
+                            </span>
                         </div>
                         <div class="mt-5 grid grid-cols-3 gap-3">
                             <div class="rounded-xl bg-green-50 p-3 dark:bg-green-950/50">
-                                <p class="text-xs text-green-700 dark:text-green-300">
-                                    Present
-                                </p>
+                                <p class="text-xs text-green-700 dark:text-green-300"> Present </p>
                                 <b id="attendancePresent" class="mt-1 block text-xl"></b>
                             </div>
                             <div class="rounded-xl bg-amber-50 p-3 dark:bg-amber-950/50">
@@ -190,9 +183,7 @@
                                 <b id="attendanceAbsent" class="mt-1 block text-xl"></b>
                             </div>
                         </div>
-                        <div id="attendanceBars"
-                            class="mt-6 flex h-36 items-end gap-2 border-b border-slate-200 pb-1 dark:border-slate-800">
-                        </div>
+                        <div id="attendanceBars" class="mt-6 flex h-36 items-end gap-2 border-b border-slate-200 pb-1 dark:border-slate-800"></div>
                         <p id="attendanceEmpty" class="hidden mt-5 text-sm text-slate-500">
                             No attendance records have been entered yet.
                         </p>
@@ -214,9 +205,9 @@
                 </div>
                 <section id="broadcastSection" class="card mt-6 p-6">
                     <div class="flex items-start gap-3">
-                        <span
-                            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-950"><i
-                                data-lucide="send" class="h-5 w-5"></i></span>
+                        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-950">
+                            <i data-lucide="send" class="h-5 w-5"></i>
+                        </span>
                         <div>
                             <h3 class="font-bold">Broadcast announcement</h3>
                             <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
@@ -226,32 +217,41 @@
                         </div>
                     </div>
                     <form id="announcementForm" class="mt-6 grid gap-4 md:grid-cols-2">
-                        <label class="text-sm font-semibold">Title<input id="announcementTitle" required maxlength="100"
-                                class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"
-                                placeholder="e.g. Campus maintenance notice" /></label><label
-                            class="text-sm font-semibold">Category<select id="announcementCategory"
-                                class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
+                        <label class="text-sm font-semibold">
+                            Title
+                            <input id="announcementTitle" required maxlength="100" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"
+                                placeholder="e.g. Campus maintenance notice" />
+                        </label>
+                        <label class="text-sm font-semibold">
+                            Category
+                            <select id="announcementCategory" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
                                 <option>General</option>
                                 <option>Academic</option>
                                 <option>Enrollment</option>
                                 <option>Registrar</option>
                                 <option>Events</option>
-                            </select></label><label class="text-sm font-semibold">Audience<select
-                                id="announcementAudience" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
+                            </select>
+                        </label>
+                        <label class="text-sm font-semibold">
+                            Audience
+                            <select id="announcementAudience" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
                                 <option value="all">Everyone</option>
                                 <option value="student">Students</option>
                                 <option value="parent">Parents</option>
                                 <option value="teacher">Teachers</option>
-                            </select></label><label class="text-sm font-semibold md:col-span-2">Message<textarea
-                                id="announcementMessage" required maxlength="500" rows="4"
-                                class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"
-                                placeholder="Write a clear, concise announcement..."></textarea>
+                            </select>
+                        </label>
+                        <label class="text-sm font-semibold md:col-span-2">
+                            Message
+                            <textarea id="announcementMessage" required maxlength="500" rows="4" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"
+                                placeholder="Write a clear, concise announcement...">
+                            </textarea>
                         </label>
                         <div class="flex flex-wrap items-center gap-3 md:col-span-2">
-                            <button type="submit"
-                                class="rounded-xl bg-rose-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-rose-700">
-                                Publish announcement</button><span id="announcementFeedback"
-                                class="text-xs text-slate-500"></span>
+                            <button type="submit" class="rounded-xl bg-rose-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-rose-700">
+                                Publish announcement
+                            </button>
+                            <span id="announcementFeedback" class="text-xs text-slate-500"></span>
                         </div>
                     </form>
                 </section>
@@ -291,30 +291,32 @@
     <template id="queueItemTemplate">
         <div class="flex items-center justify-between gap-4 p-4">
             <div class="min-w-0">
-                <b data-queue-title class="block truncate text-sm"></b><span data-queue-meta
-                    class="mt-1 block text-xs text-slate-400"></span>
+                <b data-queue-title class="block truncate text-sm"></b>
+                <span data-queue-meta class="mt-1 block text-xs text-slate-400"></span>
             </div>
             <div class="flex shrink-0 items-center gap-3">
-                <span data-queue-status></span><a data-queue-link
-                    class="text-xs font-semibold text-green-700">Review</a>
+                <span data-queue-status></span>
+                <a data-queue-link class="text-xs font-semibold text-green-700">Review</a>
             </div>
         </div>
     </template>
     <template id="statRowTemplate">
         <div class="flex items-center justify-between text-sm">
-            <span data-stat-label class="text-slate-500"></span><b data-stat-value></b>
+            <span data-stat-label class="text-slate-500"></span>
+            <b data-stat-value></b>
         </div>
     </template>
     <template id="recentRowTemplate">
         <div class="flex items-center justify-between rounded-xl bg-slate-50 p-3 dark:bg-slate-800">
-            <span data-recent-student class="text-sm font-semibold"></span><span data-recent-status></span>
+            <span data-recent-student class="text-sm font-semibold"></span>
+            <span data-recent-status></span>
         </div>
     </template>
     <template id="announcementRowTemplate">
         <div class="rounded-xl bg-slate-50 p-3 dark:bg-slate-800">
             <div class="flex items-center justify-between gap-3">
-                <b data-announcement-title class="text-sm"></b><time data-announcement-date
-                    class="text-[11px] text-slate-400"></time>
+                <b data-announcement-title class="text-sm"></b>
+                <time data-announcement-date class="text-[11px] text-slate-400"></time>
             </div>
             <p data-announcement-meta class="mt-1 text-xs text-slate-500 dark:text-slate-400"></p>
         </div>
@@ -323,7 +325,7 @@
     <script src="../js/data.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/app.js"></script>
+    <script src="./components/sidebar.js"></script>
     <script src="dashboard.js"></script>
 </body>
-
 </html>
