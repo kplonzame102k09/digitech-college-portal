@@ -37,7 +37,7 @@ function setupLogout() {
     logoutButton.addEventListener("click", () => {
         localStorage.removeItem("currentUser");
         localStorage.removeItem("loggedInUser");
-        window.location.href = "../index.html";
+        window.location.href = "../login.html";
     });
 }
 
