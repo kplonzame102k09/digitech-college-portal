@@ -359,7 +359,22 @@
             } else {
                 window.addEventListener('load', hide, { once: true });
             }
-            })();   
+            })();
+            
+        document.addEventListener("DOMContentLoaded", () => {
+        if (window.location.hash === "#contact") {
+            const contact = document.getElementById("contact");
+
+            if (contact) {
+                setTimeout(() => {
+                    contact.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }, 100);
+            }
+        }
+    });    
     </script> 
     <script>lucide.createIcons(); menu.onclick = () => mobile.classList.toggle('hidden')</script>
 </body>
