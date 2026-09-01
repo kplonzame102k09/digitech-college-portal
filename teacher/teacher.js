@@ -350,6 +350,73 @@
     lucide.createIcons();
   }
 
+  function openNewGrade() {
+    const dialog = $("newGradeDialog");
+    const select = $("newGradeStudent");
+    if (!dialog || !select) return;
+    const students = assignedStudents(assignedData());
+    select.replaceChildren();
+    students.forEach((student) => {
+      const option = document.createElement("option");
+      option.value = student.id;
+      option.textContent = `${fullName(student)} · ${student.id}`;
+      select.append(option);
+    });
+    if (!students.length) {
+      APP.toast("You have no assigned students", "error");
+      return;
+    }
+    $("newGradeForm")?.reset();
+    $("newGradeYear").value = "";
+    dialog.showModal();
+    lucide.createIcons();
+  }
+
+  function saveNewGrade(event) {
+    event.preventDefault();
+    const studentId = $("newGradeStudent")?.value;
+    const subject = $("newGradeSubject")?.value.trim();
+    const term = $("newGradeTerm")?.value.trim();
+    const value = Number($("newGradeValue")?.value);
+    if (!studentId || !subject || !term || !Number.isFinite(value) || value < 0 || value > 100) {
+      APP.toast("Complete the required fields and enter a grade from 0 to 100", "error");
+      return;
+    }
+    const data = assignedData();
+    const student = assignedStudents(data).find((item) => item.id === studentId);
+    if (!student) {
+      APP.toast("You can only add grades for assigned students", "error");
+      return;
+    }
+    const now = new Date().toISOString();
+    const record = {
+      id: DG.generateId("GRD"),
+      studentId,
+      teacherId: U.id,
+      teacher: fullName(U),
+      subject,
+      subjectCode: $("newGradeCode")?.value.trim() || "",
+      grade: value,
+      remarks: value >= 75 ? "Passed" : "Failed",
+      term,
+      period: term,
+      schoolYear: $("newGradeYear")?.value.trim() || "",
+      notes: $("newGradeNotes")?.value.trim() || "",
+      published: false,
+      createdAt: now,
+      updatedAt: now,
+      updatedBy: U.id,
+    };
+    const grades = get("grades", []);
+    grades.push(record);
+    save("grades", grades);
+    audit("grade", record, "Grade created", `Created ${record.grade} / ${record.remarks}`);
+    notify(studentId, "Grade added", `${subject} grade was added and is awaiting publication.`, "grade", record.id);
+    $("newGradeDialog")?.close();
+    APP.toast("Grade saved as unpublished");
+    renderGrades();
+  }
+
   function visibleGrades() {
     const data = assignedData();
     const query = ($( "teacherSearch")?.value || "").trim().toLowerCase();
@@ -637,6 +704,10 @@
     renderStudents();
   }
   if (page() === "grades.html") {
+    $("newGrade")?.addEventListener("click", openNewGrade);
+    $("closeNewGrade")?.addEventListener("click", () => $("newGradeDialog")?.close());
+    $("cancelNewGrade")?.addEventListener("click", () => $("newGradeDialog")?.close());
+    $("newGradeForm")?.addEventListener("submit", saveNewGrade);
     injectSearch("Search student, ID, subject, or term", renderGrades);
     configureToolbar(
       [

@@ -29,10 +29,10 @@
       </div>
       <div class="flex items-center gap-2">
         <button onclick="APP.toggleTheme()" class="p-2.5 rounded-xl border dark:border-slate-700">
-          <i data-lucide="moon" data-theme-icon class="w-4"></i>
+          <i data-lucide="moon" data-theme-icon class="h-4 w-4"></i>
         </button>
         <button onclick="APP.showNotifications()" class="p-2.5 rounded-xl border dark:border-slate-700">
-          <i data-lucide="bell" class="w-4"></i>
+          <i data-lucide="bell" class="h-4 w-4"></i>
         </button>
         <img id="avatar" data-profile-photo class="w-9 h-9 rounded-full object-cover border-2 border-green-100"
           alt="Profile" />
@@ -48,10 +48,16 @@
               <p class="mt-2 max-w-2xl text-slate-500">Review, update, and publish grades for your assigned learners.
                 Use the publication state to control what students can see.</p>
             </div>
-            <span class="teacher-page-chip">
-              <i data-lucide="info" class="h-4 w-4"></i>
-              Scores are 0–100
-            </span>
+            <div class="flex flex-wrap items-center gap-2">
+              <button id="newGrade" type="button" class="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700">
+                <i data-lucide="plus" class="h-4 w-4"></i>
+                Add grade
+              </button>
+              <span class="teacher-page-chip">
+                <i data-lucide="info" class="h-4 w-4"></i>
+                Scores are 0–100
+              </span>
+            </div>
           </div>
         </section>
         <section id="gradeSummary" class="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4"></section>
@@ -89,6 +95,32 @@
     </main>
   </div>
   <div id="modalRoot"></div>
+  <dialog id="newGradeDialog" class="w-[min(640px,calc(100%-2rem))] rounded-3xl border-0 p-0 shadow-2xl backdrop:bg-slate-950/50">
+    <form id="newGradeForm" class="card p-6 sm:p-8">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-600">Grade entry</p>
+          <h2 class="mt-1 text-2xl font-extrabold">Add grade</h2>
+          <p class="mt-1 text-sm text-slate-500">Create an unpublished grade for one of your assigned learners.</p>
+        </div>
+        <button type="button" id="closeNewGrade" class="rounded-xl p-2 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Close"><i data-lucide="x"></i></button>
+      </div>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <label class="text-sm font-semibold sm:col-span-2">Student<select id="newGradeStudent" required class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"></select></label>
+        <label class="text-sm font-semibold">Subject<input id="newGradeSubject" required maxlength="120" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="e.g. Mathematics" /></label>
+        <label class="text-sm font-semibold">Subject code<input id="newGradeCode" maxlength="40" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="Optional" /></label>
+        <label class="text-sm font-semibold">Grade (0–100)<input id="newGradeValue" type="number" min="0" max="100" step="0.01" required class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" /></label>
+        <label class="text-sm font-semibold">Term / period<input id="newGradeTerm" required maxlength="80" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="e.g. First Semester" /></label>
+        <label class="text-sm font-semibold">School year<input id="newGradeYear" maxlength="30" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="e.g. 2026–2027" /></label>
+        <label class="text-sm font-semibold sm:col-span-2">Notes<textarea id="newGradeNotes" rows="3" maxlength="500" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" placeholder="Optional notes"></textarea></label>
+      </div>
+      <p class="mt-4 rounded-xl bg-amber-50 p-3 text-xs text-amber-800 dark:bg-amber-950/40 dark:text-amber-200">New grades are saved as <strong>Unpublished</strong>. Publish them from the grade row after review.</p>
+      <div class="mt-6 flex justify-end gap-3">
+        <button type="button" id="cancelNewGrade" class="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold dark:border-slate-700">Cancel</button>
+        <button type="submit" class="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700"><i data-lucide="save" class="h-4 w-4"></i>Save grade</button>
+      </div>
+    </form>
+  </dialog>
   <script src="./components/sidebar.js"></script>
   <script src="../js/storage.js"></script>
   <script src="../js/data.js"></script>

@@ -17,8 +17,7 @@
   class="min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
   <div id="global-sidebar"></div>
   <div class="lg:pl-64">
-    <header
-      class="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
+    <header class="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90">
       <div class="flex h-16 items-center justify-between px-4 sm:px-6">
         <div class="flex items-center gap-3">
           <button type="button" data-menu-toggle class="rounded-lg p-2">
@@ -31,10 +30,11 @@
         </div>
         <div class="flex items-center gap-2">
           <button type="button" data-theme-toggle class="rounded-xl border border-slate-200 p-2.5">
-            <i data-theme-icon data-lucide="moon" class="h-4 w-4"></i></button><button type="button" data-notifications
-            class="relative rounded-xl border border-slate-200 p-2.5">
-            <i data-lucide="bell" class="h-4 w-4"></i><span id="topNotif"
-              class="absolute -right-1 -top-1 hidden h-4 min-w-4 rounded-full bg-red-500 px-1 text-[9px] font-bold text-white"></span>
+            <i data-theme-icon data-lucide="moon" class="h-4 w-4"></i>
+          </button>
+          <button type="button" data-notifications class="relative rounded-xl border border-slate-200 p-2.5">
+            <i data-lucide="bell" class="h-4 w-4"></i>
+            <span id="topNotif" class="absolute -right-1 -top-1 hidden h-4 min-w-4 rounded-full bg-red-500 px-1 text-[9px] font-bold text-white"></span>
           </button>
           <img data-profile-photo src="../assets/images/16432.png"
             class="ml-1 h-9 w-9 rounded-full object-cover border-2 border-green-100" alt="Parent profile photo" />
@@ -47,7 +47,7 @@
     </header>
     <main class="p-4 sm:p-6 lg:p-8">
       <div class="mx-auto max-w-7xl">
-        <section class="mb-7">
+        <section class="mb-7 student-hero mb-7 p-6 sm:p-8">
           <p class="text-sm font-semibold text-green-600">College news</p>
           <h2 class="mt-1 text-3xl font-bold tracking-tight">
             Announcements
@@ -57,8 +57,7 @@
           </p>
         </section>
         <div id="announcementList" class="space-y-4"></div>
-        <div id="announcementsEmpty"
-          class="hidden rounded-2xl border border-dashed border-slate-300 px-6 py-12 text-center dark:border-slate-700">
+        <div id="announcementsEmpty" class="hidden rounded-2xl border border-dashed border-slate-300 px-6 py-12 text-center dark:border-slate-700">
           <h3 class="mt-4 font-semibold">No announcements yet</h3>
           <p class="mx-auto mt-1 max-w-md text-sm text-slate-500 dark:text-slate-400">
             New college announcements will appear here when they are
@@ -72,9 +71,9 @@
   <template id="announcementTemplate">
     <article class="card p-5">
       <div class="flex items-start gap-4">
-        <span
-          class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-green-50 text-green-600 dark:bg-green-950"><i
-            data-lucide="megaphone" class="h-5 w-5"></i></span>
+        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-green-50 text-green-600 dark:bg-green-950">
+          <i data-lucide="megaphone" class="h-5 w-5"></i>
+        </span>
         <div class="min-w-0 flex-1">
           <div class="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
             <h3 data-announcement-title class="font-bold"></h3>

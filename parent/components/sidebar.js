@@ -21,7 +21,7 @@ async function loadSidebar() {
 function setActiveNavigation() {
     const currentPage = window.location.pathname.split("/").pop().toLowerCase();
 
-    document.querySelectorAll("#side nav a").forEach(link => {
+    document.querySelectorAll("#sidebar nav a").forEach(link => {
         const href = link.getAttribute("href");
         if (!href) return;
 
@@ -42,7 +42,7 @@ function setupLogout() {
 }
 
 function setupMobileSidebar() {
-    const sidebar = document.getElementById("side");
+    const sidebar = document.getElementById("sidebar");
     if (!sidebar) return;
 
     document.addEventListener("click", event => {
