@@ -19,17 +19,6 @@ const DEMO = {
   requirements: [],
   documentRequests: [],
   grades: [
-    {
-    id: DG.generateId("GRD"),
-    studentId: student.id,
-    teacherId: currentTeacher.id,
-    subjectId: subject.id,
-    grade: enteredGrade,
-    term: selectedTerm,
-    published: false,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
-    }
   ],
   competencies: [],
   notifications: []
