@@ -29,12 +29,13 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <button type="button" data-theme-toggle
-                        class="rounded-xl border border-slate-200 p-2.5 dark:border-slate-700">
-                        <i data-lucide="moon" data-theme-icon class="h-4 w-4"></i></button><button type="button"
-                        data-notifications class="rounded-xl border border-slate-200 p-2.5 dark:border-slate-700">
-                        <i data-lucide="bell" class="h-4 w-4"></i></button><img id="avatar" data-profile-photo
-                        src="../assets/images/16432.png"
+                    <button type="button" data-theme-toggle class="rounded-xl border border-slate-200 p-2.5 dark:border-slate-700">
+                        <i data-lucide="moon" data-theme-icon class="h-4 w-4"></i>
+                    </button>
+                    <button type="button" data-notifications class="rounded-xl border border-slate-200 p-2.5 dark:border-slate-700">
+                        <i data-lucide="bell" class="h-4 w-4"></i>
+                    </button>
+                    <img id="avatar" data-profile-photo src="../assets/images/16432.png"
                         class="h-9 w-9 rounded-full border-2 border-green-100 object-cover" alt="Admin profile photo" />
                 </div>
             </div>
@@ -118,28 +119,37 @@
             <input id="gradeId" type="hidden" />
             <div id="gradeContext" class="mt-5 grid gap-3 sm:grid-cols-2"></div>
             <div class="mt-5 grid gap-4 sm:grid-cols-2">
-                <label class="text-sm font-semibold">Grade (0–100)<input id="gradeValue" type="number" min="0" max="100"
-                        step="0.01" required class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" /></label><label
-                    class="text-sm font-semibold">Result<select id="gradeRemark"
-                        class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
+                <label class="text-sm font-semibold">
+                    Grade (0–100)
+                    <input id="gradeValue" type="number" min="0" max="100" step="0.01" required class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" />
+                </label>
+                <label class="text-sm font-semibold">
+                    Result
+                    <select id="gradeRemark" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
                         <option>Passed</option>
                         <option>Failed</option>
-                    </select></label><label class="text-sm font-semibold">Term / period<input id="gradeTerm"
-                        class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" /></label><label
+                    </select>
+                </label>
+                <label class="text-sm font-semibold">
+                    Term / period
+                    <input id="gradeTerm" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5" />
+                </label>
+                <label
                     class="text-sm font-semibold">Publication<select id="gradePublished"
                         class="input mt-1.5 w-full rounded-xl border px-3 py-2.5">
                         <option value="false">Unpublished</option>
                         <option value="true">Published</option>
                     </select></label>
             </div>
-            <label class="mt-4 block text-sm font-semibold">Notes<textarea id="gradeNotes" rows="3"
-                    class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"></textarea>
+            <label class="mt-4 block text-sm font-semibold">
+                Notes
+                <textarea id="gradeNotes" rows="3" class="input mt-1.5 w-full rounded-xl border px-3 py-2.5"></textarea>
             </label>
             <div class="mt-6 flex justify-end gap-3">
-                <button type="button" data-close-grade
-                    class="rounded-xl border border-slate-200 px-4 py-2.5 font-semibold dark:border-slate-700">
-                    Cancel</button><button type="submit"
-                    class="rounded-xl bg-green-600 px-5 py-2.5 font-semibold text-white">
+                <button type="button" data-close-grade class="rounded-xl border border-slate-200 px-4 py-2.5 font-semibold dark:border-slate-700">
+                    Cancel
+                </button>
+                <button type="submit" class="rounded-xl bg-green-600 px-5 py-2.5 font-semibold text-white">
                     Save grade
                 </button>
             </div>
@@ -152,22 +162,24 @@
             </td>
             <td class="p-4">
                 <div class="flex items-center gap-3">
-                    <span data-student-initials
-                        class="flex h-9 w-9 items-center justify-center rounded-full bg-green-50 text-xs font-bold text-green-700"></span>
+                    <span data-student-initials class="flex h-9 w-9 items-center justify-center rounded-full bg-green-50 text-xs font-bold text-green-700"></span>
                     <div>
-                        <b data-student-name class="block"></b><small data-student-id
-                            class="text-xs text-slate-400"></small>
+                        <b data-student-name class="block"></b>
+                        <small data-student-id class="text-xs text-slate-400"></small>
                     </div>
                 </div>
             </td>
             <td data-subject class="p-4 font-semibold"></td>
             <td data-teacher class="p-4"></td>
             <td data-grade class="p-4 font-bold"></td>
-            <td class="p-4"><span data-remark></span></td>
-            <td class="p-4"><span data-publish></span></td>
+            <td class="p-4">
+                <span data-remark></span>
+            </td>
+            <td class="p-4">
+                <span data-publish></span>
+            </td>
             <td class="p-4 text-right">
-                <button type="button" data-action="edit" class="rounded-lg p-2 text-blue-600 hover:bg-blue-50"
-                    title="Edit grade">
+                <button type="button" data-action="edit" class="rounded-lg p-2 text-blue-600 hover:bg-blue-50" title="Edit grade">
                     <i data-lucide="pencil" class="h-4 w-4"></i>
                 </button>
             </td>
@@ -175,7 +187,8 @@
     </template><template id="auditRowTemplate">
         <div class="rounded-xl bg-slate-50 p-3 dark:bg-slate-800">
             <div class="flex justify-between gap-2">
-                <b data-audit-title class="text-sm"></b><time data-audit-date class="text-[11px] text-slate-400"></time>
+                <b data-audit-title class="text-sm"></b>
+                <time data-audit-date class="text-[11px] text-slate-400"></time>
             </div>
             <p data-audit-meta class="mt-1 text-xs text-slate-500"></p>
             <p data-audit-notes class="mt-1 text-xs"></p>
@@ -188,6 +201,16 @@
     <script src="../js/app.js"></script>
     <script src="../js/features.js"></script>
     <script src="../js/workflows.js"></script>
-    <script>const U=AUTH.requireRole("admin");if(U){avatar.src=getProfilePhoto(U);APP.applyTheme();APP.updateNotif();document.getElementById("open").onclick=()=>side.classList.toggle("-translate-x-full");lucide.createIcons();}</script></body>
+    <script>
+        const U=AUTH.requireRole("admin");
+        if(U){
+            avatar.src=getProfilePhoto(U);
+            APP.applyTheme();
+            APP.updateNotif();
+            document.getElementById("open").onclick=()=>side.classList.toggle("-translate-x-full");
+            lucide.createIcons();
+        }
+    </script>
+</body>
 
 </html>

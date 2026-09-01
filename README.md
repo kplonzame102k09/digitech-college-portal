@@ -4,11 +4,11 @@ A modern front-end prototype for **Digitech College** that brings student, paren
 
 The project is intentionally built as a **static HTML5 application** using **Tailwind CSS, Vanilla JavaScript, browser LocalStorage, and Lucide Icons** instead of a server-side framework or external database.
 
-> **Important:** This repository is a prototype. Authentication, authorization, uploaded files, and stored data are implemented on the client side and must not be treated as production-grade security.
+> **Important:** This project is a prototype. Authentication, authorization, uploaded files, and stored data are implemented on the client side and must not be treated as production-grade security.
 
 ---
 
-## 📌 What This Repository Does
+## 📌 What This Project Does
 
 The Digitech College Integrated Web Portal simulates a centralized college information and service system.
 
@@ -19,7 +19,7 @@ Instead of creating separate applications for enrollment, academic records, docu
 ```text
 Landing Page
      ↓
-Login / Sign Up
+Login 
      ↓
 Role Selection
      ↓
@@ -78,7 +78,7 @@ The prototype can run entirely in a web browser.
 
 ---
 
-# 📁 Repository Structure
+# 📁 FOLDER Structure
 
 ```text
 digitech-college-portal/
@@ -205,7 +205,7 @@ Users can authenticate using:
 The selected role must match the account's stored role.
 
 ---
-
+<!-- 
 ## `signup.html`
 
 The registration page allows users to create new portal accounts.
@@ -230,7 +230,7 @@ The registration process can collect:
 - Account password
 - Role-specific password where required
 
----
+--- -->
 
 # 👨‍🎓 Student Portal
 

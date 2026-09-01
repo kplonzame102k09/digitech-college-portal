@@ -1,4 +1,6 @@
-const ROLE_PASSWORDS = { admin: "Admin@123", teacher: "Teacher@123" };
+const ROLE_PASSWORDS = { 
+  admin: "Admin@123", 
+  teacher: "Teacher@123" };
 const DASH = {
   student: "student/dashboard.html",
   parent: "parent/dashboard.html",
