@@ -56,6 +56,17 @@
     "Unknown";
   const statusLabel = (user) =>
     user.status === "inactive" ? "Inactive" : "Active";
+  const isNotEnrolledStudent = (user) => {
+    if (user.role !== "student") return false;
+    const hasEnrollment = get("enrollments").some(
+      (record) => record.studentId === user.id,
+    );
+    const hasSubmittedRequirement = [
+      ...get("requirements"),
+      ...get("documentRequests"),
+    ].some((record) => record.studentId === user.id);
+    return !hasEnrollment && !hasSubmittedRequirement;
+  };
   const clone = (id) => {
     const template = document.getElementById(id);
     return template
@@ -155,7 +166,14 @@
       setText("[data-user-id]", user.id, row);
       setText("[data-user-email]", user.email || "—", row);
       setStatusBadge($("[data-user-role]", row), roleLabel(user.role), "role");
-      setStatusBadge($("[data-user-status]", row), statusLabel(user));
+      const statusElement = $("[data-user-status]", row);
+      setStatusBadge(statusElement, statusLabel(user));
+      if (isNotEnrolledStudent(user)) {
+        const marker = document.createElement("span");
+        marker.className = "mt-1 inline-flex rounded-full bg-amber-50 px-2.5 py-1 text-[11px] font-semibold text-amber-700 dark:bg-amber-950 dark:text-amber-300";
+        marker.textContent = "Not enrolled";
+        statusElement?.parentElement?.append(marker);
+      }
       $$("[data-action]", row).forEach((button) =>
         button.addEventListener("click", () =>
           handleAction(button.dataset.action, user),

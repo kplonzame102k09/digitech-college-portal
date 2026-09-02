@@ -418,21 +418,13 @@
                 : value) === record.studentId,
           )),
     );
-    const notifications = get("notifications");
-    targets.forEach((user) =>
-      notifications.push({
-        id: DG.generateId("NOT"),
-        userId: user.id,
-        title: `Enrollment ${status}`,
-        message:
-          reason || `Your enrollment record ${record.id} is now ${status}.`,
-        date: new Date().toISOString(),
-        read: false,
-        source: "enrollment",
-        enrollmentId: record.id,
-      }),
+    APP.notifyUsers(
+      targets.map((user) => user.id),
+      `Enrollment ${status}`,
+      reason || `Your enrollment record ${record.id} is now ${status}.`,
+      "enrollment",
+      record.id,
     );
-    save("notifications", notifications);
   }
 
   function hasDuplicateActive(record, newStatus) {
@@ -473,6 +465,7 @@
       return false;
     }
     const from = record.status || "Draft";
+    const previousReason = record.rejectionReason || "";
     Object.assign(record, {
       status: newStatus,
       reviewNotes: notes,
@@ -484,7 +477,7 @@
     });
     save("enrollments", enrollments);
     addAudit(record, from, newStatus, notes, reason);
-    if (from !== newStatus || notes || reason)
+    if (from !== newStatus || reason !== previousReason)
       notifyStudent(record, newStatus, reason || notes);
     APP.toast(`Enrollment marked ${newStatus}`);
     render();
@@ -570,10 +563,20 @@
       "Under Review",
     );
     if (!statuses.includes(value)) return;
+    const reason = ["Rejected", "Needs Correction"].includes(value)
+      ? window.prompt(
+          `Enter a reason for ${value.toLowerCase()} (required):`,
+          "",
+        )?.trim() || ""
+      : "";
+    if (["Rejected", "Needs Correction"].includes(value) && !reason) {
+      APP.toast("A reason is required for this bulk action", "error");
+      return;
+    }
     let updated = 0;
     selected.forEach((id) => {
       const record = enrollments.find((item) => item.id === id);
-      if (record && updateRecord(record, value, "Bulk status update", ""))
+      if (record && updateRecord(record, value, "Bulk status update", reason))
         updated += 1;
     });
     selected.clear();
@@ -659,7 +662,9 @@
     fillSelect(
       "#createStudent",
       users
-        .filter((user) => user.role === "student")
+        .filter(
+          (user) => user.role === "student" && user.status !== "inactive",
+        )
         .map((user) => ({
           value: user.id,
           label: `${fullName(user)} · ${user.id}`,
