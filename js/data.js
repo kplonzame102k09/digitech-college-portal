@@ -25,19 +25,41 @@ const DEMO = {
 };
 
 function seedData() {
-  if (localStorage.getItem("digitech_seeded")) return;
-
-  Object.entries(DEMO).forEach(([key, value]) => {
-    DG.saveData(key, value);
-  });
-
-  DG.saveData("settings", {
-    theme: "light",
-    teacherRegistration: true,
-    adminRegistration: false
-  });
-
+  const users = DG.getData("users", []);
+  const admin = DEMO.users[0];
+  const exists = users.some(user =>
+    String(user.id || "").toLowerCase() ===
+    admin.id.toLowerCase()
+  );
+  if (!exists) {
+    users.push(admin);
+    DG.saveData("users", users);
+  }
+  if (!DG.getData("settings", null)) {
+    DG.saveData("settings", {
+      theme: "light",
+      teacherRegistration: true,
+      adminRegistration: false
+    });
+  }
   localStorage.setItem("digitech_seeded", "1");
 }
-
 seedData();
+
+// function seedData() {
+//   if (localStorage.getItem("digitech_seeded")) return;
+
+//   Object.entries(DEMO).forEach(([key, value]) => {
+//     DG.saveData(key, value);
+//   });
+
+//   DG.saveData("settings", {
+//     theme: "light",
+//     teacherRegistration: true,
+//     adminRegistration: false
+//   });
+
+//   localStorage.setItem("digitech_seeded", "1");
+// }
+
+// seedData();

@@ -465,6 +465,7 @@
       container?.append(row);
     });
   }
+  
   function init() {
     admin = AUTH.requireRole("admin");
     if (!admin) return;

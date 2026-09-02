@@ -95,6 +95,7 @@
                                     <th class="p-4">Status</th>
                                     <th class="p-4">Due date</th>
                                     <th class="p-4">Actions</th>
+                                    <!-- <th class="p-4">View</th> -->
                                 </tr>
                             </thead>
                             <tbody id="rows"></tbody>
@@ -199,6 +200,13 @@
             root.append(backdrop);
         }
 
+        function refreshRequirementTable() {
+            document.querySelectorAll("#rows td[colspan]").forEach((cell) => {
+                cell.colSpan = 6;
+            });
+            addViewButtons();
+        }
+
         function addViewButtons() {
             document.querySelectorAll("#rows tr").forEach((row) => {
                 const approveButton = row.querySelector("[data-approve]");
@@ -210,14 +218,15 @@
                     .find((item) => String(item.id) === String(requirementId));
                 if (!requirement?.fileData) return;
 
-                const actionCell = row.lastElementChild;
-                if (!actionCell) return;
+                const viewCell = document.createElement("td");
+                viewCell.className = "p-4 text-center";
                 const button = document.createElement("button");
                 button.type = "button";
                 button.dataset.viewRequirement = requirementId;
-                button.className = "ml-2 text-blue-700 font-semibold";
+                button.className = "rounded-lg text-xs font-semibold text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-950/30";
                 button.textContent = "View submitted file";
-                actionCell.append(button);
+                viewCell.append(button);
+                row.append(viewCell);
             });
         }
 
@@ -232,8 +241,8 @@
             });
             const rows = document.getElementById("rows");
             if (rows) {
-                new MutationObserver(addViewButtons).observe(rows, { childList: true });
-                addViewButtons();
+                new MutationObserver(refreshRequirementTable).observe(rows, { childList: true });
+                refreshRequirementTable();
             }
             window.lucide?.createIcons();
         }

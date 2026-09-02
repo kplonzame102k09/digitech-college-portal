@@ -1,36 +1,54 @@
-
-
-
-
+// (function () {
+//   function ensure() {
+//     let el = document.getElementById("global-loader");
+//     if (!el) {
+//       el = document.createElement("div");
+//       el.id = "global-loader";
+//       el.innerHTML = `
+//         <div class="loader-box">
+//           <i data-lucide="loader-2"> <img src="assets/images/16432.png" alt="" class="logo"></i>
+//         </div>`;
+//       document.body.appendChild(el);
+//       if (window.lucide) lucide.createIcons();
+//     }
+//     return el;
+//   }
 (function () {
-  function ensure() {
-    let el = document.getElementById("global-loader");
-    if (!el) {
-      el = document.createElement("div");
-      el.id = "global-loader";
-      el.innerHTML = `
-        <div class="loader-box">
-          <i data-lucide="loader-2"></i>
-        </div>`;
-      document.body.appendChild(el);
-      if (window.lucide) lucide.createIcons();
-    }
-    return el;
-  }
+    function ensure() {
+        let el = document.getElementById("global-loader");
 
-  document.addEventListener("click", (e) => {
-    const target = e.target.closest("a, button");
-    if (!target) return;
+        if (!el) {
+            el = document.createElement("div");
+            el.id = "global-loader";
+            el.innerHTML = `
+                <div class="loader-box">
+                    <span class="spinner"></span>
+                    <img src="../assets/images/16432.png" alt="Loading" class="logo">
+                </div>`;
+            document.body.appendChild(el);
+        }
 
-    ensure().classList.add("active");
-
-    if (target.tagName === "A" && target.href && !target.getAttribute("onclick")) {
-      return; // navigation — loader stays until page unloads
+        return el;
     }
 
-    setTimeout(() => ensure().classList.remove("active"), 600);
-  });
-})(); 
+    document.addEventListener("click", (e) => {
+        const target = e.target.closest("a, button");
+        if (!target) return;
+
+        const loader = ensure();
+        loader.classList.add("active");
+
+        if (  
+            target.tagName === "A" &&
+            target.href &&
+            !target.target &&
+            !target.getAttribute("onclick") &&
+            !target.hasAttribute("download")
+        ) return;
+
+        setTimeout(() => loader.classList.remove("active"), 5000);
+    });
+})();
 // ============================
 function getTheme() {
     const settings =
