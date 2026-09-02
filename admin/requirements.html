@@ -104,6 +104,7 @@
             </div>
         </main>
     </div>
+    <div id="modalRoot"></div>
     <template id="auditRowTemplate">
         <div class="rounded-xl bg-slate-50 p-3 dark:bg-slate-800">
             <div class="flex justify-between gap-2">
@@ -122,13 +123,119 @@
     <script src="../js/features.js"></script>
     <script src="../js/workflows.js"></script>
     <script>
-        const U=AUTH.requireRole("admin");
-        if(U){
-            avatar.src=getProfilePhoto(U);
+        const U = AUTH.requireRole("admin");
+
+        function viewSubmittedRequirement(id) {
+            const requirement = DG.getData("requirements", [])
+                .find((item) => String(item.id) === String(id));
+
+            if (!requirement?.fileData) {
+                APP.toast("No submitted file is available to view", "error");
+                return;
+            }
+
+            const root = document.getElementById("modalRoot");
+            if (!root) return;
+            root.replaceChildren();
+
+            const fileName = String(requirement.fileName || "Submitted requirement")
+                .replace(/[<>]/g, "");
+            const fileType = String(requirement.fileType || "");
+            const fileData = String(requirement.fileData);
+            const isImage = fileType.startsWith("image/");
+            const isPdf = fileType === "application/pdf" || /\.pdf$/i.test(fileName);
+
+            const backdrop = document.createElement("div");
+            backdrop.className = "fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/75 p-4";
+            const modal = document.createElement("section");
+            modal.className = "flex max-h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl dark:bg-slate-900";
+            modal.setAttribute("role", "dialog");
+            modal.setAttribute("aria-modal", "true");
+            modal.setAttribute("aria-label", `View ${fileName}`);
+
+            const header = document.createElement("div");
+            header.className = "flex items-center justify-between gap-3 border-b border-slate-200 px-4 py-3 dark:border-slate-700";
+            const title = document.createElement("h2");
+            title.className = "truncate text-sm font-bold";
+            title.textContent = fileName;
+            const close = document.createElement("button");
+            close.type = "button";
+            close.className = "rounded-lg px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800";
+            close.textContent = "Close";
+            close.addEventListener("click", () => root.replaceChildren());
+            header.append(title, close);
+
+            const content = document.createElement("div");
+            content.className = "min-h-[18rem] flex-1 overflow-auto bg-slate-100 p-4 dark:bg-slate-950";
+            if (isImage) {
+                const image = document.createElement("img");
+                image.src = fileData;
+                image.alt = fileName;
+                image.className = "mx-auto max-h-[75vh] max-w-full object-contain";
+                content.append(image);
+            } else if (isPdf) {
+                const frame = document.createElement("iframe");
+                frame.src = fileData;
+                frame.title = fileName;
+                frame.className = "h-[75vh] w-full rounded-lg border-0 bg-white";
+                content.append(frame);
+            } else {
+                const message = document.createElement("p");
+                message.className = "mb-4 text-center text-sm text-slate-500";
+                message.textContent = "This file type cannot be previewed here.";
+                const link = document.createElement("a");
+                link.href = fileData;
+                link.download = fileName;
+                link.className = "mx-auto block w-max rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700";
+                link.textContent = `Download ${fileName}`;
+                content.append(message, link);
+            }
+
+            modal.append(header, content);
+            backdrop.append(modal);
+            backdrop.addEventListener("click", (event) => {
+                if (event.target === backdrop) root.replaceChildren();
+            });
+            root.append(backdrop);
+        }
+
+        function addViewButtons() {
+            document.querySelectorAll("#rows tr").forEach((row) => {
+                const approveButton = row.querySelector("[data-approve]");
+                const rejectButton = row.querySelector("[data-reject]");
+                const requirementId = approveButton?.dataset.approve || rejectButton?.dataset.reject;
+                if (!requirementId || row.querySelector("[data-view-requirement]")) return;
+
+                const requirement = DG.getData("requirements", [])
+                    .find((item) => String(item.id) === String(requirementId));
+                if (!requirement?.fileData) return;
+
+                const actionCell = row.lastElementChild;
+                if (!actionCell) return;
+                const button = document.createElement("button");
+                button.type = "button";
+                button.dataset.viewRequirement = requirementId;
+                button.className = "ml-2 text-blue-700 font-semibold";
+                button.textContent = "View submitted file";
+                actionCell.append(button);
+            });
+        }
+
+        if (U) {
+            avatar.src = getProfilePhoto(U);
             APP.applyTheme();
             APP.updateNotif();
-            document.getElementById("open").onclick=()=>side.classList.toggle("-translate-x-full");
-            lucide.createIcons();
+            document.getElementById("open").onclick = () => side.classList.toggle("-translate-x-full");
+            document.getElementById("rows")?.addEventListener("click", (event) => {
+                const button = event.target.closest("[data-view-requirement]");
+                if (button) viewSubmittedRequirement(button.dataset.viewRequirement);
+            });
+            const rows = document.getElementById("rows");
+            if (rows) {
+                new MutationObserver(addViewButtons).observe(rows, { childList: true });
+                addViewButtons();
+            }
+            window.lucide?.createIcons();
         }
     </script>
 </body>
