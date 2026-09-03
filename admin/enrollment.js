@@ -77,6 +77,24 @@
     element.textContent = value || "Not set";
   }
 
+ function setStudentPhoto(row, student) {
+    const photo = $("[data-student-photo]", row);
+    const initialsElement = $("[data-student-initials]", row);
+    if (!photo) return;
+
+    const defaultPhoto = "../assets/images/16432.png";
+    const photoUrl = student?.photo || defaultPhoto;
+
+    photo.src = photoUrl;
+    photo.alt = `${fullName(student)} profile photo`;
+    photo.classList.remove("hidden");
+    initialsElement?.classList.add("hidden");
+    photo.addEventListener("error", () => {
+      if (photo.src.endsWith(defaultPhoto)) return;
+      photo.src = defaultPhoto;
+    }, { once: true });
+  }
+
   function relatedRecords(record) {
     const documents = get("documentRequests").filter(
       (item) => item.studentId === record.studentId,
@@ -209,6 +227,7 @@
       });        
       const student = studentFor(record);
       setText("[data-student-initials]", initials(student), row);
+      setStudentPhoto(row, student);
       setText("[data-student-name]", studentName(record), row);
       setText("[data-student-id]", record.studentId || "—", row);
       setText("[data-program]", program(record), row);
