@@ -35,7 +35,16 @@
           .sort((a, b) => String(b.date).localeCompare(String(a.date)))
           .map((r) => {
             const s = users.find((u) => u.id === r.studentId);
-            return `<tr class="border-t"><td class="p-3">${F.esc(F.userName(s) || r.studentId)}</td><td class="p-3">${F.esc(r.date)}</td><td class="p-3">${F.esc(r.subject || "—")}</td><td class="p-3">${F.esc(r.status)}</td><td class="p-3">${F.esc(r.remarks || "—")}</td>${isTeacher || isAdmin ? `<td class="p-3"><button class="text-emerald-700 font-semibold" data-edit="${F.esc(r.id)}">Edit</button></td>` : ""}</tr>`;
+            return `<tr class="border-t">
+                      <td class="p-3">${F.esc(F.userName(s) || r.studentId)}</td>
+                      <td class="p-3">${F.esc(r.date)}</td><td class="p-3">${F.esc(r.subject || "—")}</td>
+                      <td class="p-3">${F.esc(r.status)}</td>
+                      <td class="p-3">${F.esc(r.remarks || "—")}</td>
+                        ${isTeacher || isAdmin ? 
+                      `<td class="p-3">
+                          <button class="text-emerald-700 font-semibold" data-edit="${F.esc(r.id)}">Edit</button>
+                        </td>` :
+                 ""}</tr>`;
           }),
       );
       $("#rows")
@@ -141,7 +150,13 @@
       renderRows(
         rows.map(
           (r) =>
-            `<tr class="border-t"><td class="p-3 font-semibold">${F.esc(r.title)}</td><td class="p-3">${F.esc(r.audience || "All")}</td><td class="p-3">${F.esc(r.category || "General")}</td><td class="p-3">${F.esc(APP.formatDate(r.createdAt || r.date))}</td><td class="p-3">${F.esc(r.message)}</td></tr>`,
+            `<tr class="border-t">
+              <td class="p-3 font-semibold">${F.esc(r.title)}</td>
+              <td class="p-3">${F.esc(r.audience || "All")}</td>
+              <td class="p-3">${F.esc(r.category || "General")}</td>
+              <td class="p-3">${F.esc(APP.formatDate(r.createdAt || r.date))}</td>
+              <td class="p-3">${F.esc(r.message)}</td>
+            </tr>`,
         ),
       );
     };
@@ -193,7 +208,16 @@
       renderRows(
         all.map(
           (r) =>
-            `<tr class="border-t"><td class="p-3">${F.esc(r.name)}</td><td class="p-3">${F.esc(r.studentId)}</td><td class="p-3">${F.esc(r.status)}</td><td class="p-3">${F.esc(r.dueDate || "—")}</td><td class="p-3"><button class="text-emerald-700 font-semibold" data-approve="${F.esc(r.id)}">Approve</button> <button class="text-rose-700 font-semibold" data-reject="${F.esc(r.id)}">Reject</button></td></tr>`,
+            `<tr class="border-t"><
+              td class="p-3">${F.esc(r.name)}</td>
+              <td class="p-3">${F.esc(r.studentId)}</td>
+              <td class="p-3">${F.esc(r.status)}</td>
+              <td class="p-3">${F.esc(r.dueDate || "—")}</td>
+              <td class="p-3">
+                <button class="text-emerald-700 font-semibold" data-approve="${F.esc(r.id)}">Approve</button> 
+                <button class="text-rose-700 font-semibold" data-reject="${F.esc(r.id)}">Reject</button>
+              </td>
+            </tr>`,
         ),
       );
       $("#rows")
