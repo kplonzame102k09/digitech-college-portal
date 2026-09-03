@@ -474,12 +474,12 @@
 function generateUserId(role, existingUsers) {
   const prefix =
     role.toLowerCase() === "student"
-      ? "STU"
+      ? "STU-2026"
       : role.toLowerCase() === "teacher"
-        ? "TCH"
+        ? "TCH-2026"
         : role.toLowerCase() === "admin"
-          ? "ADM"
-          : "USR";
+          ? "ADM-2026"
+          : "PRT-2026";
 
   let id;
 
@@ -567,20 +567,13 @@ function importUsers() {
         // Create user object
         const newUser = {
           id: userId,
-
-          name: data["name"] || "",
-
+          firstName: data["firstname"] || "",
+          middleName: data["middlename"] || "",
+          lastName: data["lastname"] || "",
           role: role,
-
           email: data["email"] || "",
-
-          username: data["username"] || "",
-
           status: data["status"] || "active",
-
           contact: data["contact"] || "",
-
-          strand: data["program / strand"] || "",
         };
 
         users.push(newUser);
