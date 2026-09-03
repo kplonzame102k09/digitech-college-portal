@@ -46,7 +46,7 @@
             !target.hasAttribute("download")
         ) return;
 
-        setTimeout(() => loader.classList.remove("active"), 5000);
+        setTimeout(() => loader.classList.remove("active"), 3000);
     });
 })();
 // ============================
