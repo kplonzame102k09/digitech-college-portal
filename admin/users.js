@@ -471,7 +471,140 @@
     URL.revokeObjectURL(link.href);
     APP.toast("CSV export downloaded");
   }
+function generateUserId(role, existingUsers) {
+  const prefix =
+    role.toLowerCase() === "student"
+      ? "STU"
+      : role.toLowerCase() === "teacher"
+        ? "TCH"
+        : role.toLowerCase() === "admin"
+          ? "ADM"
+          : "USR";
 
+  let id;
+
+  do {
+    id =
+      `${prefix}-` +
+      Math.random().toString(36).substring(2, 8).toUpperCase();
+  } while (existingUsers.some((user) => user.id === id));
+
+  return id;
+}
+
+function importUsers() {
+  const input = document.createElement("input");
+
+  input.type = "file";
+  input.accept = ".csv,text/csv";
+
+  input.onchange = (event) => {
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const text = e.target.result;
+
+      const lines = text
+        .split(/\r?\n/)
+        .filter((line) => line.trim() !== "");
+
+      if (lines.length < 2) {
+        APP.toast("CSV file contains no users");
+        return;
+      }
+
+      // Parse CSV
+      const rows = lines.map((line) => {
+        const values = [];
+        const regex = /("([^"]|"")*"|[^,]+)/g;
+        let match;
+
+        while ((match = regex.exec(line)) !== null) {
+          let value = match[0].trim();
+
+          if (value.startsWith('"') && value.endsWith('"')) {
+            value = value.slice(1, -1).replaceAll('""', '"');
+          }
+
+          values.push(value);
+        }
+
+        return values;
+      });
+
+      // CSV headers
+      const headers = rows[0].map((header) =>
+        header.trim().toLowerCase()
+      );
+
+      const users = DG.getData("users") || [];
+
+      let importedCount = 0;
+      let generatedCount = 0;
+
+      rows.slice(1).forEach((row) => {
+        const data = {};
+
+        headers.forEach((header, index) => {
+          data[header] = row[index] || "";
+        });
+
+        const role = (data["role"] || "student").toLowerCase();
+
+        // Use CSV User ID if provided
+        let userId = data["user id"];
+
+        // Generate one if missing
+        if (!userId || userId.trim() === "") {
+          userId = generateUserId(role, users);
+          generatedCount++;
+        }
+
+        // Create user object
+        const newUser = {
+          id: userId,
+
+          name: data["name"] || "",
+
+          role: role,
+
+          email: data["email"] || "",
+
+          username: data["username"] || "",
+
+          status: data["status"] || "active",
+
+          contact: data["contact"] || "",
+
+          strand: data["program / strand"] || "",
+        };
+
+        users.push(newUser);
+        importedCount++;
+      });
+
+      // Save users
+      DG.saveData("users", users);
+
+      APP.toast(
+        `${importedCount} users imported` +
+        (generatedCount > 0
+          ? `, ${generatedCount} User IDs generated`
+          : "")
+      );
+
+      setTimeout(() => {
+        location.reload();
+      }, 700);
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
   function init() {
     currentUser = AUTH.requireRole("admin");
     if (!currentUser) return;
@@ -509,6 +642,7 @@
       render();
     });
     $("[data-create-user]")?.addEventListener("click", () => openEditor());
+    $("[data-import-users]")?.addEventListener("click", importUsers);
     $("[data-export-users]")?.addEventListener("click", exportUsers);
     $("[data-bulk-toggle]")?.addEventListener("click", bulkAction);
     $("#userForm")?.addEventListener("submit", saveUser);
