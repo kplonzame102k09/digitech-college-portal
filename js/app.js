@@ -35,6 +35,12 @@
         const target = e.target.closest("a, button");
         if (!target) return;
 
+        // Menu controls open or close the sidebar locally; they do not navigate.
+        if (target.matches("#open, #menuBtn, #sidebar-backdrop")) {
+            document.getElementById("global-loader")?.classList.remove("active");
+            return;
+        }
+
         const loader = ensure();
         loader.classList.add("active");
 
@@ -42,11 +48,11 @@
             target.tagName === "A" &&
             target.href &&
             !target.target &&
-            !target.getAttribute("onclick") &&
+            // !target.getAttribute("onclick") &&
             !target.hasAttribute("download")
         ) return;
 
-        setTimeout(() => loader.classList.remove("active"), 3000);
+        setTimeout(() => loader.classList.remove("active"), 600);
     });
 })();
 // ============================

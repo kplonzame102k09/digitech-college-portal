@@ -41,23 +41,24 @@
     </header>
     <main class="p-4 sm:p-6 lg:p-8">
       <div class="mx-auto max-w-7xl">
-        <section class="mb-7">
+        <section class="teacher-hero mb-7 overflow-hidden rounded-3xl p-6 text-white shadow-xl sm:p-8">
           <p class="text-xs font-bold uppercase tracking-[0.18em] text-blue-600">Academic records</p>
           <div class="mt-2 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h2 class="text-3xl font-extrabold tracking-tight">Grade workspace</h2>
-              <p class="mt-2 max-w-2xl text-slate-500">Review, update, and publish grades for your assigned learners.
+              <p class="mt-2 max-w-2xl text-white-500">Review, update, and publish grades for your assigned learners.
                 Use the publication state to control what students can see.</p>
             </div>
             <div class="flex flex-wrap items-center gap-2">
+              <!-- <span class="teacher-page-chip">
+                <i data-lucide="info" class="h-4 w-4"></i>
+                Scores are 0–100
+              </span> -->
+
               <button id="newGrade" type="button" class="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-700">
                 <i data-lucide="plus" class="h-4 w-4"></i>
                 Add grade
               </button>
-              <span class="teacher-page-chip">
-                <i data-lucide="info" class="h-4 w-4"></i>
-                Scores are 0–100
-              </span>
             </div>
           </div>
         </section>
