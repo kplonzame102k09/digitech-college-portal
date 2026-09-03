@@ -31,11 +31,9 @@
                     <button onclick="APP.toggleTheme()" class="rounded-xl border border-slate-200 p-2.5 dark:border-slate-700">
                         <i data-lucide="moon" data-theme-icon class="h-4 w-4"></i>
                     </button>
-                    <button class="rounded-xl border border-slate-200 p-2.5 dark:border-slate-700">
+                    <button type="button" data-notifications class="rounded-xl border border-slate-200 p-2.5 dark:border-slate-700">
                         <i data-lucide="bell" class="h-4 w-4"></i>
-                        <span id="topNotif" 
-                            class="absolute -right-1 -top-1 hidden min-w-4 h-4 rounded-full bg-red-500 px-1 text-[9px] font-bold text-white">
-                        </span>
+                        <span id="topNotif" class="fixed hidden w-4 rounded-full bg-red-500 px-1 text-[9px] font-bold text-white"></span>
                     </button>
                     <img id="avatar" data-profile-photo src="../assets/images/16432.png" class="h-9 w-9 rounded-full object-cover" 
                         alt="Admin profile photo" />
@@ -323,6 +321,7 @@
             <p data-audit-notes class="mt-1 text-xs"></p>
         </div>
     </template>
+    <div id="modalRoot"></div>
     <script src="./components/sidebar.js"></script>
     <script src="../js/storage.js"></script>
     <script src="../js/data.js"></script>

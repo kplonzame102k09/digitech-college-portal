@@ -53,8 +53,7 @@
       if (student) {
         student.innerHTML = (isTeacher ? F.teacherStudents(U) : F.students())
           .map(
-            (s) =>
-              `<option value="${F.esc(s.id)}">${F.esc(F.userName(s))}</option>`,
+            (s) => `<option value="${F.esc(s.id)}">${F.esc(F.userName(s))}</option>`,
           )
           .join("");
         student.value = r.studentId;
@@ -140,8 +139,7 @@
         );
       renderRows(
         rows.map(
-          (r) =>
-            `<tr class="border-t"><td class="p-3 font-semibold">${F.esc(r.title)}</td><td class="p-3">${F.esc(r.audience || "All")}</td><td class="p-3">${F.esc(r.category || "General")}</td><td class="p-3">${F.esc(APP.formatDate(r.createdAt || r.date))}</td><td class="p-3">${F.esc(r.message)}</td></tr>`,
+          (r) => `<tr class="border-t"><td class="p-3 font-semibold">${F.esc(r.title)}</td><td class="p-3">${F.esc(r.audience || "All")}</td><td class="p-3">${F.esc(r.category || "General")}</td><td class="p-3">${F.esc(APP.formatDate(r.createdAt || r.date))}</td><td class="p-3">${F.esc(r.message)}</td></tr>`,
         ),
       );
     };
@@ -192,8 +190,7 @@
       const all = F.get("requirements", []);
       renderRows(
         all.map(
-          (r) =>
-            `<tr class="border-t"><td class="p-3">${F.esc(r.name)}</td><td class="p-3">${F.esc(r.studentId)}</td><td class="p-3">${F.esc(r.status)}</td><td class="p-3">${F.esc(r.dueDate || "—")}</td><td class="p-3"><button class="text-emerald-700 font-semibold" data-approve="${F.esc(r.id)}">Approve</button> <button class="text-rose-700 font-semibold" data-reject="${F.esc(r.id)}">Reject</button></td></tr>`,
+          (r) => `<tr class="border-t"><td class="p-3">${F.esc(r.name)}</td><td class="p-3">${F.esc(r.studentId)}</td><td class="p-3">${F.esc(r.status)}</td><td class="p-3">${F.esc(r.dueDate || "—")}</td><td class="p-3"><button class="text-emerald-700 font-semibold" data-approve="${F.esc(r.id)}">Approve</button> <button class="text-rose-700 font-semibold" data-reject="${F.esc(r.id)}">Reject</button></td></tr>`,
         ),
       );
       $("#rows")

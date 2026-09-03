@@ -24,7 +24,11 @@
       <div class="flex items-center gap-2"><button onclick="APP.toggleTheme()"
           class="rounded-xl border p-2.5 dark:border-slate-700"><i data-lucide="moon" data-theme-icon
             class="h-4 w-4"></i></button><button onclick="APP.showNotifications()"
-          class="rounded-xl border p-2.5 dark:border-slate-700"><i data-lucide="bell" class="h-4 w-4"></i></button><img
+          class="rounded-xl border p-2.5 dark:border-slate-700">
+          <i data-lucide="bell" class="h-4 w-4"></i>
+          <span id="topNotif" class="fixed hidden w-4 rounded-full bg-red-500 px-1 text-[9px] font-bold text-white"></span>
+        </button>
+        <img
           id="avatar" data-profile-photo class="h-9 w-9 rounded-full object-cover" alt="Profile" /></div>
     </header>
     <main class="p-4 sm:p-6 lg:p-8">

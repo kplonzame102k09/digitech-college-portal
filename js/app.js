@@ -48,7 +48,7 @@
             target.tagName === "A" &&
             target.href &&
             !target.target &&
-            // !target.getAttribute("onclick") &&
+            !target.getAttribute("onclick") &&
             !target.hasAttribute("download")
         ) return;
 
@@ -322,6 +322,147 @@ function updateNotif() {
   b?.classList.toggle("hidden", n === 0);
   if (b) b.textContent = n;
 }
+function notifyAdmins(title, message, source = "portal", recordId) {
+  const currentUser = DG.getCurrentUser();
+  const users = DG.getData("users", []);
+  const admins = users.filter((user) => user && user.role === "admin");
+
+  // Keep the helper useful even when the current admin account has not yet
+  // been persisted in the users list (for example, on a freshly seeded demo).
+  if (!admins.length && currentUser?.role === "admin") admins.push(currentUser);
+  if (!admins.length) return [];
+
+  const now = new Date().toISOString();
+  const notifications = DG.getData("notifications", []);
+  const created = admins
+    .filter((admin, index, all) => admin.id && all.findIndex((item) => item.id === admin.id) === index)
+    .map((admin) => {
+      const notification = {
+        id: DG.generateId("NOT"),
+        userId: admin.id,
+        title: String(title || "Portal update"),
+        message: String(message || "A new portal update is available."),
+        date: now,
+        read: false,
+        source,
+      };
+      if (recordId) notification[`${source}Id`] = recordId;
+      notifications.push(notification);
+      return notification;
+    });
+
+  DG.saveData("notifications", notifications);
+  if (currentUser?.role === "admin") updateNotif();
+  return created;
+}
+
+// Generic alias for pages that only need to create an admin-facing alert.
+function createAdminNotification(title, message, source = "portal", recordId) {
+  return notifyAdmins(title, message, source, recordId);
+}
+
+function installNotificationDialog() {
+  if (document.documentElement.dataset.notificationDialogInstalled) return;
+  document.documentElement.dataset.notificationDialogInstalled = "true";
+  document.addEventListener("click", (event) => {
+    const trigger = event.target.closest?.(
+      '[data-notifications], [data-show-notifications], [onclick*="showNotifications"]',
+    );
+    if (!trigger) return;
+    event.preventDefault();
+    showNotifications();
+  });
+}
+
+function observeAdminNotificationEvents() {
+  if (DG.__adminNotificationObserverInstalled) return;
+  DG.__adminNotificationObserverInstalled = true;
+  const saveData = DG.saveData;
+  const watchedKeys = new Set([
+    "enrollments",
+    "requirements",
+    "documentRequests",
+    "announcements",
+  ]);
+  const recordId = (record) => record?.id || record?.studentId;
+  const byId = (records) =>
+    new Map((Array.isArray(records) ? records : []).map((record) => [recordId(record), record]));
+  const studentName = (studentId) => {
+    const student = DG.getData("users", []).find((user) => user.id === studentId);
+    return `${student?.firstName || "Student"} ${student?.lastName || ""}`.trim();
+  };
+
+  DG.saveData = (key, value) => {
+    if (!watchedKeys.has(key)) return saveData(key, value);
+    const previous = DG.getData(key, []);
+    const result = saveData(key, value);
+    const currentUser = DG.getCurrentUser();
+    if (!currentUser) return result;
+
+    const before = byId(previous);
+    const after = byId(value);
+    after.forEach((record, id) => {
+      const oldRecord = before.get(id);
+      const isNew = !oldRecord;
+      const wasSubmitted = oldRecord?.status === "Submitted";
+      const isSubmitted = record.status === "Submitted";
+
+      if (
+        key === "enrollments" &&
+        currentUser.role === "student" &&
+        isSubmitted &&
+        !wasSubmitted
+      ) {
+        notifyAdmins(
+          "New enrollment submitted",
+          `${studentName(record.studentId)} submitted enrollment ${record.id} for review.`,
+          "enrollment",
+          record.id,
+        );
+      }
+
+      if (
+        key === "requirements" &&
+        currentUser.role === "student" &&
+        isSubmitted &&
+        !wasSubmitted
+      ) {
+        notifyAdmins(
+          "Requirement submitted",
+          `${studentName(record.studentId)} submitted ${record.name || "a requirement"} for review.`,
+          "requirement",
+          record.id,
+        );
+      }
+
+      if (key === "documentRequests" && currentUser.role === "student" && isNew) {
+        notifyAdmins(
+          "New document request",
+          `${studentName(record.studentId)} requested ${record.documentType || "a document"}.`,
+          "document",
+          record.id,
+        );
+      }
+
+      if (
+        key === "announcements" &&
+        currentUser.role === "teacher" &&
+        isNew
+      ) {
+        notifyAdmins(
+          "Teacher announcement published",
+          `${currentUser.firstName || "Teacher"} published “${record.title || "an announcement"}”.`,
+          "announcement",
+          record.id,
+        );
+      }
+    });
+    return result;
+  };
+}
+
+observeAdminNotificationEvents();
+installNotificationDialog();
 function showNotifications() {
   const u = DG.getCurrentUser();
   if (!u) return;
@@ -391,7 +532,7 @@ function showNotifications() {
   modal.append(header, list, markRead);
   backdrop.append(modal);
   root.append(backdrop);
-  lucide.createIcons();
+  window.lucide?.createIcons?.();
 }
 function markNotificationsRead() {
   const u = DG.getCurrentUser();
@@ -420,5 +561,7 @@ window.APP = {
   markNotificationsRead,
   closeModal,
   updateNotif,
+  notifyAdmins,
+  createAdminNotification,
   generateId: DG.generateId,
 };
