@@ -197,7 +197,32 @@
         render();
       });
       const student = studentFor(grade);
-      setText("[data-student-initials]", initials(student), row);
+      // setText("[data-student-initials]", initials(student), row);
+      const photo = $("[data-student-photo]", row);
+      const initialsElement = $("[data-student-initials]", row);
+
+      if (student && photo) {
+          photo.src = getProfilePhoto(student);
+
+          photo.alt = `${fullName(student)} profile photo`;
+
+          photo.onerror = () => {
+              photo.classList.add("hidden");
+              initialsElement?.classList.remove("hidden");
+              initialsElement?.classList.add("flex");
+              if (initialsElement) {
+                  initialsElement.textContent = initials(student);
+              }
+          };
+      } else {
+          photo?.classList.add("hidden");
+          initialsElement?.classList.remove("hidden");
+          initialsElement?.classList.add("flex");
+
+          if (initialsElement) {
+              initialsElement.textContent = initials(student);
+          }
+      }
       setText("[data-student-name]", studentName(grade), row);
       setText("[data-student-id]", grade.studentId || "—", row);
       setText("[data-subject]", grade.subject || "—", row);
