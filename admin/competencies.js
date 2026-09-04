@@ -192,9 +192,12 @@
       const initialsElement = $("[data-student-initials]", row);
 
       if (student && photo) {
-          photo.src = student.photo || "../assets/images/16432.png";
+          const profilePhoto = getProfilePhoto(student);
+
+          photo.src = profilePhoto;
           photo.alt = `${fullName(student)} profile photo`;
 
+          // Show photo, hide initials
           photo.classList.remove("hidden");
           initialsElement?.classList.add("hidden");
 
@@ -207,6 +210,14 @@
                   initialsElement.classList.add("flex");
               }
           };
+      } else {
+          photo?.classList.add("hidden");
+
+          if (initialsElement) {
+              initialsElement.textContent = initials(student);
+              initialsElement.classList.remove("hidden");
+              initialsElement.classList.add("flex");
+          }
       }
       setText("[data-student-name]", studentName(record), row);
       setText("[data-student-id]", record.studentId || "—", row);
