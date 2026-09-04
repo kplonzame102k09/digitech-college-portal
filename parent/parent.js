@@ -87,13 +87,27 @@
       : [];
   }
 
+  // function recordsForChildren(key, children) {
+  //   const ids = new Set(children.map((child) => child.id));
+  //   return DG.getData(key, []).filter((record) =>
+  //     ids.has(record.studentId || record.childId),
+  //   );
+  // }
   function recordsForChildren(key, children) {
-    const ids = new Set(children.map((child) => child.id));
-    return DG.getData(key, []).filter((record) =>
-      ids.has(record.studentId || record.childId),
+    const ids = new Set(
+        children
+            .map((child) => String(child.id || "").trim())
+            .filter(Boolean)
     );
-  }
 
+    return DG.getData(key, []).filter((record) => {
+        const recordId = String(
+            record.studentId || record.childId || ""
+        ).trim();
+
+        return ids.has(recordId);
+    });
+}
   function studentName(student) {
     return (
       `${student.firstName || ""} ${student.lastName || ""}`.trim() ||
@@ -308,30 +322,83 @@
     }
   }
 
+  // function renderStudentFilter(container, children, selected, target) {
+  //   container?.replaceChildren();
+  //   const all = cloneTemplate("studentFilterTemplate");
+  //   if (all) {
+  //     const link = $("[data-filter-link]", all);
+  //     text("[data-filter-label]", "All children", all);
+  //     if (link) link.href = `${target}.html`;
+  //     link?.classList.toggle("bg-green-600", !selected);
+  //     link?.classList.toggle("text-white", !selected);
+  //     container.append(all);
+  //   }
+  //   children.forEach((child) => {
+  //     const filter = cloneTemplate("studentFilterTemplate");
+  //     if (!filter) return;
+  //     const link = $("[data-filter-link]", filter);
+  //     text("[data-filter-label]", studentName(child), filter);
+  //     if (link)
+  //       link.href = `${target}.html?student=${encodeURIComponent(child.id)}`;
+  //     const active = selected === child.id;
+  //     link?.classList.toggle("bg-green-600", active);
+  //     link?.classList.toggle("text-white", active);
+  //     container.append(filter);
+  //   });
+  // }
   function renderStudentFilter(container, children, selected, target) {
-    container?.replaceChildren();
+    if (!container) return;
+
+    container.replaceChildren();
+
+    // All children
     const all = cloneTemplate("studentFilterTemplate");
+
     if (all) {
-      const link = $("[data-filter-link]", all);
-      text("[data-filter-label]", "All children", all);
-      if (link) link.href = `${target}.html`;
-      link?.classList.toggle("bg-green-600", !selected);
-      link?.classList.toggle("text-white", !selected);
-      container.append(all);
+        const link = $("[data-filter-link]", all);
+
+        text("[data-filter-label]", "All children", all);
+
+        if (link) {
+            link.href = `${target}.html`;
+            link.removeAttribute("data-student-id");
+        }
+
+        link?.classList.toggle("bg-green-600", !selected);
+        link?.classList.toggle("text-white", !selected);
+
+        container.append(all);
     }
+
+    // Individual children
     children.forEach((child) => {
-      const filter = cloneTemplate("studentFilterTemplate");
-      if (!filter) return;
-      const link = $("[data-filter-link]", filter);
-      text("[data-filter-label]", studentName(child), filter);
-      if (link)
-        link.href = `${target}.html?student=${encodeURIComponent(child.id)}`;
-      const active = selected === child.id;
-      link?.classList.toggle("bg-green-600", active);
-      link?.classList.toggle("text-white", active);
-      container.append(filter);
+        const filter = cloneTemplate("studentFilterTemplate");
+
+        if (!filter) return;
+
+        const link = $("[data-filter-link]", filter);
+
+        text("[data-filter-label]", studentName(child), filter);
+
+        if (link) {
+            const studentId = String(child.id || "").trim();
+
+            link.href =
+                `${target}.html?student=${encodeURIComponent(studentId)}`;
+
+            link.dataset.studentId = studentId;
+        }
+
+        const active =
+            selected &&
+            String(selected).trim() === String(child.id || "").trim();
+
+        link?.classList.toggle("bg-green-600", active);
+        link?.classList.toggle("text-white", active);
+
+        container.append(filter);
     });
-  }
+}
 
   function renderAttendance(children) {
     const selected = new URLSearchParams(location.search).get("student");
@@ -395,10 +462,22 @@
   }
 
   function renderGrades(children) {
-    const selected = new URLSearchParams(location.search).get("student");
-    const visibleChildren = selected
-      ? children.filter((child) => child.id === selected)
-      : children;
+    // const selected = new URLSearchParams(location.search).get("student");
+    // const visibleChildren = selected
+    //   ? children.filter((child) => child.id === selected)
+    //   : children;
+    const params = new URLSearchParams(window.location.search);
+    const selected = params.get("student");
+
+    const selectedId = selected
+        ? String(selected).trim()
+        : "";
+
+    const visibleChildren = selectedId
+        ? children.filter(
+            (child) => String(child.id || "").trim() === selectedId
+          )
+        : children;
     const groups = visibleChildren
       .map((student) => ({
         student,
