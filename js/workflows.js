@@ -218,24 +218,39 @@
             }),
         );
     };
-    $("#requirementForm")?.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const all = F.get("requirements", []),
-        selected = $("#student").value;
-      all.push({
-        id: DG.generateId("REQ"),
-        name: $("#name").value.trim(),
-        studentId: selected,
-        dueDate: $("#dueDate").value,
-        status: "Pending",
-        createdAt: new Date().toISOString(),
-      });
-      F.save("requirements", all);
-      e.target.reset();
-      render();
-      APP.toast("Requirement assigned");
-    });
-    render();
+   $("#requirementForm")?.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const all = F.get("requirements", []);
+  const selected = $("#student").value;
+  const requirementName = $("#name").value.trim();
+
+  all.push({
+    id: DG.generateId("REQ"),
+    name: requirementName,
+    studentId: selected,
+    dueDate: $("#dueDate").value,
+    status: "Pending",
+    createdAt: new Date().toISOString(),
+  });
+
+  // Save the assigned requirement
+  F.save("requirements", all);
+
+  // Notify the student and their parent(s)
+  F.notify(
+    [selected, ...F.parentIdsFor([selected])],
+    "New Requirement Assigned",
+    `${requirementName} has been assigned to you.`,
+    "requirement"
+  );
+
+  e.target.reset();
+  render();
+  APP.toast("Requirement assigned");
+});
+
+render();
   }
   shell();
   if (page === "attendance") attendance();

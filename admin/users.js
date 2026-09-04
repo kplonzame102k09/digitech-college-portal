@@ -570,9 +570,12 @@ function importUsers() {
           firstName: data["firstname"] || "",
           middleName: data["middlename"] || "",
           lastName: data["lastname"] || "",
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
           role: role,
           email: data["email"] || "",
           status: data["status"] || "active",
+          password: data["password"] || "",
           contact: data["contact"] || "",
         };
 

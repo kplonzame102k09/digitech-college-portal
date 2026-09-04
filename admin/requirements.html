@@ -69,7 +69,9 @@
                         </label>
                         <label class="text-sm font-semibold">
                             Student
-                            <input id="student" class="input mt-1.5 w-full rounded-xl border px-3 py-3" placeholder="STU-2026-XXXXXX" required>
+                            <select id="student" class="input mt-1.5 w-full rounded-xl border px-3 py-3" required>
+                                <option value="">Select a student</option>
+                            </select>
                         </label>
                         <label class="text-sm font-semibold">
                             Due date
@@ -126,6 +128,25 @@
     <script src="../js/workflows.js"></script>
     <script>
         const U = AUTH.requireRole("admin");
+        const studentSelect = document.getElementById("student");
+
+        function loadStudents() {
+            const students = DG.getData("users", [])
+                .filter(user => user.role === "student");
+
+            studentSelect.innerHTML = `
+                <option value="">Select a student</option>
+                ${students.map(student => `
+                    <option value="${APP.esc(student.id)}">
+                        ${APP.esc(
+                            `${student.firstName || ""} ${student.lastName || ""}`.trim()
+                        )} — ${APP.esc(student.id)}
+                    </option>
+                `).join("")}
+            `;
+        }
+
+        loadStudents();
 
         function viewSubmittedRequirement(id) {
             const requirement = DG.getData("requirements", [])
@@ -200,14 +221,81 @@
             });
             root.append(backdrop);
         }
+        function updateRequirementActions() {
+            const requirements = DG.getData("requirements", []);
 
-        function refreshRequirementTable() {
-            document.querySelectorAll("#rows td[colspan]").forEach((cell) => {
-                cell.colSpan = 6;
+            document.querySelectorAll("#rows tr").forEach((row) => {
+                const approveButton = row.querySelector("[data-approve]");
+                const rejectButton = row.querySelector("[data-reject]");
+
+                const requirementId =
+                    approveButton?.dataset.approve ||
+                    rejectButton?.dataset.reject;
+
+                if (!requirementId) return;
+
+                const requirement = requirements.find(
+                    (item) => String(item.id) === String(requirementId)
+                );
+
+                if (!requirement) return;
+
+                if (requirement.status === "Approved") {
+                    if (approveButton) {
+                        approveButton.disabled = true;
+                        approveButton.textContent = "Approved";
+                        approveButton.classList.add(
+                            "opacity-50",
+                            "cursor-not-allowed"
+                        );
+                    }
+
+                    if (rejectButton) {
+                        rejectButton.disabled = true;
+                        rejectButton.textContent = "Reject";
+                        rejectButton.classList.add(
+                            "opacity-50",
+                            "cursor-not-allowed"
+                        );
+                    }
+                }
+
+                if (requirement.status === "Rejected") {
+                    if (rejectButton) {
+                        rejectButton.disabled = true;
+                        rejectButton.textContent = "Rejected";
+                        rejectButton.classList.add(
+                            "opacity-50",
+                            "cursor-not-allowed"
+                        );
+                    }
+
+                    if (approveButton) {
+                        approveButton.disabled = true;
+                        approveButton.textContent = "Approve";
+                        approveButton.classList.add(
+                            "opacity-50",
+                            "cursor-not-allowed"
+                        );
+                    }
+                }
             });
-            addViewButtons();
         }
 
+        // function refreshRequirementTable() {
+        //     document.querySelectorAll("#rows td[colspan]").forEach((cell) => {
+        //         cell.colSpan = 6;
+        //     });
+        //     addViewButtons();
+        // }
+function refreshRequirementTable() {
+    document.querySelectorAll("#rows td[colspan]").forEach((cell) => {
+        cell.colSpan = 6;
+    });
+
+    addViewButtons();
+    updateRequirementActions();
+}
         function addViewButtons() {
             document.querySelectorAll("#rows tr").forEach((row) => {
                 const approveButton = row.querySelector("[data-approve]");
