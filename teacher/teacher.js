@@ -616,56 +616,63 @@
     APP.toast("CSV exported");
   }
 
-  function profile() {
-    const fields = {
-      nm: fullName(U),
-      id: U.id,
-      dept: U.department || "Faculty",
-      firstName: U.firstName || "",
-      lastName: U.lastName || "",
-      email: U.email || "",
-      specialization: U.specialization || "",
-      phone: U.phone || "",
-    };
-    Object.entries(fields).forEach(([id, value]) => {
-      const element = $(id);
-      if (!element) return;
-      if ("value" in element) element.value = value;
-      else element.textContent = value;
-    });
-    const photo = $("av");
-    if (photo) photo.src = DG.getProfilePhoto(U);
-    const photoSlot = $("photoSlot");
-    if (photoSlot && !$("teacherPhoto")) {
-      const input = document.createElement("input");
-      input.type = "file";
-      input.accept = "image/*";
-      input.id = "teacherPhoto";
-      input.className = "mt-3 block w-full text-sm text-slate-500 file:mr-3 file:rounded-lg file:border-0 file:bg-emerald-50 file:px-3 file:py-2 file:font-semibold file:text-emerald-700";
-      input.setAttribute("aria-label", "Upload profile photo");
-      photoSlot.append(input);
-      input.addEventListener("change", () => {
-        const file = input.files?.[0];
-        if (!file) return;
-        if (file.size > 2 * 1024 * 1024) {
-          APP.toast("Profile photo must be smaller than 2 MB", "error");
-          input.value = "";
-          return;
-        }
-        const reader = new FileReader();
-        reader.onload = () => {
-          DG.setProfilePhoto(reader.result, U);
-          if (photo) photo.src = reader.result;
-          if ($("avatar")) $("avatar").src = reader.result;
-          APP.toast("Profile photo updated");
-        };
-        reader.readAsDataURL(file);
-      });
-    }
-    $("profileForm")?.addEventListener("submit", saveProfile);
-    window.save = saveProfile;
-  }
 
+  function profile() {
+      const fields = {
+          nm: fullName(U),
+          id: U.id,
+          dept: U.department || "Faculty",
+          firstName: U.firstName || "",
+          lastName: U.lastName || "",
+          email: U.email || "",
+          specialization: U.specialization || "",
+          phone: U.phone || "",
+      };
+      Object.entries(fields).forEach(([id, value]) => {
+          const element = $(id);
+          if (!element) return;
+          if ("value" in element) {
+              element.value = value;
+          } else {
+              element.textContent = value;
+          }
+      });
+      const photo = $("av");
+      if (photo) {
+          photo.src = DG.getProfilePhoto(U);
+      }
+      const photoInput = $("profilePhotoInput");
+      if (photoInput) {
+          photoInput.addEventListener("change", () => {
+              const file = photoInput.files?.[0];
+              if (!file) return;
+              if (file.size > 2 * 1024 * 1024) {
+                  APP.toast(
+                      "Profile photo must be smaller than 2 MB",
+                      "error"
+                  );
+                  photoInput.value = "";
+                  return;
+              }
+              const reader = new FileReader();
+              reader.onload = () => {
+                  DG.setProfilePhoto(reader.result, U);
+                  if (photo) {
+                      photo.src = reader.result;
+                  }
+                  document
+                      .querySelectorAll("[data-profile-photo]")
+                      .forEach(img => {
+                          img.src = reader.result;
+                      });
+                  APP.toast("Profile photo updated");
+              };
+              reader.readAsDataURL(file);
+          });
+      }
+      $("profileForm")?.addEventListener("submit", saveProfile);
+      window.save = saveProfile;
+  }
   function saveProfile(event) {
     event?.preventDefault();
     const users = get("users", []);
