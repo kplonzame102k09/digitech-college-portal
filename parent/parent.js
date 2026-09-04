@@ -87,27 +87,12 @@
       : [];
   }
 
-  // function recordsForChildren(key, children) {
-  //   const ids = new Set(children.map((child) => child.id));
-  //   return DG.getData(key, []).filter((record) =>
-  //     ids.has(record.studentId || record.childId),
-  //   );
-  // }
   function recordsForChildren(key, children) {
-    const ids = new Set(
-        children
-            .map((child) => String(child.id || "").trim())
-            .filter(Boolean)
+    const ids = new Set(children.map((child) => child.id));
+    return DG.getData(key, []).filter((record) =>
+      ids.has(record.studentId || record.childId),
     );
-
-    return DG.getData(key, []).filter((record) => {
-        const recordId = String(
-            record.studentId || record.childId || ""
-        ).trim();
-
-        return ids.has(recordId);
-    });
-}
+  }
   function studentName(student) {
     return (
       `${student.firstName || ""} ${student.lastName || ""}`.trim() ||
@@ -462,22 +447,10 @@
   }
 
   function renderGrades(children) {
-    // const selected = new URLSearchParams(location.search).get("student");
-    // const visibleChildren = selected
-    //   ? children.filter((child) => child.id === selected)
-    //   : children;
-    const params = new URLSearchParams(window.location.search);
-    const selected = params.get("student");
-
-    const selectedId = selected
-        ? String(selected).trim()
-        : "";
-
-    const visibleChildren = selectedId
-        ? children.filter(
-            (child) => String(child.id || "").trim() === selectedId
-          )
-        : children;
+    const selected = new URLSearchParams(location.search).get("student");
+    const visibleChildren = selected
+      ? children.filter((child) => child.id === selected)
+      : children;
     const groups = visibleChildren
       .map((student) => ({
         student,
