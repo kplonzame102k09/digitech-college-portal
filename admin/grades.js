@@ -202,26 +202,21 @@
       const initialsElement = $("[data-student-initials]", row);
 
       if (student && photo) {
-          photo.src = getProfilePhoto(student);
-
+          photo.src = student.photo || "../assets/images/16432.png";
           photo.alt = `${fullName(student)} profile photo`;
+
+          photo.classList.remove("hidden");
+          initialsElement?.classList.add("hidden");
 
           photo.onerror = () => {
               photo.classList.add("hidden");
-              initialsElement?.classList.remove("hidden");
-              initialsElement?.classList.add("flex");
+
               if (initialsElement) {
                   initialsElement.textContent = initials(student);
+                  initialsElement.classList.remove("hidden");
+                  initialsElement.classList.add("flex");
               }
           };
-      } else {
-          photo?.classList.add("hidden");
-          initialsElement?.classList.remove("hidden");
-          initialsElement?.classList.add("flex");
-
-          if (initialsElement) {
-              initialsElement.textContent = initials(student);
-          }
       }
       setText("[data-student-name]", studentName(grade), row);
       setText("[data-student-id]", grade.studentId || "—", row);
