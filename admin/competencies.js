@@ -187,7 +187,27 @@
         render();
       });
       const student = studentFor(record);
-      setText("[data-student-initials]", initials(student), row);
+      //setText("[data-student-initials]", initials(student), row);
+      const photo = $("[data-student-photo]", row);
+      const initialsElement = $("[data-student-initials]", row);
+
+      if (student && photo) {
+          photo.src = student.photo || "../assets/images/16432.png";
+          photo.alt = `${fullName(student)} profile photo`;
+
+          photo.classList.remove("hidden");
+          initialsElement?.classList.add("hidden");
+
+          photo.onerror = () => {
+              photo.classList.add("hidden");
+
+              if (initialsElement) {
+                  initialsElement.textContent = initials(student);
+                  initialsElement.classList.remove("hidden");
+                  initialsElement.classList.add("flex");
+              }
+          };
+      }
       setText("[data-student-name]", studentName(record), row);
       setText("[data-student-id]", record.studentId || "—", row);
       setText("[data-competency]", record.competency || "—", row);
