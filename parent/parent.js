@@ -171,6 +171,26 @@
     const competencies = DG.getData("competencies", []).filter((item) => item.studentId === student.id);
     const competent = competencies.filter((item) => item.status === "Competent").length;
     const competencyProgress = competencies.length ? `${Math.round((competent / competencies.length) * 100)}%` : "Not started";
+    const photo = $("[data-child-photo]", card);
+    const initialsElement = $("[data-child-initials]", card);
+
+    if (photo) {
+        photo.src = DG.getProfilePhoto(student);
+        photo.alt = `${studentName(student)} profile photo`;
+
+        photo.classList.remove("hidden");
+        initialsElement?.classList.add("hidden");
+
+        photo.onerror = () => {
+            photo.classList.add("hidden");
+
+            if (initialsElement) {
+                initialsElement.textContent = initials(student);
+                initialsElement.classList.remove("hidden");
+                initialsElement.classList.add("flex");
+            }
+        };
+    }
     text("[data-child-initials]", initials(student), card);
     text("[data-child-name]", studentName(student), card);
     text("[data-child-id]", student.id, card);
