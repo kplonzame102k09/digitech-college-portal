@@ -124,68 +124,6 @@
   <script src="parent.js"></script>
   <script>
     PARENT.init();
-    document.addEventListener("DOMContentLoaded", () => {
-    const input = document.getElementById("profilePhotoInput");
-    const photos = document.querySelectorAll("[data-profile-photo]");
-    if (!input) return;
-    input.addEventListener("change", () => {
-      const file = input.files?.[0];
-      if (!file) return;
-      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
-        alert("Please select a JPG, PNG, or WebP image.");
-        input.value = "";
-        return;
-      }
-      if (file.size > 2 * 1024 * 1024) {
-        alert("Profile picture must be 2 MB or smaller.");
-        input.value = "";
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = () => {
-        const photo = reader.result;
-        photos.forEach(img => {
-          img.src = photo;
-        });
-        const currentUser = JSON.parse(
-          localStorage.getItem("dg_current_user") ||
-          localStorage.getItem("currentUser") ||
-          "null"
-        );
-        const parentId =
-          currentUser?.id ||
-          currentUser?.userId ||
-          currentUser?.username ||
-          "parent";
-        localStorage.setItem(
-          `parent_profile_photo_${parentId}`,
-          photo
-        );
-      };
-      reader.readAsDataURL(file);
-    });
-    const currentUser = JSON.parse(
-      localStorage.getItem("dg_current_user") ||
-      localStorage.getItem("currentUser") ||
-      "null"
-    );
-    const parentId =
-      currentUser?.id ||
-      currentUser?.userId ||
-      currentUser?.username ||
-      "parent";
-    const savedPhoto = localStorage.getItem(
-      `parent_profile_photo_${parentId}`
-    );
-    if (savedPhoto) {
-      photos.forEach(img => {
-        img.src = savedPhoto;
-      });
-    }
-    if (window.lucide) {
-      lucide.createIcons();
-    }
-  });
   </script>
 </body>
 
